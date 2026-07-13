@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sparen vs. beleggen | Margot Belegt</title>
+<meta name="description" content="Gratis rekentool: vergelijk sparen en beleggen, en zie wat inflatie stiekem met de koopkracht van je spaargeld doet.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== Margot Belegt design tokens ===== */
+  :root{
+    --beige:#FFF2E5; --paarsrood:#B20059; --groen:#CCD8B9; --zalm:#FFAB91;
+    --geel:#FFD374; --ink:#2D2A26; --paars-donker:#8C0046; --ink-zacht:#6B6157;
+    --lijn:#EAD9C7; --wit:#FFFFFF; --radius:16px; --schaduw:0 2px 10px rgba(45,42,38,.07);
+    /* grafiekkleuren (gevalideerd op contrast en kleurenblind-veiligheid) */
+    --chart-paars:#B20059; --chart-groen:#6B9440; --chart-terra:#C4502A;
+    --kop:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;padding:12px 8px;background:transparent;color:var(--ink);font:16px/1.55 var(--body)}
+  .tool{max-width:720px;margin:0 auto;background:var(--beige);border-radius:20px;padding:24px 16px 28px}
+  @media(min-width:600px){.tool{padding:32px 32px 36px}}
+  .badge{display:inline-block;background:var(--wit);color:var(--paarsrood);border:1.5px solid var(--paarsrood);
+    border-radius:999px;padding:5px 14px;font-size:.82rem;font-weight:600;margin:0 0 14px}
+  h1{font-family:var(--kop);font-weight:700;color:var(--paarsrood);font-size:1.6rem;line-height:1.25;margin:0 0 6px}
+  h2{font-family:var(--kop);font-weight:600;color:var(--paarsrood);font-size:1.15rem;margin:0 0 10px}
+  .intro{margin:0 0 20px;color:var(--ink-zacht)}
+  .kaart{background:var(--wit);border-radius:var(--radius);box-shadow:var(--schaduw);padding:16px;margin:0 0 16px}
+
+  .veld{margin:0 0 14px}
+  .veld:last-child{margin-bottom:0}
+  .veld>label{display:block;font-weight:600;margin-bottom:6px}
+  .euroveld{display:flex;align-items:center;gap:6px;background:var(--beige);border:1.5px solid var(--lijn);
+    border-radius:12px;padding:0 10px;min-height:44px;max-width:11rem}
+  .euroveld:focus-within{border-color:var(--paarsrood)}
+  .euroveld span{color:var(--ink-zacht)}
+  .euroveld input{border:0;background:none;width:100%;min-height:42px;font:inherit;font-size:16px;color:var(--ink);text-align:right;padding:0}
+  .euroveld input:focus{outline:none}
+  .schuif label{display:flex;justify-content:space-between;align-items:baseline;font-weight:600;margin-bottom:4px}
+  .schuif output{font-variant-numeric:tabular-nums;color:var(--paarsrood);font-weight:700}
+  .schuif input[type=range]{width:100%;min-height:44px;accent-color:var(--paarsrood);margin:0}
+  .schuif .uitleg{font-size:.82rem;color:var(--ink-zacht);margin:2px 0 0}
+
+  /* grafiek */
+  .grafiek-houder{position:relative}
+  .grafiek-houder svg{display:block;width:100%;height:auto}
+  .tooltip{position:absolute;pointer-events:none;background:var(--ink);color:var(--wit);border-radius:10px;
+    padding:8px 10px;font-size:.8rem;line-height:1.5;white-space:nowrap;display:none;z-index:2}
+  .tooltip .sleutel{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  .legenda{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0 0;font-size:.88rem}
+  .legenda .lijn-sleutel{display:inline-block;width:20px;border-top:3px solid;margin-right:6px;vertical-align:3px}
+  .tegels{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0 0}
+  .tegel{background:var(--beige);border-radius:12px;padding:12px}
+  .tegel .t-label{font-size:.82rem;color:var(--ink-zacht);margin:0}
+  .tegel .t-waarde{font-size:1.35rem;font-weight:700;margin:2px 0 0;font-variant-numeric:normal}
+  .kern{background:var(--zalm);border-radius:12px;padding:14px 16px;margin:16px 0 0;font-size:.98rem}
+  .kern strong{font-family:var(--kop)}
+
+  table{width:100%;border-collapse:collapse;font-size:.9rem}
+  th{text-align:left;font-weight:600;color:var(--ink-zacht);padding:6px 4px;border-bottom:1.5px solid var(--lijn)}
+  td{padding:6px 4px;border-bottom:1px solid var(--beige);font-variant-numeric:tabular-nums}
+  th.num,td.num{text-align:right}
+  tr:last-child td{border-bottom:0}
+
+  .knop{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 22px;
+    border-radius:999px;border:0;font:600 1rem var(--body);cursor:pointer;text-decoration:none}
+  .knop-primair{background:var(--paarsrood);color:var(--wit)}
+  .knop-primair:hover{background:var(--paars-donker)}
+  .knop-secundair{background:var(--wit);color:var(--paarsrood);border:1.5px solid var(--paarsrood)}
+  .knop-secundair:hover{background:var(--beige)}
+  :focus-visible{outline:3px solid var(--paarsrood);outline-offset:2px;border-radius:6px}
+
+  details{background:var(--wit);border-radius:var(--radius);box-shadow:var(--schaduw);margin:0 0 16px}
+  details summary{cursor:pointer;font-weight:600;padding:14px 16px;list-style-position:inside}
+  details[open] summary{border-bottom:1px solid var(--beige)}
+  details .inhoud{padding:4px 16px 14px;overflow-x:auto}
+  .tip{background:var(--geel);border-radius:var(--radius);padding:14px 16px;margin:0 0 16px;font-size:.95rem}
+  .soft-cta{background:var(--wit);border:1.5px dashed var(--zalm);border-radius:var(--radius);padding:14px 16px;margin:16px 0;font-size:.95rem}
+  .soft-cta a{color:var(--paarsrood);font-weight:600}
+  .cursus-cta{background:var(--zalm);border-radius:var(--radius);padding:20px 16px;text-align:center;margin:0 0 16px}
+  .cursus-cta p{margin:0 0 12px;font-family:var(--kop);font-weight:600;font-size:1.05rem}
+  .cursus-cta .gratis-noot{font-family:var(--body);font-weight:400;font-size:.85rem;margin:10px 0 0}
+  .disclaimer{font-size:.8rem;color:var(--ink-zacht);margin:0}
+  a{color:var(--paarsrood)}
+</style>
+</head>
+<body>
+<div class="tool">
+  <p class="badge">✨ Gratis tool van Margot Belegt</p>
+  <h1>Sparen vs. beleggen</h1>
+  <p class="intro">Je spaargeld staat "veilig" op de bank — maar wordt het ook meer waard? Vergelijk hier wat sparen en beleggen met je geld doen, mét het effect van inflatie. 100% gratis.</p>
+
+  <div class="kaart">
+    <h2>Jouw situatie</h2>
+    <div class="veld">
+      <label for="bedrag">Bedrag</label>
+      <div class="euroveld"><span aria-hidden="true">€</span><input id="bedrag" type="text" inputmode="decimal" value="10.000" autocomplete="off"></div>
+    </div>
+    <div class="veld schuif">
+      <label for="jaren">Hoe lang? <output id="jaren-uit">15 jaar</output></label>
+      <input type="range" id="jaren" min="1" max="40" step="1" value="15">
+    </div>
+    <div class="veld schuif">
+      <label for="spaarrente">Spaarrente <output id="spaarrente-uit">1,5%</output></label>
+      <input type="range" id="spaarrente" min="0" max="4" step="0.1" value="1.5">
+    </div>
+    <div class="veld schuif">
+      <label for="inflatie">Inflatie <output id="inflatie-uit">2,5%</output></label>
+      <input type="range" id="inflatie" min="0" max="6" step="0.1" value="2.5">
+    </div>
+    <div class="veld schuif">
+      <label for="rendement">Verwacht beleggingsrendement <output id="rendement-uit">7%</output></label>
+      <input type="range" id="rendement" min="2" max="10" step="0.5" value="7">
+      <p class="uitleg">Alle percentages zijn aannames die je zelf kiest — geen beloftes. Rendementen schommelen en kunnen ook negatief zijn.</p>
+    </div>
+  </div>
+
+  <div class="kaart">
+    <h2 id="grafiek-titel">Wat doet je geld in <span id="titel-jaren">15</span> jaar?</h2>
+    <div class="grafiek-houder">
+      <svg id="grafiek" role="img" aria-labelledby="grafiek-titel"></svg>
+      <div class="tooltip" id="tooltip"></div>
+    </div>
+    <p class="legenda">
+      <span><span class="lijn-sleutel" style="border-color:var(--chart-paars)" aria-hidden="true"></span>Belegd</span>
+      <span><span class="lijn-sleutel" style="border-color:var(--chart-groen)" aria-hidden="true"></span>Gespaard (op papier)</span>
+      <span><span class="lijn-sleutel" style="border-color:var(--chart-terra);border-top-style:dashed" aria-hidden="true"></span>Koopkracht van je spaargeld</span>
+    </p>
+    <div class="tegels" aria-live="polite">
+      <div class="tegel"><p class="t-label">Gespaard, op papier</p><p class="t-waarde" id="tegel-nominaal">€ 0</p></div>
+      <div class="tegel"><p class="t-label">Wat dat écht waard is</p><p class="t-waarde" id="tegel-koopkracht">€ 0</p></div>
+      <div class="tegel"><p class="t-label">Belegd (jouw aanname)</p><p class="t-waarde" id="tegel-belegd">€ 0</p></div>
+    </div>
+    <p class="kern" id="kern"></p>
+    <p style="margin:16px 0 0">
+      <button type="button" class="knop knop-secundair" id="kopieer-knop">📋 Kopieer mijn resultaat</button>
+    </p>
+  </div>
+
+  <details>
+    <summary>Bekijk de cijfers per jaar</summary>
+    <div class="inhoud">
+      <table id="jaar-tabel">
+        <thead><tr><th scope="col">Jaar</th><th scope="col" class="num">Gespaard</th><th scope="col" class="num">Koopkracht</th><th scope="col" class="num">Belegd</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </details>
+
+  <details>
+    <summary>Hoe werkt het?</summary>
+    <div class="inhoud">
+      <p><strong>Gespaard (op papier)</strong> is je bedrag met spaarrente erbij. <strong>Koopkracht</strong> is wat je met dat spaargeld straks écht kunt kopen: hetzelfde saldo, gecorrigeerd voor inflatie. Is de inflatie hoger dan je spaarrente, dan wordt je geld stiekem elk jaar iets minder waard — ook al groeit het saldo.</p>
+      <p><strong>Belegd</strong> laat zien wat hetzelfde bedrag kan doen tegen het rendement dat je zelf instelt. Beleggen kent koersschommelingen en risico; het is geen vervanging van je buffer, maar juist voor geld dat je lang kunt missen.</p>
+    </div>
+  </details>
+
+  <aside class="tip">💡 <strong>Wist je dat?</strong> Bij 2,5% inflatie halveert de koopkracht van stilstaand geld in ongeveer 28 jaar. Daarom is een buffer voor de korte termijn top — maar werkt beleggen vaak beter voor doelen die ver weg liggen.</aside>
+
+  <div class="soft-cta">Wil je de uitgebreide Excel-rekentool + cheatsheet? <a href="https://www.margotbelegt.nl/rekentool-50_30_20-regel-geldlek" target="_blank" rel="noopener">Download 'm gratis →</a></div>
+
+  <div class="cursus-cta">
+    <p>Klaar om je geld te laten groeien in plaats van stilstaan?</p>
+    <a class="knop knop-primair" href="https://www.margotbelegt.nl/starten-met-beleggen" target="_blank" rel="noopener">Cursus: Starten met beleggen →</a>
+    <p class="gratis-noot">Deze rekentool is en blijft gratis — de cursus is er als je meer wilt.</p>
+  </div>
+
+  <p class="disclaimer">Deze tool is bedoeld als educatief hulpmiddel en is geen financieel of beleggingsadvies. De berekeningen zijn gebaseerd op de aannames die je zelf invult; rendementen uit het verleden bieden geen garantie voor de toekomst. Beleggen brengt risico's met zich mee: je kunt (een deel van) je inleg verliezen.</p>
+</div>
+
+<script>
+/* =====================================================================
+   INSTELLINGEN — dit blok mag je zelf aanpassen zonder verstand van code
+   ===================================================================== */
+const STANDAARD = { bedrag: 10000, jaren: 15, spaarrente: 1.5, inflatie: 2.5, rendement: 7 };
+/* ==================== einde instellingen ==================== */
+
+const fmtEur = new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+const fmtPct = v => v.toLocaleString('nl-NL', { maximumFractionDigits: 1 });
+const parseEuro = s => {
+  const n = parseFloat(String(s).replace(/\s|\./g, '').replace(',', '.'));
+  return isNaN(n) || n < 0 ? 0 : n;
+};
+
+const KLEUREN = { belegd: '#B20059', nominaal: '#6B9440', koopkracht: '#C4502A' };
+let data = [], laatsteKopie = '';
+
+function lees() {
+  return {
+    bedrag: parseEuro(document.getElementById('bedrag').value),
+    jaren: parseInt(document.getElementById('jaren').value, 10),
+    spaarrente: parseFloat(document.getElementById('spaarrente').value),
+    inflatie: parseFloat(document.getElementById('inflatie').value),
+    rendement: parseFloat(document.getElementById('rendement').value)
+  };
+}
+
+function reken() {
+  const inv = lees();
+  document.getElementById('jaren-uit').textContent = `${inv.jaren} jaar`;
+  document.getElementById('spaarrente-uit').textContent = `${fmtPct(inv.spaarrente)}%`;
+  document.getElementById('inflatie-uit').textContent = `${fmtPct(inv.inflatie)}%`;
+  document.getElementById('rendement-uit').textContent = `${fmtPct(inv.rendement)}%`;
+  document.getElementById('titel-jaren').textContent = inv.jaren;
+
+  data = [];
+  for (let t = 0; t <= inv.jaren; t++) {
+    const nominaal = inv.bedrag * (1 + inv.spaarrente / 100) ** t;
+    data.push({
+      jaar: t,
+      nominaal,
+      koopkracht: nominaal / (1 + inv.inflatie / 100) ** t,
+      belegd: inv.bedrag * (1 + inv.rendement / 100) ** t
+    });
+  }
+  const eind = data[data.length - 1];
+
+  document.getElementById('tegel-nominaal').textContent = fmtEur.format(eind.nominaal);
+  document.getElementById('tegel-koopkracht').textContent = fmtEur.format(eind.koopkracht);
+  document.getElementById('tegel-belegd').textContent = fmtEur.format(eind.belegd);
+
+  const kern = document.getElementById('kern');
+  const verlies = inv.bedrag - eind.koopkracht;
+  if (verlies > 0.5) {
+    kern.innerHTML = `😮 <strong>Je geld staat stil en wordt stiekem minder waard.</strong> Op papier groeit je spaargeld naar ${fmtEur.format(eind.nominaal)}, maar daar koop je over ${inv.jaren} jaar evenveel mee als met <strong>${fmtEur.format(eind.koopkracht)}</strong> nu — ${fmtEur.format(verlies)} aan koopkracht kwijt. Belegd (bij jouw aanname van ${fmtPct(inv.rendement)}%) zou hetzelfde bedrag kunnen groeien naar ${fmtEur.format(eind.belegd)}.`;
+  } else {
+    kern.innerHTML = `Met deze aannames houdt je spaargeld zijn koopkracht (${fmtEur.format(eind.koopkracht)}). Belegd zou hetzelfde bedrag bij ${fmtPct(inv.rendement)}% kunnen groeien naar <strong>${fmtEur.format(eind.belegd)}</strong> — het verschil is ${fmtEur.format(eind.belegd - eind.nominaal)}.`;
+  }
+
+  // jaartabel
+  const tbody = document.querySelector('#jaar-tabel tbody');
+  tbody.innerHTML = '';
+  data.forEach(d => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${d.jaar === 0 ? 'nu' : d.jaar}</td>
+      <td class="num">${fmtEur.format(d.nominaal)}</td>
+      <td class="num">${fmtEur.format(d.koopkracht)}</td>
+      <td class="num">${fmtEur.format(d.belegd)}</td>`;
+    tbody.appendChild(tr);
+  });
+
+  laatsteKopie = `${fmtEur.format(inv.bedrag)} op een spaarrekening is over ${inv.jaren} jaar nog maar ${fmtEur.format(eind.koopkracht)} waard aan koopkracht. Belegd (${fmtPct(inv.rendement)}% aanname): ± ${fmtEur.format(eind.belegd)}. Check de gratis tool op margotbelegt.nl`;
+
+  teken();
+}
+
+/* ---------- SVG-lijngrafiek ---------- */
+const svg = document.getElementById('grafiek');
+const NS = 'http://www.w3.org/2000/svg';
+
+function mooiPlafond(v) {
+  const macht = 10 ** Math.floor(Math.log10(v || 1));
+  for (const f of [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10]) if (f * macht >= v) return f * macht;
+  return 10 * macht;
+}
+const kortEur = v => v >= 1e6 ? `€ ${(v / 1e6).toLocaleString('nl-NL', { maximumFractionDigits: 1 })} mln` :
+  v >= 1000 ? `€ ${Math.round(v / 1000).toLocaleString('nl-NL')}k` : `€ ${Math.round(v)}`;
+
+function teken() {
+  const houder = svg.parentElement;
+  const W = Math.max(300, houder.clientWidth || 600);
+  const H = 260;
+  const eind = data[data.length - 1];
+  const maxY = mooiPlafond(Math.max(eind.belegd, eind.nominaal) * 1.05);
+  const eindLabels = [
+    { serie: 'belegd', tekst: fmtEur.format(eind.belegd) },
+    { serie: 'nominaal', tekst: fmtEur.format(eind.nominaal) },
+    { serie: 'koopkracht', tekst: fmtEur.format(eind.koopkracht) }
+  ];
+  const gutter = Math.min(110, Math.max(64, Math.max(...eindLabels.map(l => l.tekst.length)) * 7 + 16));
+  const padL = 8, padR = gutter, padT = 12, padB = 26;
+  const yAsBreedte = kortEur(maxY).length * 6.5 + 8;
+  const x0 = padL + yAsBreedte, x1 = W - padR, y0 = H - padB, y1 = padT;
+  const T = data.length - 1;
+  const x = t => x0 + (x1 - x0) * (T === 0 ? 0 : t / T);
+  const y = v => y0 - (y0 - y1) * (v / maxY);
+
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', W); svg.setAttribute('height', H);
+  svg.innerHTML = '';
+  const el = (naam, attrs, tekst) => {
+    const e = document.createElementNS(NS, naam);
+    for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+    if (tekst != null) e.textContent = tekst;
+    svg.appendChild(e); return e;
+  };
+
+  // gridlijnen + y-labels (afgeronde ticks)
+  const stappen = 4;
+  for (let i = 0; i <= stappen; i++) {
+    const v = maxY / stappen * i, yy = y(v);
+    el('line', { x1: x0, x2: x1, y1: yy, y2: yy, stroke: '#EAD9C7', 'stroke-width': 1 });
+    el('text', { x: x0 - 6, y: yy + 4, 'text-anchor': 'end', 'font-size': 11, fill: '#6B6157', 'font-family': 'inherit' }, kortEur(v));
+  }
+  // x-labels
+  const xStap = T > 24 ? 10 : T > 10 ? 5 : T > 4 ? 2 : 1;
+  for (let t = 0; t <= T; t += xStap) {
+    el('text', { x: x(t), y: y0 + 17, 'text-anchor': 'middle', 'font-size': 11, fill: '#6B6157', 'font-family': 'inherit' },
+      t === 0 ? 'nu' : `${t} jr`);
+  }
+
+  // lijnen
+  const pad = serie => data.map((d, i) => `${i === 0 ? 'M' : 'L'}${x(d.jaar).toFixed(1)},${y(d[serie]).toFixed(1)}`).join('');
+  el('path', { d: pad('nominaal'), fill: 'none', stroke: KLEUREN.nominaal, 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' });
+  el('path', { d: pad('koopkracht'), fill: 'none', stroke: KLEUREN.koopkracht, 'stroke-width': 2, 'stroke-dasharray': '6 4', 'stroke-linejoin': 'round', 'stroke-linecap': 'round' });
+  el('path', { d: pad('belegd'), fill: 'none', stroke: KLEUREN.belegd, 'stroke-width': 2.5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' });
+
+  // eindpunten + directe waardelabels (met botsings-correctie)
+  eindLabels.forEach(l => { l.y = y(eind[l.serie]); });
+  eindLabels.sort((a, b) => a.y - b.y);
+  for (let i = 1; i < eindLabels.length; i++) {
+    if (eindLabels[i].y - eindLabels[i - 1].y < 15) eindLabels[i].y = eindLabels[i - 1].y + 15;
+  }
+  eindLabels.forEach(l => {
+    el('circle', { cx: x1, cy: y(eind[l.serie]), r: 4.5, fill: KLEUREN[l.serie], stroke: '#FFFFFF', 'stroke-width': 2 });
+    el('text', { x: x1 + 9, y: l.y + 4, 'font-size': 12, 'font-weight': 600, fill: '#2D2A26', 'font-family': 'inherit' }, l.tekst);
+  });
+
+  // hover-laag: kruisdraad + tooltip
+  const kruis = el('g', { style: 'display:none' });
+  const kruisLijn = document.createElementNS(NS, 'line');
+  kruisLijn.setAttribute('stroke', '#6B6157'); kruisLijn.setAttribute('stroke-width', 1);
+  kruisLijn.setAttribute('y1', y1); kruisLijn.setAttribute('y2', y0);
+  kruis.appendChild(kruisLijn);
+  const dots = {};
+  for (const serie of ['belegd', 'nominaal', 'koopkracht']) {
+    const c = document.createElementNS(NS, 'circle');
+    c.setAttribute('r', 4.5); c.setAttribute('fill', KLEUREN[serie]);
+    c.setAttribute('stroke', '#FFFFFF'); c.setAttribute('stroke-width', 2);
+    kruis.appendChild(c); dots[serie] = c;
+  }
+  const vangst = el('rect', { x: x0, y: y1, width: x1 - x0, height: y0 - y1, fill: 'transparent' });
+  const tooltip = document.getElementById('tooltip');
+
+  function toon(evt) {
+    const rect = svg.getBoundingClientRect();
+    const px = (evt.clientX - rect.left) * (W / rect.width);
+    const t = Math.max(0, Math.min(T, Math.round((px - x0) / ((x1 - x0) || 1) * T)));
+    const d = data[t];
+    const xx = x(t);
+    kruis.style.display = '';
+    kruisLijn.setAttribute('x1', xx); kruisLijn.setAttribute('x2', xx);
+    for (const serie of ['belegd', 'nominaal', 'koopkracht']) {
+      dots[serie].setAttribute('cx', xx); dots[serie].setAttribute('cy', y(d[serie]));
+    }
+    tooltip.style.display = 'block';
+    tooltip.innerHTML =
+      `<strong>${t === 0 ? 'Nu' : 'Na ' + t + ' jaar'}</strong><br>
+       <span class="sleutel" style="background:${KLEUREN.belegd}"></span>Belegd: ${fmtEur.format(d.belegd)}<br>
+       <span class="sleutel" style="background:${KLEUREN.nominaal}"></span>Gespaard: ${fmtEur.format(d.nominaal)}<br>
+       <span class="sleutel" style="background:${KLEUREN.koopkracht}"></span>Koopkracht: ${fmtEur.format(d.koopkracht)}`;
+    const schaal = rect.width / W;
+    let tx = xx * schaal + 14;
+    if (tx + tooltip.offsetWidth > rect.width - 4) tx = xx * schaal - tooltip.offsetWidth - 14;
+    tooltip.style.left = Math.max(4, tx) + 'px';
+    tooltip.style.top = '10px';
+  }
+  function verberg() { kruis.style.display = 'none'; tooltip.style.display = 'none'; }
+  vangst.addEventListener('pointermove', toon);
+  vangst.addEventListener('pointerdown', toon);
+  vangst.addEventListener('pointerleave', verberg);
+  svg.appendChild(kruis);
+  svg.appendChild(vangst);
+
+  svg.setAttribute('aria-label',
+    `Lijngrafiek over ${T} jaar: belegd groeit naar ${fmtEur.format(eind.belegd)}, gespaard naar ${fmtEur.format(eind.nominaal)}, de koopkracht van het spaargeld wordt ${fmtEur.format(eind.koopkracht)}. De cijfers per jaar staan in de tabel hieronder.`);
+}
+
+document.querySelectorAll('input').forEach(inp => inp.addEventListener('input', reken));
+let herteken;
+window.addEventListener('resize', () => { clearTimeout(herteken); herteken = setTimeout(teken, 150); });
+reken();
+
+document.getElementById('kopieer-knop').addEventListener('click', async function () {
+  try { await navigator.clipboard.writeText(laatsteKopie); }
+  catch (e) {
+    const t = document.createElement('textarea');
+    t.value = laatsteKopie; document.body.appendChild(t); t.select();
+    document.execCommand('copy'); t.remove();
+  }
+  const oud = this.textContent;
+  this.textContent = 'Gekopieerd ✓';
+  setTimeout(() => { this.textContent = oud; }, 2000);
+});
+</script>
+</body>
+</html>
