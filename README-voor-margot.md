@@ -20,15 +20,20 @@ Elke tool heeft een deelknop ("Kopieer mijn resultaat"), een link naar je Excel-
 
 Podia kan zelf geen losse bestanden hosten, dus het gaat in twee stapjes: eerst zet je de bestanden gratis online, daarna plak je een klein stukje code in Podia.
 
-### Stap 1 — Zet de bestanden gratis online (eenmalig, ± 5 minuten)
+### Stap 1 — Zet de bestanden gratis online (eenmalig, ± 2 minuten)
 
-De makkelijkste manier is **Netlify** (gratis):
+**Optie A — GitHub Pages (aanrader: de bestanden staan al op GitHub):**
 
-1. Ga naar [app.netlify.com/drop](https://app.netlify.com/drop) en maak een gratis account (e-mailadres is genoeg).
-2. Sleep deze hele map (`margotbelegt-tools`) in het venster.
-3. Klaar! Je krijgt een adres zoals `https://jouwnaam.netlify.app`. Elke tool heeft nu een eigen link, bijvoorbeeld `https://jouwnaam.netlify.app/geldlek-scanner.html`.
+1. Ga naar de repository op GitHub → **Settings** → **Pages**.
+2. Kies bij "Build and deployment" → Source: **Deploy from a branch** → Branch: **main** / **(root)** → **Save**.
+3. Na een minuutje staat alles live op `https://xavier2235.github.io/Margotbelegt/`. Elke tool heeft een eigen link, bijvoorbeeld `https://xavier2235.github.io/Margotbelegt/geldlek-scanner.html`.
 
-Wil je later iets aanpassen? Sleep de map gewoon opnieuw in Netlify — de links blijven hetzelfde. (GitHub Pages kan ook; Netlify is alleen het eenvoudigst.)
+Aanpassingen die naar GitHub worden gepusht staan daarna automatisch live — je hoeft niets opnieuw te uploaden.
+
+**Optie B — Netlify (als je liever sleept):**
+
+1. Ga naar [app.netlify.com/drop](https://app.netlify.com/drop) en maak een gratis account.
+2. Sleep deze hele map (`margotbelegt-tools`) in het venster — je krijgt een adres zoals `https://jouwnaam.netlify.app`.
 
 ### Stap 2 — Plak de tool in een Podia-pagina
 
@@ -36,7 +41,7 @@ Wil je later iets aanpassen? Sleep de map gewoon opnieuw in Netlify — de links
 2. Plak dit erin, met jouw eigen Netlify-adres:
 
 ```html
-<iframe src="https://jouwnaam.netlify.app/geldlek-scanner.html"
+<iframe src="https://xavier2235.github.io/Margotbelegt/geldlek-scanner.html"
         style="width:100%;border:none;border-radius:20px;"
         height="2000"
         title="Geldlek-scanner — gratis tool van Margot Belegt"></iframe>
@@ -52,7 +57,7 @@ Wil je later iets aanpassen? Sleep de map gewoon opnieuw in Netlify — de links
 | sparen-vs-beleggen | `2200` |
 | wat-kost-wachten | `1900` |
 
-Je kunt ook gewoon rechtstreeks naar de Netlify-link verwijzen vanuit je Instagram-bio of link-in-bio — de tools zijn volwaardige mobiele pagina's.
+Je kunt ook gewoon rechtstreeks naar de link verwijzen vanuit je Instagram-bio of link-in-bio — de tools zijn volwaardige mobiele pagina's, met een nette voorvertoning als iemand de link deelt via WhatsApp of Instagram-DM.
 
 ## Zelf teksten, bedragen of categorieën aanpassen
 
@@ -63,7 +68,7 @@ Dat kan zonder programmeerkennis:
    - de **categorieën** (gewoon tekstjes tussen aanhalingstekens — je kunt er toevoegen of weghalen),
    - de **richtlijn-percentages** (50/20/30),
    - de **standaardwaarden** voor rendement en looptijd.
-3. Pas aan wat je wilt, sla op, en sleep de map opnieuw in Netlify.
+3. Pas aan wat je wilt, sla op, en zet het bestand opnieuw online (push naar GitHub, of sleep de map opnieuw in Netlify).
 
 Gewone teksten (koppen, uitlegblokken, de "Wist je dat"-tip) staan als leesbare zinnen in het bestand — die kun je met zoeken-en-vervangen aanpassen. **Tip:** verander niets aan tekst die tussen `<` en `>` staat; dat is de "verpakking".
 
