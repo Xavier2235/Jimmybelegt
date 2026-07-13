@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geldlek-scanner | Margot Belegt</title>
+<meta name="description" content="Gratis geldlek-scanner: ontdek welke uitgaven ongemerkt veel geld kosten en wat dat geld waard kan worden als je het belegt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== Margot Belegt design tokens ===== */
+  :root{
+    --beige:#FFF2E5; --paarsrood:#B20059; --groen:#CCD8B9; --zalm:#FFAB91;
+    --geel:#FFD374; --ink:#2D2A26; --paars-donker:#8C0046; --ink-zacht:#6B6157;
+    --lijn:#EAD9C7; --wit:#FFFFFF; --radius:16px; --schaduw:0 2px 10px rgba(45,42,38,.07);
+    --kop:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;padding:12px 8px;background:transparent;color:var(--ink);font:16px/1.55 var(--body)}
+  .tool{max-width:720px;margin:0 auto;background:var(--beige);border-radius:20px;padding:24px 16px 28px}
+  @media(min-width:600px){.tool{padding:32px 32px 36px}}
+  .badge{display:inline-block;background:var(--wit);color:var(--paarsrood);border:1.5px solid var(--paarsrood);
+    border-radius:999px;padding:5px 14px;font-size:.82rem;font-weight:600;margin:0 0 14px}
+  h1{font-family:var(--kop);font-weight:700;color:var(--paarsrood);font-size:1.6rem;line-height:1.25;margin:0 0 6px}
+  h2{font-family:var(--kop);font-weight:600;color:var(--paarsrood);font-size:1.15rem;margin:0 0 10px}
+  .intro{margin:0 0 20px;color:var(--ink-zacht)}
+  .kaart{background:var(--wit);border-radius:var(--radius);box-shadow:var(--schaduw);padding:16px;margin:0 0 16px}
+
+  /* invoer */
+  .rij{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--beige)}
+  .rij:last-child{border-bottom:0}
+  .rij label{flex:1;font-size:.95rem}
+  .euroveld{display:flex;align-items:center;gap:6px;background:var(--beige);border:1.5px solid var(--lijn);
+    border-radius:12px;padding:0 10px;min-height:44px;width:8.5rem}
+  .euroveld:focus-within{border-color:var(--paarsrood)}
+  .euroveld span{color:var(--ink-zacht)}
+  .euroveld input{border:0;background:none;width:100%;min-height:42px;font:inherit;font-size:16px;color:var(--ink);text-align:right;padding:0}
+  .euroveld input:focus{outline:none}
+
+  /* sliders */
+  .schuif{margin:0 0 14px}
+  .schuif:last-child{margin-bottom:0}
+  .schuif label{display:flex;justify-content:space-between;align-items:baseline;font-weight:600;margin-bottom:4px}
+  .schuif output{font-variant-numeric:tabular-nums;color:var(--paarsrood);font-weight:700}
+  .schuif input[type=range]{width:100%;min-height:44px;accent-color:var(--paarsrood);margin:0}
+  .schuif .uitleg{font-size:.82rem;color:var(--ink-zacht);margin:2px 0 0}
+
+  /* resultaat */
+  table{width:100%;border-collapse:collapse;font-size:.92rem}
+  th{text-align:left;font-weight:600;color:var(--ink-zacht);padding:6px 4px;border-bottom:1.5px solid var(--lijn)}
+  td{padding:7px 4px;border-bottom:1px solid var(--beige);font-variant-numeric:tabular-nums}
+  th.num,td.num{text-align:right}
+  tr:last-child td{border-bottom:0}
+  .hero{background:var(--wit);border-radius:var(--radius);box-shadow:var(--schaduw);padding:20px 16px;text-align:center;margin:0 0 16px}
+  .hero .label{margin:0 0 2px;font-weight:600}
+  .hero .maand{margin:0 0 10px;color:var(--ink-zacht)}
+  .hero .getal{font-size:3rem;font-weight:700;line-height:1.1;color:var(--paarsrood);margin:0}
+  .hero .sub{margin:6px 0 14px;color:var(--ink-zacht);font-size:.9rem}
+  .leeg-hint{color:var(--ink-zacht);font-size:.95rem;margin:0}
+
+  .knop{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 22px;
+    border-radius:999px;border:0;font:600 1rem var(--body);cursor:pointer;text-decoration:none}
+  .knop-primair{background:var(--paarsrood);color:var(--wit)}
+  .knop-primair:hover{background:var(--paars-donker)}
+  .knop-secundair{background:var(--wit);color:var(--paarsrood);border:1.5px solid var(--paarsrood)}
+  .knop-secundair:hover{background:var(--beige)}
+  :focus-visible{outline:3px solid var(--paarsrood);outline-offset:2px;border-radius:6px}
+
+  details{background:var(--wit);border-radius:var(--radius);box-shadow:var(--schaduw);margin:0 0 16px}
+  details summary{cursor:pointer;font-weight:600;padding:14px 16px;list-style-position:inside}
+  details[open] summary{border-bottom:1px solid var(--beige)}
+  details .inhoud{padding:4px 16px 14px}
+  .tip{background:var(--geel);border-radius:var(--radius);padding:14px 16px;margin:0 0 16px;font-size:.95rem}
+  .soft-cta{background:var(--wit);border:1.5px dashed var(--zalm);border-radius:var(--radius);padding:14px 16px;margin:16px 0;font-size:.95rem}
+  .soft-cta a{color:var(--paarsrood);font-weight:600}
+  .cursus-cta{background:var(--zalm);border-radius:var(--radius);padding:20px 16px;text-align:center;margin:0 0 16px}
+  .cursus-cta p{margin:0 0 12px;font-family:var(--kop);font-weight:600;font-size:1.05rem}
+  .cursus-cta .gratis-noot{font-family:var(--body);font-weight:400;font-size:.85rem;margin:10px 0 0}
+  .disclaimer{font-size:.8rem;color:var(--ink-zacht);margin:0}
+  a{color:var(--paarsrood)}
+</style>
+</head>
+<body>
+<div class="tool">
+  <p class="badge">✨ Gratis tool van Margot Belegt</p>
+  <h1>De Geldlek-scanner</h1>
+  <p class="intro">Sommige uitgaven kosten ongemerkt veel geld. Vul in wat je per maand kwijt bent en zie meteen wat dat geld waard kan worden als je het zou beleggen — 100% gratis.</p>
+
+  <div class="kaart">
+    <h2>Waar lekt jouw geld?</h2>
+    <div id="rijen"></div>
+  </div>
+
+  <div class="kaart">
+    <h2>Jouw aannames</h2>
+    <div class="schuif">
+      <label for="jaren">Hoe lang laat je het groeien? <output id="jaren-uit">10 jaar</output></label>
+      <input type="range" id="jaren" min="1" max="30" step="1" value="10">
+    </div>
+    <div class="schuif">
+      <label for="rendement">Verwacht rendement per jaar <output id="rendement-uit">8%</output></label>
+      <input type="range" id="rendement" min="2" max="10" step="0.5" value="8">
+      <p class="uitleg">Dit is een aanname die je zelf kiest — geen belofte. Wereldwijd gespreid beleggen leverde historisch gemiddeld zo'n 7 à 8% per jaar op, maar dat schommelt flink en kan ook negatief zijn.</p>
+    </div>
+  </div>
+
+  <div class="hero" aria-live="polite">
+    <p class="leeg-hint" id="hero-hint">Vul hierboven één of meer maandbedragen in om jouw geldlek te zien.</p>
+    <div id="hero-inhoud" hidden>
+      <p class="label">😱 Jouw geldlek</p>
+      <p class="maand" id="hero-maand"></p>
+      <p class="getal" id="hero-getal"></p>
+      <p class="sub" id="hero-sub"></p>
+      <button type="button" class="knop knop-secundair" id="kopieer-knop">📋 Kopieer &amp; deel mijn geldlek</button>
+    </div>
+  </div>
+
+  <div class="kaart" id="detail-kaart" hidden>
+    <h2>Per categorie</h2>
+    <table id="detail-tabel">
+      <thead><tr><th scope="col">Categorie</th><th scope="col" class="num">Per jaar</th><th scope="col" class="num" id="kop-fv">Belegd, na 10 jaar</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <details>
+    <summary>Hoe werkt het?</summary>
+    <div class="inhoud">
+      <p>Per categorie zie je twee dingen: wat de uitgave je <strong>per jaar</strong> kost, en wat hetzelfde bedrag waard kan worden als je het <strong>elke maand zou beleggen</strong> tegen het rendement dat je hierboven instelt.</p>
+      <p>We rekenen met maandelijkse inleg en samengestelde groei: je rendement groeit elk jaar óók over het rendement van de jaren ervoor. Daarom lopen de bedragen zo hard op.</p>
+      <p>Het is niet de bedoeling dat je álles wegstreept — het gaat om bewuste keuzes. Eén of twee lekken dichten kan al een groot verschil maken.</p>
+    </div>
+  </details>
+
+  <aside class="tip">💡 <strong>Wist je dat?</strong> Een inleg van slechts €25 per maand kan bij een gemiddeld rendement van 8% per jaar in 10 jaar uitgroeien tot ± €4.600. Kleine bedragen maken op termijn een groot verschil.</aside>
+
+  <div class="soft-cta">Wil je de uitgebreide Excel-versie + cheatsheet? <a href="https://www.margotbelegt.nl/rekentool-50_30_20-regel-geldlek" target="_blank" rel="noopener">Download 'm gratis →</a></div>
+
+  <div class="cursus-cta">
+    <p>Klaar om je geldlek om te zetten in vermogen?</p>
+    <a class="knop knop-primair" href="https://www.margotbelegt.nl/starten-met-beleggen" target="_blank" rel="noopener">Cursus: Starten met beleggen →</a>
+    <p class="gratis-noot">Deze scanner is en blijft gratis — de cursus is er als je meer wilt.</p>
+  </div>
+
+  <p class="disclaimer">Deze tool is bedoeld als educatief hulpmiddel en is geen financieel of beleggingsadvies. De berekeningen zijn gebaseerd op de aannames die je zelf invult; rendementen uit het verleden bieden geen garantie voor de toekomst. Beleggen brengt risico's met zich mee: je kunt (een deel van) je inleg verliezen.</p>
+</div>
+
+<script>
+/* =====================================================================
+   INSTELLINGEN — dit blok mag je zelf aanpassen zonder verstand van code
+   ===================================================================== */
+const CATEGORIEEN = [
+  "Streamingdiensten", "App-abonnementen", "Goede doelen en loterijen",
+  "Sportschool", "Lunch en koffie buiten de deur", "Dubbele verzekeringen",
+  "Online shoppen", "Bezorgmaaltijden", "Auto", "Luxe boodschappen"
+];
+const STANDAARD_JAREN = 10;      // standaard beleggingshorizon
+const STANDAARD_RENDEMENT = 8;   // standaard verwacht rendement in %
+/* ==================== einde instellingen ==================== */
+
+const fmtEur = new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+const fmtPct = v => v.toLocaleString('nl-NL', { maximumFractionDigits: 1 });
+const parseEuro = s => {
+  const n = parseFloat(String(s).replace(/\s|\./g, '').replace(',', '.'));
+  return isNaN(n) || n < 0 ? 0 : n;
+};
+// Toekomstige waarde van een maandelijkse inleg m, bij jaarrendement r (bijv. 0,08), j jaar
+const fvMaandinleg = (m, r, j) => {
+  const i = r / 12, n = j * 12;
+  return i === 0 ? m * n : m * ((1 + i) ** n - 1) / i;
+};
+
+// Bouw de invoerrijen
+const houder = document.getElementById('rijen');
+CATEGORIEEN.forEach((naam, i) => {
+  const rij = document.createElement('div');
+  rij.className = 'rij';
+  rij.innerHTML = `<label for="cat-${i}">${naam} <span style="color:var(--ink-zacht);font-size:.82rem">/ maand</span></label>
+    <div class="euroveld"><span aria-hidden="true">€</span>
+    <input id="cat-${i}" type="text" inputmode="decimal" placeholder="0" autocomplete="off" data-naam="${naam}"></div>`;
+  houder.appendChild(rij);
+});
+document.getElementById('jaren').value = STANDAARD_JAREN;
+document.getElementById('rendement').value = STANDAARD_RENDEMENT;
+
+let laatsteKopie = '';
+
+function reken() {
+  const jaren = parseInt(document.getElementById('jaren').value, 10);
+  const rendement = parseFloat(document.getElementById('rendement').value);
+  document.getElementById('jaren-uit').textContent = `${jaren} jaar`;
+  document.getElementById('rendement-uit').textContent = `${fmtPct(rendement)}%`;
+  document.getElementById('kop-fv').textContent = `Belegd, na ${jaren} jaar`;
+
+  const tbody = document.querySelector('#detail-tabel tbody');
+  tbody.innerHTML = '';
+  let totaalMaand = 0;
+  document.querySelectorAll('input[data-naam]').forEach(inp => {
+    const m = parseEuro(inp.value);
+    if (m <= 0) return;
+    totaalMaand += m;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${inp.dataset.naam}</td>
+      <td class="num">${fmtEur.format(m * 12)}</td>
+      <td class="num">${fmtEur.format(fvMaandinleg(m, rendement / 100, jaren))}</td>`;
+    tbody.appendChild(tr);
+  });
+
+  const heroInhoud = document.getElementById('hero-inhoud');
+  const heroHint = document.getElementById('hero-hint');
+  const detailKaart = document.getElementById('detail-kaart');
+  if (totaalMaand <= 0) { heroInhoud.hidden = true; heroHint.hidden = false; detailKaart.hidden = true; return; }
+  heroInhoud.hidden = false; heroHint.hidden = true; detailKaart.hidden = false;
+
+  const fvTotaal = fvMaandinleg(totaalMaand, rendement / 100, jaren);
+  document.getElementById('hero-maand').textContent =
+    `${fmtEur.format(totaalMaand)} per maand = ${fmtEur.format(totaalMaand * 12)} per jaar`;
+  document.getElementById('hero-getal').textContent = fmtEur.format(fvTotaal);
+  document.getElementById('hero-sub').textContent =
+    `gemist vermogen in ${jaren} jaar, als je dit bedrag maandelijks zou beleggen tegen ${fmtPct(rendement)}% per jaar (jouw aanname)`;
+
+  laatsteKopie = `Mijn geldlek: ${fmtEur.format(totaalMaand)}/maand = ${fmtEur.format(fvTotaal)} gemist vermogen in ${jaren} jaar 😱 Check de gratis geldlek-scanner op margotbelegt.nl`;
+}
+
+document.querySelectorAll('input').forEach(inp => inp.addEventListener('input', reken));
+reken();
+
+document.getElementById('kopieer-knop').addEventListener('click', async function () {
+  try { await navigator.clipboard.writeText(laatsteKopie); }
+  catch (e) {
+    const t = document.createElement('textarea');
+    t.value = laatsteKopie; document.body.appendChild(t); t.select();
+    document.execCommand('copy'); t.remove();
+  }
+  const oud = this.textContent;
+  this.textContent = 'Gekopieerd ✓';
+  setTimeout(() => { this.textContent = oud; }, 2000);
+});
+</script>
+</body>
+</html>
