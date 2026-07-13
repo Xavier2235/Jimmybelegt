@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wat kost wachten? | Margot Belegt</title>
+<meta name="description" content="Gratis rekentool: zie wat het kost om nog 1, 3 of 5 jaar te wachten met beleggen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== Margot Belegt design tokens ===== */
+  :root{
+    --beige:#FFF2E5; --paarsrood:#B20059; --groen:#CCD8B9; --zalm:#FFAB91;
+    --geel:#FFD374; --ink:#2D2A26; --paars-donker:#8C0046; --ink-zacht:#6B6157;
+    --lijn:#EAD9C7; --wit:#FFFFFF; --radius:16px; --schaduw:0 2px 10px rgba(45,42,38,.07);
+    /* ordinale reeks van paarsrood (gevalideerd): nu → langer wachten = lichter */
+    --ramp-0:#B20059; --ramp-1:#C13F77; --ramp-2:#CF6493; --ramp-3:#DA84AC;
+    --kop:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;padding:12px 8px;background:transparent;color:var(--ink);font:16px/1.55 var(--body)}
+  .tool{max-width:720px;margin:0 auto;background:var(--beige);border-radius:20px;padding:24px 16px 28px}
+  @media(min-width:600px){.tool{padding:32px 32px 36px}}
+  .badge{display:inline-block;background:var(--wit);color:var(--paarsrood);border:1.5px solid var(--paarsrood);
+    border-radius:999px;padding:5px 14px;font-size:.82rem;font-weight:600;margin:0 0 14px}
+  h1{font-family:var(--kop);font-weight:700;color:var(--paarsrood);font-size:1.6rem;line-height:1.25;margin:0 0 6px}
+  h2{font-family:var(--kop);font-weight:600;color:var(--paarsrood);font-size:1.15rem;margin:0 0 10px}
+  .intro{margin:0 0 20px;color:var(--ink-zacht)}
+  .kaart{background:var(--wit);border-radius:var(--radius);box-shadow:var(--schaduw);padding:16px;margin:0 0 16px}
+
+  .veld{margin:0 0 14px}
+  .veld:last-child{margin-bottom:0}
+  .veld>label{display:block;font-weight:600;margin-bottom:6px}
+  .euroveld{display:flex;align-items:center;gap:6px;background:var(--beige);border:1.5px solid var(--lijn);
+    border-radius:12px;padding:0 10px;min-height:44px;max-width:11rem}
+  .euroveld:focus-within{border-color:var(--paarsrood)}
+  .euroveld span{color:var(--ink-zacht)}
+  .euroveld input{border:0;background:none;width:100%;min-height:42px;font:inherit;font-size:16px;color:var(--ink);text-align:right;padding:0}
+  .euroveld input:focus{outline:none}
+  .schuif label{display:flex;justify-content:space-between;align-items:baseline;font-weight:600;margin-bottom:4px}
+  .schuif output{font-variant-numeric:tabular-nums;color:var(--paarsrood);font-weight:700}
+  .schuif input[type=range]{width:100%;min-height:44px;accent-color:var(--paarsrood);margin:0}
+  .schuif .uitleg{font-size:.82rem;color:var(--ink-zacht);margin:2px 0 0}
+
+  /* headline */
+  .hero{text-align:center;padding:4px 0 12px}
+  .hero .label{margin:0;font-weight:600}
+  .hero .getal{font-size:3rem;font-weight:700;line-height:1.1;color:var(--paarsrood);margin:4px 0 2px}
+  .hero .sub{margin:0;color:var(--ink-zacht);font-size:.95rem}
+  .leeg-hint{color:var(--ink-zacht);font-size:.95rem;margin:0}
+
+  /* kolomgrafiek */
+  .kolommen{display:flex;justify-content:space-around;align-items:flex-end;gap:8px;height:190px;
+    border-bottom:1.5px solid var(--lijn);margin:8px 0 0;padding:0 4px}
+  .kolom{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;flex:1;min-width:0;height:100%}
+  .k-waarde{font-size:.82rem;font-weight:700;font-variant-numeric:tabular-nums;margin-bottom:4px;white-space:nowrap}
+  .k-staaf{width:24px;border-radius:4px 4px 0 0;transition:height .25s ease}
+  .k-voet{display:flex;justify-content:space-around;gap:8px;padding:6px 4px 0;margin:0 0 4px}
+  .k-cel{flex:1;min-width:0;text-align:center}
+  .k-naam{display:block;font-size:.85rem;font-weight:600}
+  .k-delta{display:block;font-size:.8rem;color:var(--ink-zacht);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  .knop{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 22px;
+    border-radius:999px;border:0;font:600 1rem var(--body);cursor:pointer;text-decoration:none}
+  .knop-primair{background:var(--paarsrood);color:var(--wit)}
+  .knop-primair:hover{background:var(--paars-donker)}
+  .knop-secundair{background:var(--wit);color:var(--paarsrood);border:1.5px solid var(--paarsrood)}
+  .knop-secundair:hover{background:var(--beige)}
+  :focus-visible{outline:3px solid var(--paarsrood);outline-offset:2px;border-radius:6px}
+  .actie{background:var(--zalm);border-radius:var(--radius);padding:20px 16px;text-align:center;margin:0 0 16px}
+  .actie p{margin:0 0 12px;font-family:var(--kop);font-weight:600;font-size:1.05rem}
+  .actie .gratis-noot{font-family:var(--body);font-weight:400;font-size:.85rem;margin:10px 0 0}
+
+  details{background:var(--wit);border-radius:var(--radius);box-shadow:var(--schaduw);margin:0 0 16px}
+  details summary{cursor:pointer;font-weight:600;padding:14px 16px;list-style-position:inside}
+  details[open] summary{border-bottom:1px solid var(--beige)}
+  details .inhoud{padding:4px 16px 14px}
+  .tip{background:var(--geel);border-radius:var(--radius);padding:14px 16px;margin:0 0 16px;font-size:.95rem}
+  .soft-cta{background:var(--wit);border:1.5px dashed var(--zalm);border-radius:var(--radius);padding:14px 16px;margin:16px 0;font-size:.95rem}
+  .soft-cta a{color:var(--paarsrood);font-weight:600}
+  .disclaimer{font-size:.8rem;color:var(--ink-zacht);margin:0}
+  a{color:var(--paarsrood)}
+</style>
+</head>
+<body>
+<div class="tool">
+  <p class="badge">✨ Gratis tool van Margot Belegt</p>
+  <h1>Wat kost wachten?</h1>
+  <p class="intro">"Ik begin volgend jaar wel met beleggen…" — maar wat kost dat uitstel je eigenlijk? Reken het hier uit. 100% gratis.</p>
+
+  <div class="kaart">
+    <h2>Jouw plan</h2>
+    <div class="veld">
+      <label for="inleg">Maandelijkse inleg</label>
+      <div class="euroveld"><span aria-hidden="true">€</span><input id="inleg" type="text" inputmode="decimal" value="100" autocomplete="off"></div>
+    </div>
+    <div class="veld schuif">
+      <label for="jaren">Hoe lang bouw je op? <output id="jaren-uit">20 jaar</output></label>
+      <input type="range" id="jaren" min="6" max="40" step="1" value="20">
+    </div>
+    <div class="veld schuif">
+      <label for="rendement">Verwacht rendement per jaar <output id="rendement-uit">7%</output></label>
+      <input type="range" id="rendement" min="2" max="10" step="0.5" value="7">
+      <p class="uitleg">Dit is een aanname die je zelf kiest — geen belofte. Rendementen schommelen en kunnen ook negatief zijn.</p>
+    </div>
+  </div>
+
+  <div class="kaart" aria-live="polite">
+    <p class="leeg-hint" id="leeg-hint" hidden>Vul een maandelijkse inleg in om te zien wat wachten kost.</p>
+    <div id="resultaat">
+      <div class="hero">
+        <p class="label">⏳ Eén jaar wachten kost je</p>
+        <p class="getal" id="hero-getal">€ 0</p>
+        <p class="sub" id="hero-sub"></p>
+      </div>
+      <div class="kolommen" id="kolommen" role="img" aria-label=""></div>
+      <div class="k-voet" id="k-voet"></div>
+      <p style="margin:16px 0 0;text-align:center">
+        <button type="button" class="knop knop-secundair" id="kopieer-knop">📋 Kopieer mijn resultaat</button>
+      </p>
+    </div>
+  </div>
+
+  <div class="actie">
+    <p>De beste dag om te starten was gisteren. De op één na beste is vandaag.</p>
+    <a class="knop knop-primair" href="https://www.margotbelegt.nl/starten-met-beleggen" target="_blank" rel="noopener">Cursus: Starten met beleggen →</a>
+    <p class="gratis-noot">Deze rekentool is en blijft gratis — de cursus is er als je vandaag wilt beginnen.</p>
+  </div>
+
+  <details>
+    <summary>Hoe werkt het?</summary>
+    <div class="inhoud">
+      <p>Alle staafjes eindigen op hetzelfde moment: over <span id="uitleg-jaren">20</span> jaar. Wie later begint, legt korter in én mist de krachtigste jaren van samengestelde groei — de eerste inleg heeft de meeste tijd om te groeien.</p>
+      <p>Daarom is het verschil zoveel groter dan alleen de gemiste inleg: het is vooral gemist rendement óver rendement.</p>
+    </div>
+  </details>
+
+  <aside class="tip">💡 <strong>Wist je dat?</strong> Het gaat niet om perfect timen, maar om tijd ín de markt. Klein beginnen en volhouden verslaat wachten op het perfecte moment — bijna altijd.</aside>
+
+  <div class="soft-cta">Wil je de uitgebreide Excel-rekentool + cheatsheet? <a href="https://www.margotbelegt.nl/rekentool-50_30_20-regel-geldlek" target="_blank" rel="noopener">Download 'm gratis →</a></div>
+
+  <p class="disclaimer">Deze tool is bedoeld als educatief hulpmiddel en is geen financieel of beleggingsadvies. De berekeningen zijn gebaseerd op de aannames die je zelf invult; rendementen uit het verleden bieden geen garantie voor de toekomst. Beleggen brengt risico's met zich mee: je kunt (een deel van) je inleg verliezen.</p>
+</div>
+
+<script>
+/* =====================================================================
+   INSTELLINGEN — dit blok mag je zelf aanpassen zonder verstand van code
+   ===================================================================== */
+const WACHT_SCENARIOS = [0, 1, 3, 5];  // nu starten, of over 1 / 3 / 5 jaar
+const STANDAARD = { inleg: 100, jaren: 20, rendement: 7 };
+/* ==================== einde instellingen ==================== */
+
+const fmtEur = new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+const fmtPct = v => v.toLocaleString('nl-NL', { maximumFractionDigits: 1 });
+const parseEuro = s => {
+  const n = parseFloat(String(s).replace(/\s|\./g, '').replace(',', '.'));
+  return isNaN(n) || n < 0 ? 0 : n;
+};
+const fvMaandinleg = (m, r, j) => {
+  const i = r / 12, n = Math.round(j * 12);
+  return i === 0 ? m * n : m * ((1 + i) ** n - 1) / i;
+};
+
+const RAMP = ['var(--ramp-0)', 'var(--ramp-1)', 'var(--ramp-2)', 'var(--ramp-3)'];
+let laatsteKopie = '';
+
+function reken() {
+  const inleg = parseEuro(document.getElementById('inleg').value);
+  const jaren = parseInt(document.getElementById('jaren').value, 10);
+  const rendement = parseFloat(document.getElementById('rendement').value);
+  document.getElementById('jaren-uit').textContent = `${jaren} jaar`;
+  document.getElementById('rendement-uit').textContent = `${fmtPct(rendement)}%`;
+  document.getElementById('uitleg-jaren').textContent = jaren;
+
+  const resultaat = document.getElementById('resultaat');
+  const hint = document.getElementById('leeg-hint');
+  if (inleg <= 0) { resultaat.hidden = true; hint.hidden = false; return; }
+  resultaat.hidden = false; hint.hidden = true;
+
+  const r = rendement / 100;
+  const uitkomsten = WACHT_SCENARIOS.map(w => ({
+    wacht: w,
+    fv: fvMaandinleg(inleg, r, Math.max(0, jaren - w))
+  }));
+  const nu = uitkomsten[0].fv;
+  const kost1 = nu - uitkomsten[1].fv;
+  const kost5 = nu - uitkomsten[uitkomsten.length - 1].fv;
+
+  document.getElementById('hero-getal').textContent = fmtEur.format(kost1);
+  document.getElementById('hero-sub').textContent =
+    `aan eindvermogen over ${jaren} jaar — ${uitkomsten[uitkomsten.length - 1].wacht} jaar wachten kost je zelfs ${fmtEur.format(kost5)}`;
+
+  const kolommen = document.getElementById('kolommen');
+  const voet = document.getElementById('k-voet');
+  kolommen.innerHTML = ''; voet.innerHTML = '';
+  const max = nu || 1;
+  uitkomsten.forEach((u, i) => {
+    const kolom = document.createElement('div');
+    kolom.className = 'kolom';
+    const hoogte = Math.max(2, u.fv / max * 100);
+    kolom.innerHTML = `<span class="k-waarde">${fmtEur.format(u.fv)}</span>
+      <div class="k-staaf" style="height:${hoogte}%;background:${RAMP[i]}"></div>`;
+    kolommen.appendChild(kolom);
+    const cel = document.createElement('div');
+    cel.className = 'k-cel';
+    cel.innerHTML = `<span class="k-naam">${u.wacht === 0 ? 'Nu starten' : `Over ${u.wacht} jaar`}</span>
+      <span class="k-delta">${u.wacht === 0 ? '✓ volle groei' : '−' + fmtEur.format(nu - u.fv)}</span>`;
+    voet.appendChild(cel);
+  });
+  kolommen.setAttribute('aria-label',
+    `Staafdiagram eindvermogen over ${jaren} jaar bij ${fmtEur.format(inleg)} per maand: ` +
+    uitkomsten.map(u => `${u.wacht === 0 ? 'nu starten' : 'over ' + u.wacht + ' jaar starten'} ${fmtEur.format(u.fv)}`).join(', '));
+
+  laatsteKopie = `Nog 1 jaar wachten met beleggen kost me ${fmtEur.format(kost1)} aan eindvermogen 😳 (5 jaar wachten zelfs ${fmtEur.format(kost5)}). Bereken het zelf gratis op margotbelegt.nl`;
+}
+
+document.querySelectorAll('input').forEach(inp => inp.addEventListener('input', reken));
+reken();
+
+document.getElementById('kopieer-knop').addEventListener('click', async function () {
+  try { await navigator.clipboard.writeText(laatsteKopie); }
+  catch (e) {
+    const t = document.createElement('textarea');
+    t.value = laatsteKopie; document.body.appendChild(t); t.select();
+    document.execCommand('copy'); t.remove();
+  }
+  const oud = this.textContent;
+  this.textContent = 'Gekopieerd ✓';
+  setTimeout(() => { this.textContent = oud; }, 2000);
+});
+</script>
+</body>
+</html>
