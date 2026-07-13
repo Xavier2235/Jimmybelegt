@@ -21,93 +21,131 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ===== Margot Belegt design tokens ===== */
   :root{
     --beige:#FFF2E5; --paarsrood:#B20059; --groen:#CCD8B9; --zalm:#FFAB91;
     --geel:#FFD374; --ink:#2D2A26; --paars-donker:#8C0046; --ink-zacht:#6B6157;
-    --lijn:#EAD9C7; --wit:#FFFFFF; --radius:16px; --schaduw:0 2px 10px rgba(45,42,38,.07);
+    --lijn:#EAD9C7; --wit:#FFFFFF; --radius:20px;
+    --schaduw:0 10px 30px -12px rgba(178,0,89,.16);
+    --rand:#F6E4D3;
     --kop:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --display:'Fraunces',Georgia,'Times New Roman',serif;
     --body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%;color-scheme:light}
-  body{margin:0;padding:12px 8px;background:transparent;color:var(--ink);font:16px/1.55 var(--body)}
-  .tool{max-width:720px;margin:0 auto;background:var(--beige);border-radius:20px;padding:24px 16px 28px}
-  @media(min-width:600px){.tool{padding:32px 32px 36px}}
+  body{margin:0;padding:12px 8px;background:transparent;color:var(--ink);font:16px/1.6 var(--body)}
+
+  .tool{position:relative;overflow:hidden;max-width:720px;margin:0 auto;background:var(--beige);border-radius:28px;padding:30px 18px 30px}
+  .tool::before,.tool::after{content:"";position:absolute;border-radius:50%;pointer-events:none;z-index:0}
+  .tool::before{width:420px;height:420px;top:-160px;right:-130px;background:radial-gradient(closest-side,var(--zalm),transparent 72%);opacity:.55}
+  .tool::after{width:360px;height:360px;bottom:-160px;left:-130px;background:radial-gradient(closest-side,var(--groen),transparent 72%);opacity:.6}
+  .tool>*{position:relative;z-index:1}
+  @media(min-width:600px){.tool{padding:40px 36px 40px}}
+
   .badge{display:inline-block;background:var(--wit);color:var(--paarsrood);border:1.5px solid var(--paarsrood);
-    border-radius:999px;padding:5px 14px;font-size:.82rem;font-weight:600;margin:0 0 14px}
-  h1{font-family:var(--kop);font-weight:700;color:var(--paarsrood);font-size:1.6rem;line-height:1.25;margin:0 0 6px}
-  .intro{margin:0 0 20px;color:var(--ink-zacht)}
+    border-radius:999px;padding:6px 16px;font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    margin:0 0 18px;box-shadow:0 4px 14px -6px rgba(178,0,89,.3)}
 
-  .kaarten{display:grid;gap:14px;grid-template-columns:1fr;margin:0 0 20px}
-  @media(min-width:600px){.kaarten{grid-template-columns:1fr 1fr}}
-  .kaart{position:relative;display:block;background:var(--wit);border-radius:var(--radius);box-shadow:var(--schaduw);
-    padding:18px 16px;text-decoration:none;color:var(--ink);border:1.5px solid transparent}
-  .kaart:hover{border-color:var(--paarsrood)}
-  .kaart .gratis{position:absolute;top:14px;right:14px;background:var(--groen);color:var(--ink);
-    border-radius:999px;padding:3px 10px;font-size:.75rem;font-weight:700}
-  .kaart .icoon{font-size:1.6rem;display:block;margin-bottom:6px}
-  .kaart h2{font-family:var(--kop);font-weight:600;color:var(--paarsrood);font-size:1.08rem;margin:0 0 4px;padding-right:3.5rem}
-  .kaart p{margin:0 0 8px;font-size:.92rem;color:var(--ink-zacht)}
-  .kaart .pijl{font-weight:700;color:var(--paarsrood);font-size:.92rem}
+  .hero{position:relative;padding-right:0}
+  h1{font-family:var(--display);font-weight:700;color:var(--paarsrood);font-size:2.6rem;line-height:1.06;letter-spacing:-.01em;margin:0 0 12px;text-wrap:balance}
+  @media(min-width:600px){h1{font-size:3.1rem}}
+  .markeer{background:linear-gradient(transparent 62%,var(--geel) 62%);padding:0 .06em;border-radius:2px}
+  .intro{margin:0;color:var(--ink-zacht);font-size:1.05rem;max-width:34rem}
+  .pijl-deco{position:absolute;top:-6px;right:0;width:74px;height:auto;display:none}
+  @media(min-width:600px){.pijl-deco{display:block}}
 
-  .knop{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 22px;
-    border-radius:999px;border:0;font:600 1rem var(--body);cursor:pointer;text-decoration:none}
-  .knop-primair{background:var(--paarsrood);color:var(--wit)}
-  .knop-primair:hover{background:var(--paars-donker)}
+  /* toolkaarten */
+  .kaarten{display:grid;gap:14px;grid-template-columns:1fr;margin:26px 0 26px}
+  @media(min-width:600px){.kaarten{grid-template-columns:1fr 1fr;gap:16px}}
+  .kaart-link{position:relative;display:flex;flex-direction:column;gap:8px;background:var(--wit);
+    border:1px solid var(--rand);border-radius:var(--radius);box-shadow:var(--schaduw);padding:20px 18px;
+    text-decoration:none;color:var(--ink);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+  .kaart-link:hover{transform:translateY(-3px);border-color:var(--paarsrood);box-shadow:0 18px 40px -16px rgba(178,0,89,.3)}
+  .icoon-cirkel{width:48px;height:48px;border-radius:15px;display:flex;align-items:center;justify-content:center;color:var(--paarsrood)}
+  .icoon-cirkel svg{width:25px;height:25px}
+  .t-roze{background:#F9DFEB}.t-geel{background:#FFEFC9}.t-zalm{background:#FFE3D7}.t-groen{background:#E6EDD9}
+  .gratis{position:absolute;top:16px;right:16px;background:var(--groen);color:var(--ink);border-radius:999px;
+    padding:4px 11px;font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+  .kaart-link h2{font-family:var(--kop);font-weight:600;font-size:1.12rem;color:var(--paarsrood);margin:4px 0 0;padding-right:3rem;text-wrap:balance}
+  .kaart-link p{margin:0;font-size:.92rem;color:var(--ink-zacht);flex:1}
+  .kaart-link .pijl{font-weight:700;color:var(--paarsrood);font-size:.92rem;margin-top:6px}
+
+  .knop{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 24px;
+    border-radius:999px;border:0;font:600 1rem var(--kop);cursor:pointer;text-decoration:none;
+    transition:transform .15s ease,box-shadow .15s ease}
+  .knop-primair{background:var(--paarsrood);color:var(--wit);box-shadow:0 8px 22px -8px rgba(178,0,89,.55)}
+  .knop-primair:hover{background:var(--paars-donker);transform:translateY(-1px)}
   :focus-visible{outline:3px solid var(--paarsrood);outline-offset:2px;border-radius:6px}
 
-  .tip{background:var(--geel);border-radius:var(--radius);padding:14px 16px;margin:0 0 16px;font-size:.95rem}
-  .soft-cta{background:var(--wit);border:1.5px dashed var(--zalm);border-radius:var(--radius);padding:14px 16px;margin:16px 0;font-size:.95rem}
+  .tip{background:var(--geel);border-radius:var(--radius);padding:16px 18px;margin:0 0 16px;font-size:.95rem}
+  .soft-cta{background:var(--wit);border:1.5px dashed var(--zalm);border-radius:var(--radius);padding:15px 18px;margin:0 0 16px;font-size:.95rem}
   .soft-cta a{color:var(--paarsrood);font-weight:600}
-  .cursus-cta{background:var(--zalm);border-radius:var(--radius);padding:20px 16px;text-align:center;margin:0 0 16px}
-  .cursus-cta p{margin:0 0 12px;font-family:var(--kop);font-weight:600;font-size:1.05rem}
-  .cursus-cta .gratis-noot{font-family:var(--body);font-weight:400;font-size:.85rem;margin:10px 0 0}
+  .cursus-cta{background:linear-gradient(135deg,var(--zalm),#FFC7AC);border-radius:var(--radius);padding:26px 18px;text-align:center;margin:0 0 18px}
+  .cursus-cta p{margin:0 0 14px;font-family:var(--kop);font-weight:600;font-size:1.1rem}
+  .cursus-cta .gratis-noot{font-family:var(--body);font-weight:400;font-size:.85rem;margin:12px 0 0}
   .disclaimer{font-size:.8rem;color:var(--ink-zacht);margin:0}
   a{color:var(--paarsrood)}
   h1,h2{text-wrap:balance}
+  @media(max-width:430px){.knop{padding:12px 16px;font-size:.95rem}}
 </style>
 </head>
 <body>
 <div class="tool">
-  <p class="badge">✨ Gratis tools van Margot Belegt</p>
-  <h1>Krijg grip op je geld</h1>
-  <p class="intro">Vijf interactieve rekentools die je meteen inzicht geven — op je telefoon, zonder download, en 100% gratis.</p>
+  <header class="hero">
+    <p class="badge">✨ Gratis tools van Margot Belegt</p>
+    <svg class="pijl-deco" viewBox="0 0 90 90" fill="none" aria-hidden="true">
+      <path d="M10 74 C 30 70, 26 46, 44 44 C 62 42, 56 24, 76 16" stroke="#B20059" stroke-width="5" stroke-linecap="round"/>
+      <path d="M62 14 L 78 15 L 74 30" stroke="#FFD374" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h1>Krijg <span class="markeer">grip</span> op je geld</h1>
+    <p class="intro">Vijf interactieve rekentools die je meteen inzicht geven — op je telefoon, zonder download, en 100% gratis.</p>
+  </header>
 
   <nav class="kaarten" aria-label="Gratis geldtools">
-    <a class="kaart" href="50-30-20-rekentool.html">
+    <a class="kaart-link" href="50-30-20-rekentool.html">
+      <span class="icoon-cirkel t-roze" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v9h9"/><path d="M12 12l-6.4 6.4"/></svg>
+      </span>
       <span class="gratis">Gratis</span>
-      <span class="icoon" aria-hidden="true">🧮</span>
       <h2>De 50/30/20-rekentool</h2>
       <p>Verdeel je netto inkomen over Nodig, Toekomst en Leuk, en zie meteen waar jij staat ten opzichte van de richtlijn.</p>
       <span class="pijl">Start de check →</span>
     </a>
-    <a class="kaart" href="geldlek-scanner.html">
+    <a class="kaart-link" href="geldlek-scanner.html">
+      <span class="icoon-cirkel t-geel" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/><path d="M11 8v3l2 2"/></svg>
+      </span>
       <span class="gratis">Gratis</span>
-      <span class="icoon" aria-hidden="true">🕵️‍♀️</span>
       <h2>De Geldlek-scanner</h2>
       <p>Ontdek welke uitgaven ongemerkt veel geld kosten — en wat dat geld waard kan worden als je het belegt.</p>
       <span class="pijl">Scan je geldlek →</span>
     </a>
-    <a class="kaart" href="beleggen-voor-je-kind.html">
+    <a class="kaart-link" href="beleggen-voor-je-kind.html">
+      <span class="icoon-cirkel t-zalm" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5C7.2 16.3 3.5 13.2 3.5 9.6 3.5 7 5.5 5.2 7.8 5.2c1.7 0 3.2.9 4.2 2.4 1-1.5 2.5-2.4 4.2-2.4 2.3 0 4.3 1.8 4.3 4.4 0 3.6-3.7 6.7-8.5 10.9z"/></svg>
+      </span>
       <span class="gratis">Gratis</span>
-      <span class="icoon" aria-hidden="true">🧸</span>
       <h2>Beleggen voor je kind</h2>
       <p>Wat kan er voor je kind klaarstaan op de 18e verjaardag als je nu begint met een klein maandbedrag?</p>
       <span class="pijl">Reken het uit →</span>
     </a>
-    <a class="kaart" href="sparen-vs-beleggen.html">
+    <a class="kaart-link" href="sparen-vs-beleggen.html">
+      <span class="icoon-cirkel t-groen" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-9"/><path d="M15 6h6v6"/></svg>
+      </span>
       <span class="gratis">Gratis</span>
-      <span class="icoon" aria-hidden="true">⚖️</span>
       <h2>Sparen vs. beleggen</h2>
       <p>Zie wat inflatie stiekem met je spaargeld doet, en vergelijk het met wat beleggen kan opleveren.</p>
       <span class="pijl">Vergelijk zelf →</span>
     </a>
-    <a class="kaart" href="wat-kost-wachten.html">
+    <a class="kaart-link" href="wat-kost-wachten.html">
+      <span class="icoon-cirkel t-roze" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3h11M6.5 21h11M8 3v3.5L12 11 8 17.5V21M16 3v3.5L12 11l4 6.5V21"/></svg>
+      </span>
       <span class="gratis">Gratis</span>
-      <span class="icoon" aria-hidden="true">⏳</span>
       <h2>Wat kost wachten?</h2>
       <p>"Ik begin volgend jaar wel…" Reken uit wat 1, 3 of 5 jaar uitstel je aan eindvermogen kost.</p>
       <span class="pijl">Confronteer jezelf →</span>
