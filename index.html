@@ -28,7 +28,7 @@
     --beige:#FFF2E5; --paarsrood:#B20059; --groen:#CCD8B9; --zalm:#FFAB91;
     --geel:#FFD374; --ink:#2D2A26; --paars-donker:#8C0046; --ink-zacht:#6B6157;
     --lijn:#E9D8C4; --wit:#FFFFFF; --radius:20px;
-    --schaduw:0 10px 30px -12px rgba(178,0,89,.16);
+    --schaduw:0 14px 34px -16px rgba(45,42,38,.16);
     --rand:#F6E4D3; --goud:#8F6B1F;
     --kop:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
     --display:'Fraunces',Georgia,'Times New Roman',serif;
@@ -114,19 +114,20 @@
   .kaarten{display:grid;gap:16px;grid-template-columns:1fr}
   @media(min-width:640px){.kaarten{grid-template-columns:1fr 1fr}}
   @media(min-width:960px){.kaarten{grid-template-columns:1fr 1fr 1fr}}
-  .kaart-link{position:relative;display:flex;flex-direction:column;gap:8px;background:var(--wit);
-    border:1px solid var(--rand);border-radius:var(--radius);box-shadow:var(--schaduw);padding:22px 20px;
+  .kaart-link{position:relative;display:flex;flex-direction:column;gap:10px;background:var(--wit);
+    border:1px solid var(--rand);border-radius:18px;box-shadow:var(--schaduw);padding:26px 24px;
     text-decoration:none;color:var(--ink);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
-  .kaart-link:hover{transform:translateY(-3px);border-color:var(--paarsrood);box-shadow:0 18px 40px -16px rgba(178,0,89,.3)}
-  .icoon-cirkel{width:48px;height:48px;border-radius:15px;display:flex;align-items:center;justify-content:center;color:var(--paarsrood)}
-  .icoon-cirkel svg{width:25px;height:25px}
+  .kaart-link:hover{transform:translateY(-3px);border-color:#E4C6AE;box-shadow:0 22px 48px -18px rgba(45,42,38,.28)}
+  .kaart-link:hover .pijl{color:var(--paars-donker)}
+  .icoon-cirkel{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;color:var(--paars-donker)}
+  .icoon-cirkel svg{width:22px;height:22px}
   .t-roze{background:#F9DFEB}.t-geel{background:#FFEFC9}.t-zalm{background:#FFE3D7}.t-groen{background:#E6EDD9}
-  .chip{position:absolute;top:18px;right:18px;border-radius:999px;padding:4px 11px;font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
-  .chip-gratis{background:var(--groen);color:var(--ink)}
-  .chip-prijs{background:var(--geel);color:var(--ink)}
-  .kaart-link h3{font-family:var(--kop);font-weight:600;font-size:1.1rem;color:var(--paarsrood);margin:4px 0 0;padding-right:3rem;text-wrap:balance}
+  .chip{position:absolute;top:26px;right:24px;font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+  .chip-gratis{color:var(--goud)}
+  .chip-prijs{background:var(--geel);color:var(--ink);padding:4px 11px;border-radius:999px;letter-spacing:.08em;top:22px;right:20px}
+  .kaart-link h3{font-family:var(--display);font-weight:600;font-size:1.3rem;line-height:1.2;color:var(--ink);margin:6px 0 0;padding-right:3.4rem;text-wrap:balance}
   .kaart-link p{margin:0;font-size:.92rem;color:var(--ink-zacht);flex:1}
-  .kaart-link .pijl{font-weight:700;color:var(--paarsrood);font-size:.92rem;margin-top:6px}
+  .kaart-link .pijl{font:700 .76rem var(--kop);letter-spacing:.16em;text-transform:uppercase;color:var(--paarsrood);margin-top:10px;transition:color .15s ease}
 
   /* quote-band */
   .quote-band{border-top:1px solid var(--lijn);padding:64px 0;text-align:center;position:relative;overflow:hidden}
@@ -222,7 +223,7 @@
       <div class="kaarten">
         <a class="kaart-link" href="50-30-20-rekentool.html">
           <span class="icoon-cirkel t-roze" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v9h9"/><path d="M12 12l-6.4 6.4"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
           </span>
           <span class="chip chip-gratis">Gratis</span>
           <h3>De 50/30/20-rekentool</h3>
@@ -231,7 +232,7 @@
         </a>
         <a class="kaart-link" href="geldlek-scanner.html">
           <span class="icoon-cirkel t-geel" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/><path d="M11 8v3l2 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
           </span>
           <span class="chip chip-gratis">Gratis</span>
           <h3>De Geldlek-scanner</h3>
@@ -240,7 +241,7 @@
         </a>
         <a class="kaart-link" href="beleggen-voor-je-kind.html">
           <span class="icoon-cirkel t-zalm" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5C7.2 16.3 3.5 13.2 3.5 9.6 3.5 7 5.5 5.2 7.8 5.2c1.7 0 3.2.9 4.2 2.4 1-1.5 2.5-2.4 4.2-2.4 2.3 0 4.3 1.8 4.3 4.4 0 3.6-3.7 6.7-8.5 10.9z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
           </span>
           <span class="chip chip-gratis">Gratis</span>
           <h3>Beleggen voor je kind</h3>
@@ -249,7 +250,7 @@
         </a>
         <a class="kaart-link" href="sparen-vs-beleggen.html">
           <span class="icoon-cirkel t-groen" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-9"/><path d="M15 6h6v6"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7l-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></svg>
           </span>
           <span class="chip chip-gratis">Gratis</span>
           <h3>Sparen vs. beleggen</h3>
@@ -258,7 +259,7 @@
         </a>
         <a class="kaart-link" href="wat-kost-wachten.html">
           <span class="icoon-cirkel t-roze" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3h11M6.5 21h11M8 3v3.5L12 11 8 17.5V21M16 3v3.5L12 11l4 6.5V21"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.828V2"/></svg>
           </span>
           <span class="chip chip-gratis">Gratis</span>
           <h3>Wat kost wachten?</h3>
@@ -267,7 +268,7 @@
         </a>
         <a class="kaart-link" href="cursus-starten-met-beleggen.html">
           <span class="icoon-cirkel t-geel" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L2 8l10 5 10-5z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
           </span>
           <span class="chip chip-prijs">€ 37</span>
           <h3>Cursus: Starten met beleggen</h3>

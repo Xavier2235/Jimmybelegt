@@ -27,7 +27,7 @@
   :root{
     --beige:#FFF2E5; --paarsrood:#B20059; --groen:#CCD8B9; --zalm:#FFAB91;
     --geel:#FFD374; --ink:#2D2A26; --paars-donker:#8C0046; --ink-zacht:#6B6157;
-    --lijn:#EAD9C7; --wit:#FFFFFF; --radius:20px; --schaduw:0 10px 30px -12px rgba(178,0,89,.16);
+    --lijn:#EAD9C7; --wit:#FFFFFF; --radius:20px; --schaduw:0 14px 34px -16px rgba(45,42,38,.16);
     /* grafiekkleuren (gevalideerd op contrast en kleurenblind-veiligheid) */
     --chart-paars:#B20059; --chart-groen:#6B9440; --chart-terra:#C4502A;
     --kop:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
@@ -47,7 +47,7 @@
   .badge{display:inline-block;background:var(--wit);color:var(--paarsrood);border:1.5px solid var(--paarsrood);
     border-radius:999px;padding:6px 16px;font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:0 0 16px;box-shadow:0 4px 14px -6px rgba(178,0,89,.3)}
   h1{font-family:var(--display);font-weight:700;color:var(--paarsrood);font-size:2.1rem;line-height:1.1;letter-spacing:-.01em;margin:0 0 10px}
-  h2{font-family:var(--kop);font-weight:600;color:var(--paarsrood);font-size:1.15rem;margin:0 0 10px}
+  h2{font-family:var(--display);font-weight:600;color:var(--ink);font-size:1.35rem;margin:0 0 12px}
   .intro{margin:0 0 20px;color:var(--ink-zacht)}
   .kaart{background:var(--wit);border:1px solid var(--rand);border-radius:var(--radius);box-shadow:var(--schaduw);padding:18px 16px;margin:0 0 16px}
 
@@ -76,7 +76,7 @@
   .tegels{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0 0}
   .tegel{background:var(--beige);border-radius:12px;padding:12px}
   .tegel .t-label{font-size:.82rem;color:var(--ink-zacht);margin:0}
-  .tegel .t-waarde{font-size:1.35rem;font-weight:700;margin:2px 0 0;font-variant-numeric:normal}
+  .tegel .t-waarde{font-family:var(--display);font-size:1.5rem;font-weight:600;margin:2px 0 0}
   .kern{background:var(--zalm);border-radius:12px;padding:14px 16px;margin:16px 0 0;font-size:.98rem}
   .kern strong{font-family:var(--kop)}
 
