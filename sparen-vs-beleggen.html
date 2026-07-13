@@ -252,20 +252,23 @@ function reken() {
 const svg = document.getElementById('grafiek');
 const NS = 'http://www.w3.org/2000/svg';
 
-function mooiPlafond(v) {
+// mooie as-stappen: altijd 1, 2 of 5 × een macht van 10, zodat de labels rond zijn
+function mooieStap(v) {
   const macht = 10 ** Math.floor(Math.log10(v || 1));
-  for (const f of [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10]) if (f * macht >= v) return f * macht;
+  for (const f of [1, 2, 5, 10]) if (f * macht >= v) return f * macht;
   return 10 * macht;
 }
 const kortEur = v => v >= 1e6 ? `€ ${(v / 1e6).toLocaleString('nl-NL', { maximumFractionDigits: 1 })} mln` :
-  v >= 1000 ? `€ ${Math.round(v / 1000).toLocaleString('nl-NL')}k` : `€ ${Math.round(v)}`;
+  v >= 1000 ? `€ ${(v / 1000).toLocaleString('nl-NL', { maximumFractionDigits: 1 })}k` : `€ ${Math.round(v)}`;
 
 function teken() {
   const houder = svg.parentElement;
   const W = Math.max(300, houder.clientWidth || 600);
   const H = 260;
   const eind = data[data.length - 1];
-  const maxY = mooiPlafond(Math.max(eind.belegd, eind.nominaal) * 1.05);
+  const ruwMax = Math.max(eind.belegd, eind.nominaal, 1) * 1.05;
+  const stap = mooieStap(ruwMax / 4);
+  const maxY = Math.ceil(ruwMax / stap) * stap;
   const eindLabels = [
     { serie: 'belegd', tekst: fmtEur.format(eind.belegd) },
     { serie: 'nominaal', tekst: fmtEur.format(eind.nominaal) },
@@ -289,10 +292,9 @@ function teken() {
     svg.appendChild(e); return e;
   };
 
-  // gridlijnen + y-labels (afgeronde ticks)
-  const stappen = 4;
-  for (let i = 0; i <= stappen; i++) {
-    const v = maxY / stappen * i, yy = y(v);
+  // gridlijnen + y-labels op ronde getallen
+  for (let v = 0; v <= maxY + 0.5; v += stap) {
+    const yy = y(v);
     el('line', { x1: x0, x2: x1, y1: yy, y2: yy, stroke: '#EAD9C7', 'stroke-width': 1 });
     el('text', { x: x0 - 6, y: yy + 4, 'text-anchor': 'end', 'font-size': 11, fill: '#6B6157', 'font-family': 'inherit' }, kortEur(v));
   }

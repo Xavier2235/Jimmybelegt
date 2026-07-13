@@ -218,7 +218,7 @@ const CATEGORIEEN = {
 /* ==================== einde instellingen ==================== */
 
 const fmtEur = new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
-const fmtPct = v => v.toLocaleString('nl-NL', { maximumFractionDigits: 0 });
+const fmtPct = v => v.toLocaleString('nl-NL', { maximumFractionDigits: 1 });
 const parseEuro = s => {
   const n = parseFloat(String(s).replace(/\s|\./g, '').replace(',', '.'));
   return isNaN(n) || n < 0 ? 0 : n;
