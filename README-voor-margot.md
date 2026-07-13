@@ -12,6 +12,7 @@ Hoi Margot! In deze map staan zes webpagina's die samen jouw gratis toolsuite vo
 | `beleggen-voor-je-kind.html` | Wat kan er voor een kind klaarstaan op de 18e verjaardag |
 | `sparen-vs-beleggen.html` | Sparen vergeleken met beleggen, mét het effect van inflatie |
 | `wat-kost-wachten.html` | Wat kost het om 1, 3 of 5 jaar te wachten met beleggen |
+| `cursus-starten-met-beleggen.html` | Strakke herbouw van je verkooppagina, met je bestaande Podia-koopknop |
 
 Elke tool heeft een deelknop ("Kopieer mijn resultaat"), een link naar je Excel-download en een knop naar je cursus *Starten met beleggen*.
 
