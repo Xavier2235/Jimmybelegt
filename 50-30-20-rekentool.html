@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>50/30/20-rekentool | Margot Belegt</title>
+<meta name="description" content="Gratis 50/30/20-rekentool: verdeel je netto inkomen op een manier die rust, overzicht en groei geeft.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== Margot Belegt design tokens ===== */
+  :root{
+    --beige:#FFF2E5;      /* achtergrond / basis */
+    --paarsrood:#B20059;  /* primaire accentkleur, CTA's, headings */
+    --groen:#CCD8B9;      /* positief / "goed bezig" states */
+    --zalm:#FFAB91;       /* secundair accent, highlights */
+    --geel:#FFD374;       /* attentie / tips */
+    --ink:#2D2A26;        /* tekst, warm donkerbruin */
+    --paars-donker:#8C0046;
+    --ink-zacht:#6B6157;  /* secundaire tekst */
+    --lijn:#EAD9C7;       /* hairlines */
+    --wit:#FFFFFF;
+    --radius:16px;
+    --schaduw:0 2px 10px rgba(45,42,38,.07);
+    --kop:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;padding:12px 8px;background:transparent;color:var(--ink);font:16px/1.55 var(--body)}
+  .tool{max-width:720px;margin:0 auto;background:var(--beige);border-radius:20px;padding:24px 16px 28px}
+  @media(min-width:600px){.tool{padding:32px 32px 36px}}
+
+  .badge{display:inline-block;background:var(--wit);color:var(--paarsrood);border:1.5px solid var(--paarsrood);
+    border-radius:999px;padding:5px 14px;font-size:.82rem;font-weight:600;margin:0 0 14px}
+  h1{font-family:var(--kop);font-weight:700;color:var(--paarsrood);font-size:1.6rem;line-height:1.25;margin:0 0 6px}
+  h2{font-family:var(--kop);font-weight:600;color:var(--paarsrood);font-size:1.15rem;margin:0 0 10px}
+  .intro{margin:0 0 20px;color:var(--ink-zacht)}
+
+  /* kaarten */
+  .kaart{background:var(--wit);border-radius:var(--radius);box-shadow:var(--schaduw);padding:16px;margin:0 0 16px}
+
+  /* inkomen */
+  .inkomen label{display:block;font-weight:600;margin-bottom:8px}
+  .inkomen .hint{display:block;font-weight:400;font-size:.85rem;color:var(--ink-zacht)}
+
+  /* invoervelden */
+  .euroveld{display:flex;align-items:center;gap:6px;background:var(--beige);border:1.5px solid var(--lijn);
+    border-radius:12px;padding:0 10px;min-height:44px;width:8.5rem}
+  .euroveld:focus-within{border-color:var(--paarsrood)}
+  .euroveld span{color:var(--ink-zacht)}
+  .euroveld input{border:0;background:none;width:100%;min-height:42px;font:inherit;font-size:16px;
+    color:var(--ink);text-align:right;padding:0}
+  .euroveld input:focus{outline:none}
+  .inkomen .euroveld{width:100%;max-width:14rem}
+  .inkomen .euroveld input{font-size:1.25rem;font-weight:600}
+
+  /* categorie-rijen */
+  .pijler{border:0;padding:0;margin:0 0 16px}
+  .pijler-kop{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 16px;border-radius:var(--radius) var(--radius) 0 0}
+  .pijler-kop .icoon{font-size:1.3rem}
+  .pijler-kop .naam{font-family:var(--kop);font-weight:600;font-size:1.05rem}
+  .pijler-kop .richtlijn{font-size:.85rem;color:var(--ink-zacht)}
+  .pijler-kop .subtotaal{margin-left:auto;font-weight:700;font-variant-numeric:tabular-nums}
+  .pijler-nodig .pijler-kop{background:var(--groen)}
+  .pijler-toekomst .pijler-kop{background:var(--zalm)}
+  .pijler-leuk .pijler-kop{background:var(--geel)}
+  .rijen{background:var(--wit);border-radius:0 0 var(--radius) var(--radius);box-shadow:var(--schaduw);padding:4px 16px 12px}
+  .rij{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--beige)}
+  .rij:last-child{border-bottom:0}
+  .rij label{flex:1;font-size:.95rem}
+
+  /* uitslag */
+  .uitslag-rij{padding:12px 0;border-bottom:1px solid var(--beige)}
+  .uitslag-rij:last-of-type{border-bottom:0}
+  .uitslag-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+  .uitslag-top .p-naam{font-weight:600}
+  .uitslag-top .p-cijfers{color:var(--ink-zacht);font-size:.9rem;font-variant-numeric:tabular-nums}
+  .chip{margin-left:auto;border-radius:999px;padding:3px 10px;font-size:.8rem;font-weight:600;white-space:nowrap}
+  .chip-goed{background:var(--groen);color:var(--ink)}
+  .chip-let-op{background:var(--geel);color:var(--ink)}
+  .chip-fors{background:var(--paarsrood);color:var(--wit)}
+  .balk{position:relative;height:14px;background:var(--beige);border:1px solid var(--lijn);border-radius:7px}
+  .balk-vul{position:absolute;inset:0 auto 0 0;max-width:100%;border-radius:6px 4px 4px 6px;transition:width .25s ease}
+  .balk-vul.vul-goed{background:var(--groen)}
+  .balk-vul.vul-let-op{background:var(--geel)}
+  .balk-vul.vul-fors{background:var(--paarsrood)}
+  .balk-merk{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);opacity:.55}
+  .balk-schaal{display:flex;justify-content:space-between;font-size:.75rem;color:var(--ink-zacht);margin-top:3px}
+  .totaal-regel{margin:14px 0 0;padding:12px 14px;border-radius:12px;font-size:.95rem}
+  .totaal-goed{background:var(--groen)}
+  .totaal-let-op{background:var(--geel)}
+  .leeg-hint{color:var(--ink-zacht);font-size:.95rem;margin:4px 0 0}
+
+  /* knoppen */
+  .knop{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 22px;
+    border-radius:999px;border:0;font:600 1rem var(--body);cursor:pointer;text-decoration:none}
+  .knop-primair{background:var(--paarsrood);color:var(--wit)}
+  .knop-primair:hover{background:var(--paars-donker)}
+  .knop-secundair{background:var(--wit);color:var(--paarsrood);border:1.5px solid var(--paarsrood)}
+  .knop-secundair:hover{background:var(--beige)}
+  :focus-visible{outline:3px solid var(--paarsrood);outline-offset:2px;border-radius:6px}
+
+  /* uitklapblok + tip */
+  details{background:var(--wit);border-radius:var(--radius);box-shadow:var(--schaduw);padding:0;margin:0 0 16px}
+  details summary{cursor:pointer;font-weight:600;padding:14px 16px;list-style-position:inside}
+  details[open] summary{border-bottom:1px solid var(--beige)}
+  details .inhoud{padding:4px 16px 14px}
+  .tip{background:var(--geel);border-radius:var(--radius);padding:14px 16px;margin:0 0 16px;font-size:.95rem}
+  .tip strong{font-family:var(--kop)}
+
+  /* CTA's + footer */
+  .soft-cta{background:var(--wit);border:1.5px dashed var(--zalm);border-radius:var(--radius);padding:14px 16px;
+    margin:16px 0;font-size:.95rem}
+  .soft-cta a{color:var(--paarsrood);font-weight:600}
+  .cursus-cta{background:var(--zalm);border-radius:var(--radius);padding:20px 16px;text-align:center;margin:0 0 16px}
+  .cursus-cta p{margin:0 0 12px;font-family:var(--kop);font-weight:600;font-size:1.05rem}
+  .cursus-cta .gratis-noot{font-family:var(--body);font-weight:400;font-size:.85rem;color:var(--ink);margin-top:10px;margin-bottom:0}
+  .disclaimer{font-size:.8rem;color:var(--ink-zacht);margin:0}
+  a{color:var(--paarsrood)}
+</style>
+</head>
+<body>
+<div class="tool">
+  <p class="badge">✨ Gratis tool van Margot Belegt</p>
+  <h1>De 50/30/20-rekentool</h1>
+  <p class="intro">Verdeel je netto inkomen op een manier die rust, overzicht en groei geeft. Vul je bedragen in en zie meteen hoe jouw verdeling zich verhoudt tot de richtlijn — 100% gratis, je hoeft niets te downloaden.</p>
+
+  <div class="kaart inkomen">
+    <label for="inkomen">Je netto maandinkomen
+      <span class="hint">Salaris, toeslagen, premies en andere inkomsten bij elkaar</span>
+    </label>
+    <div class="euroveld"><span aria-hidden="true">€</span><input id="inkomen" type="text" inputmode="decimal" placeholder="bijv. 3.300" autocomplete="off"></div>
+  </div>
+
+  <section class="pijler pijler-nodig" aria-labelledby="kop-nodig">
+    <div class="pijler-kop"><span class="icoon" aria-hidden="true">🏠</span>
+      <span class="naam" id="kop-nodig">Nodig</span><span class="richtlijn">richtlijn 50%</span>
+      <span class="subtotaal" id="subtotaal-nodig">€ 0</span></div>
+    <div class="rijen" id="rijen-nodig"></div>
+  </section>
+
+  <section class="pijler pijler-toekomst" aria-labelledby="kop-toekomst">
+    <div class="pijler-kop"><span class="icoon" aria-hidden="true">🌱</span>
+      <span class="naam" id="kop-toekomst">Toekomst</span><span class="richtlijn">richtlijn 20%</span>
+      <span class="subtotaal" id="subtotaal-toekomst">€ 0</span></div>
+    <div class="rijen" id="rijen-toekomst"></div>
+  </section>
+
+  <section class="pijler pijler-leuk" aria-labelledby="kop-leuk">
+    <div class="pijler-kop"><span class="icoon" aria-hidden="true">💛</span>
+      <span class="naam" id="kop-leuk">Leuk</span><span class="richtlijn">richtlijn 30%</span>
+      <span class="subtotaal" id="subtotaal-leuk">€ 0</span></div>
+    <div class="rijen" id="rijen-leuk"></div>
+  </section>
+
+  <div class="kaart" aria-live="polite">
+    <h2>Jouw uitslag</h2>
+    <p class="leeg-hint" id="uitslag-hint">Vul je netto maandinkomen in om je percentages te zien.</p>
+    <div id="uitslag" hidden>
+      <div id="uitslag-rijen"></div>
+      <p class="totaal-regel" id="totaal-regel"></p>
+      <p style="margin:16px 0 0">
+        <button type="button" class="knop knop-secundair" id="kopieer-knop">📋 Kopieer mijn resultaat</button>
+      </p>
+    </div>
+  </div>
+
+  <details>
+    <summary>Hoe werkt het?</summary>
+    <div class="inhoud">
+      <p><strong>Stap 1:</strong> Vul je netto maandinkomen in (salaris, toeslagen, premies en andere inkomsten).</p>
+      <p><strong>Stap 2:</strong> Vul per categorie in wat je nu werkelijk per maand uitgeeft.</p>
+      <p><strong>Stap 3:</strong> Kijk bij "Jouw uitslag" hoe je verdeling zich verhoudt tot de 50/30/20-regel: maximaal 50% naar wat je nodig hebt, minimaal 20% naar je toekomst (sparen en beleggen) en zo'n 30% naar leuke dingen.</p>
+      <p>Kom je niet uit op de ideale verdeling? Kijk dan eerst naar de grootste kostenposten, zoals wonen, boodschappen, vervoer en kinderopvang — daar valt vaak de meeste winst te behalen. Lukt dat niet? Gebruik dan de gratis <a href="geldlek-scanner.html">Geldlek-scanner</a> om uitgaven te vinden die ongemerkt veel geld kosten.</p>
+    </div>
+  </details>
+
+  <aside class="tip">💡 <strong>Wist je dat?</strong> Een inleg van slechts €25 per maand kan bij een gemiddeld rendement van 8% per jaar in 10 jaar uitgroeien tot ± €4.600. Kleine bedragen maken op termijn een groot verschil.</aside>
+
+  <div class="soft-cta">Wil je de uitgebreide Excel-versie + cheatsheet? <a href="https://www.margotbelegt.nl/rekentool-50_30_20-regel-geldlek" target="_blank" rel="noopener">Download 'm gratis →</a></div>
+
+  <div class="cursus-cta">
+    <p>Klaar om je geld te laten groeien?</p>
+    <a class="knop knop-primair" href="https://www.margotbelegt.nl/starten-met-beleggen" target="_blank" rel="noopener">Cursus: Starten met beleggen →</a>
+    <p class="gratis-noot">Deze rekentool is en blijft gratis — de cursus is er als je meer wilt.</p>
+  </div>
+
+  <p class="disclaimer">Deze tool is bedoeld als educatief hulpmiddel en is geen financieel of beleggingsadvies. De berekeningen zijn gebaseerd op de aannames die je zelf invult; rendementen uit het verleden bieden geen garantie voor de toekomst. Beleggen brengt risico's met zich mee: je kunt (een deel van) je inleg verliezen.</p>
+</div>
+
+<script>
+/* =====================================================================
+   INSTELLINGEN — dit blok mag je zelf aanpassen zonder verstand van code
+   ===================================================================== */
+const RICHTLIJN = { nodig: 50, toekomst: 20, leuk: 30 };  // percentages van de 50/30/20-regel
+const MARGE = 5;  // hoeveel procentpunt afwijking nog "net erboven/eronder" (geel) is
+
+// De categorieën per pijler. Voeg gerust regels toe of haal ze weg:
+// elke regel is gewoon een tekstje tussen aanhalingstekens, met een komma erachter.
+const CATEGORIEEN = {
+  nodig: [
+    "Huur of hypotheek", "Gas, water, licht", "Zorg- en andere verzekeringen",
+    "Internet en telefoon", "Gemeentelijke belastingen", "Kinderopvang",
+    "Auto (benzine, onderhoud etc.)", "Streamingdiensten (Netflix, Disney+)",
+    "Boodschappen", "App-abonnementen (Canva, ChatGPT)", "Sportabonnement kids",
+    "Sportabonnement ouders", "Goede doelen en loterijen",
+    "Huisdieren (voer, verzekering etc.)", "Kleding gezin", "Afbetalen schuld"
+  ],
+  toekomst: ["Beleggen", "Sparen", "Digital assets", "Pensioen", "Buffer"],
+  leuk: [
+    "Lunch en koffie buiten de deur", "Uitjes, concerten, bioscoop",
+    "Vakanties en weekendjes weg", "Online shoppen",
+    "Thuisbezorgd en Uber Eats", "Hobby's (muziek, kunst etc.)"
+  ]
+};
+/* ==================== einde instellingen ==================== */
+
+const fmtEur = new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+const fmtPct = v => v.toLocaleString('nl-NL', { maximumFractionDigits: 0 });
+const parseEuro = s => {
+  const n = parseFloat(String(s).replace(/\s|\./g, '').replace(',', '.'));
+  return isNaN(n) || n < 0 ? 0 : n;
+};
+
+// Bouw de invoerrijen per pijler
+for (const [pijler, lijst] of Object.entries(CATEGORIEEN)) {
+  const houder = document.getElementById('rijen-' + pijler);
+  lijst.forEach((naam, i) => {
+    const id = `cat-${pijler}-${i}`;
+    const rij = document.createElement('div');
+    rij.className = 'rij';
+    rij.innerHTML = `<label for="${id}">${naam}</label>
+      <div class="euroveld"><span aria-hidden="true">€</span>
+      <input id="${id}" type="text" inputmode="decimal" placeholder="0" autocomplete="off" data-pijler="${pijler}"></div>`;
+    houder.appendChild(rij);
+  });
+}
+
+const PIJLER_META = {
+  nodig:   { naam: 'Nodig',    icoon: '🏠', hogerIsBeter: false },
+  toekomst:{ naam: 'Toekomst', icoon: '🌱', hogerIsBeter: true },
+  leuk:    { naam: 'Leuk',     icoon: '💛', hogerIsBeter: false }
+};
+
+function status(pijler, pct) {
+  const doel = RICHTLIJN[pijler];
+  if (PIJLER_META[pijler].hogerIsBeter) {
+    if (pct >= doel) return { cls: 'goed',   tekst: '✓ Goed bezig' };
+    if (pct >= doel - MARGE) return { cls: 'let-op', tekst: '! Bijna op richtlijn' };
+    return { cls: 'fors', tekst: '↓ Hier ligt ruimte' };
+  }
+  if (pct <= doel) return { cls: 'goed',   tekst: '✓ Binnen richtlijn' };
+  if (pct <= doel + MARGE) return { cls: 'let-op', tekst: '! Net erboven' };
+  return { cls: 'fors', tekst: '↑ Fors erboven' };
+}
+
+let laatsteKopie = '';
+
+function reken() {
+  const inkomen = parseEuro(document.getElementById('inkomen').value);
+  const totalen = { nodig: 0, toekomst: 0, leuk: 0 };
+  document.querySelectorAll('input[data-pijler]').forEach(inp => {
+    totalen[inp.dataset.pijler] += parseEuro(inp.value);
+  });
+  for (const p of Object.keys(totalen)) {
+    document.getElementById('subtotaal-' + p).textContent = fmtEur.format(totalen[p]);
+  }
+
+  const uitslag = document.getElementById('uitslag');
+  const hint = document.getElementById('uitslag-hint');
+  if (inkomen <= 0) { uitslag.hidden = true; hint.hidden = false; return; }
+  uitslag.hidden = false; hint.hidden = true;
+
+  const rijen = document.getElementById('uitslag-rijen');
+  rijen.innerHTML = '';
+  const pctPer = {};
+  for (const [p, meta] of Object.entries(PIJLER_META)) {
+    const pct = totalen[p] / inkomen * 100;
+    pctPer[p] = pct;
+    const st = status(p, pct);
+    const breed = Math.min(pct, 100);
+    const rij = document.createElement('div');
+    rij.className = 'uitslag-rij';
+    rij.innerHTML = `
+      <div class="uitslag-top">
+        <span class="p-naam">${meta.icoon} ${meta.naam}</span>
+        <span class="p-cijfers">${fmtPct(pct)}% · richtlijn ${RICHTLIJN[p]}% · ${fmtEur.format(totalen[p])}</span>
+        <span class="chip chip-${st.cls}">${st.tekst}</span>
+      </div>
+      <div class="balk" role="img" aria-label="${meta.naam}: ${fmtPct(pct)} procent van je inkomen, richtlijn ${RICHTLIJN[p]} procent">
+        <div class="balk-vul vul-${st.cls}" style="width:${breed}%"></div>
+        <div class="balk-merk" style="left:${RICHTLIJN[p]}%" title="richtlijn ${RICHTLIJN[p]}%"></div>
+      </div>
+      <div class="balk-schaal"><span>0%</span><span>100% van je inkomen</span></div>`;
+    rijen.appendChild(rij);
+  }
+
+  const totaal = totalen.nodig + totalen.toekomst + totalen.leuk;
+  const over = inkomen - totaal;
+  const regel = document.getElementById('totaal-regel');
+  if (over >= 0) {
+    regel.className = 'totaal-regel totaal-goed';
+    regel.textContent = `Je hebt ${fmtEur.format(totaal)} van je ${fmtEur.format(inkomen)} verdeeld` +
+      (over > 0 ? ` — er is nog ${fmtEur.format(over)} over om een plek te geven. ✨` : ' — alles heeft een plek. ✨');
+  } else {
+    regel.className = 'totaal-regel totaal-let-op';
+    regel.textContent = `Let op: je geeft ${fmtEur.format(-over)} per maand méér uit dan er binnenkomt. Kijk eens welke categorie kleiner kan.`;
+  }
+
+  laatsteKopie = `Mijn 50/30/20-check ✨ Nodig ${fmtPct(pctPer.nodig)}% (richtlijn 50%) · Toekomst ${fmtPct(pctPer.toekomst)}% (20%) · Leuk ${fmtPct(pctPer.leuk)}% (30%). Doe de gratis check op margotbelegt.nl`;
+}
+
+document.querySelectorAll('input').forEach(inp => inp.addEventListener('input', reken));
+reken();
+
+// Kopieer-knop (met terugval voor oudere browsers)
+document.getElementById('kopieer-knop').addEventListener('click', async function () {
+  try { await navigator.clipboard.writeText(laatsteKopie); }
+  catch (e) {
+    const t = document.createElement('textarea');
+    t.value = laatsteKopie; document.body.appendChild(t); t.select();
+    document.execCommand('copy'); t.remove();
+  }
+  const oud = this.textContent;
+  this.textContent = 'Gekopieerd ✓';
+  setTimeout(() => { this.textContent = oud; }, 2000);
+});
+</script>
+</body>
+</html>
