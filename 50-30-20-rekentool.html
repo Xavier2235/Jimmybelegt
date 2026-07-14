@@ -87,6 +87,16 @@
   .rij-boven{display:flex;align-items:center;justify-content:space-between;gap:12px}
   .rij-schuif{width:100%;min-height:36px;accent-color:var(--paarsrood);margin:0;display:block}
   .rij:last-child{border-bottom:0}
+  .voeg-knop{display:inline-flex;align-items:center;gap:7px;background:none;border:0;color:var(--paarsrood);
+    font:600 .92rem var(--kop);padding:14px 0 6px;cursor:pointer}
+  .voeg-knop span{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;
+    border-radius:50%;border:1.5px solid var(--paarsrood);font-size:1rem;line-height:1}
+  .voeg-knop:hover{color:var(--paars-donker)}
+  .chips{display:none;flex-wrap:wrap;gap:8px;padding:2px 0 12px}
+  .chips.open{display:flex}
+  .chip-voeg{background:var(--wit);border:1px solid var(--lijn);border-radius:999px;padding:8px 14px;
+    font:600 .85rem var(--kop);color:var(--ink);cursor:pointer;transition:border-color .15s ease,color .15s ease}
+  .chip-voeg:hover{border-color:var(--paarsrood);color:var(--paarsrood)}
   .rij label{flex:1;font-size:.95rem}
 
   /* uitslag */
@@ -290,17 +300,18 @@ const schuifStap = max => max >= 2000 ? 25 : max >= 500 ? 10 : 5;  // stapgroott
 
 // De categorieën per pijler. Voeg gerust regels toe of haal ze weg:
 // elke regel heeft een naam en een maximum voor het schuifje (typen boven het maximum kan altijd).
+// standaard: true = staat direct in beeld; zonder die vlag verschijnt de categorie onder "+ Categorie toevoegen".
 const CATEGORIEEN = {
   nodig: [
-    { naam: "Huur of hypotheek", max: 5000 },
-    { naam: "Gas, water, licht", max: 600 },
-    { naam: "Zorg- en andere verzekeringen", max: 800 },
-    { naam: "Internet en telefoon", max: 250 },
+    { naam: "Huur of hypotheek", max: 5000, standaard: true },
+    { naam: "Gas, water, licht", max: 600, standaard: true },
+    { naam: "Boodschappen", max: 1000, standaard: true },
+    { naam: "Zorg- en andere verzekeringen", max: 800, standaard: true },
+    { naam: "Internet en telefoon", max: 250, standaard: true },
     { naam: "Gemeentelijke belastingen", max: 300 },
     { naam: "Kinderopvang", max: 3000 },
     { naam: "Auto (benzine, onderhoud etc.)", max: 1200 },
     { naam: "Streamingdiensten (Netflix, Disney+)", max: 150 },
-    { naam: "Boodschappen", max: 1000 },
     { naam: "App-abonnementen (Canva, ChatGPT)", max: 150 },
     { naam: "Sportabonnement kids", max: 200 },
     { naam: "Sportabonnement ouders", max: 200 },
@@ -310,16 +321,16 @@ const CATEGORIEEN = {
     { naam: "Afbetalen schuld", max: 1500 }
   ],
   toekomst: [
-    { naam: "Beleggen", max: 2000 },
-    { naam: "Sparen", max: 2000 },
-    { naam: "Digital assets", max: 1000 },
+    { naam: "Sparen", max: 2000, standaard: true },
+    { naam: "Beleggen", max: 2000, standaard: true },
+    { naam: "Buffer", max: 1000 },
     { naam: "Pensioen", max: 1500 },
-    { naam: "Buffer", max: 1000 }
+    { naam: "Digital assets", max: 1000 }
   ],
   leuk: [
-    { naam: "Lunch en koffie buiten de deur", max: 400 },
-    { naam: "Uitjes, concerten, bioscoop", max: 500 },
-    { naam: "Vakanties en weekendjes weg", max: 1000 },
+    { naam: "Lunch en koffie buiten de deur", max: 400, standaard: true },
+    { naam: "Uitjes, concerten, bioscoop", max: 500, standaard: true },
+    { naam: "Vakanties en weekendjes weg", max: 1000, standaard: true },
     { naam: "Online shoppen", max: 750 },
     { naam: "Thuisbezorgd en Uber Eats", max: 400 },
     { naam: "Hobby's (muziek, kunst etc.)", max: 500 }
@@ -334,9 +345,10 @@ const parseEuro = s => {
   return isNaN(n) || n < 0 ? 0 : n;
 };
 
-// Bouw de invoerrijen per pijler
+// Bouw de invoerrijen per pijler; niet-standaard categorieën zitten achter "+ Categorie toevoegen"
 for (const [pijler, lijst] of Object.entries(CATEGORIEEN)) {
   const houder = document.getElementById('rijen-' + pijler);
+  const optioneel = [];
   lijst.forEach((cat, i) => {
     const id = `cat-${pijler}-${i}`;
     const rij = document.createElement('div');
@@ -345,8 +357,35 @@ for (const [pijler, lijst] of Object.entries(CATEGORIEEN)) {
       <div class="euroveld"><span aria-hidden="true">€</span>
       <input id="${id}" type="text" inputmode="decimal" placeholder="0" autocomplete="off" data-pijler="${pijler}"></div></div>
       <input type="range" class="rij-schuif" min="0" max="${cat.max}" step="${schuifStap(cat.max)}" value="0" data-doel="${id}" aria-label="${cat.naam}, schuifregelaar">`;
+    if (!cat.standaard) { rij.style.display = 'none'; optioneel.push({ cat, rij }); }
     houder.appendChild(rij);
   });
+  if (optioneel.length) {
+    const knop = document.createElement('button');
+    knop.type = 'button'; knop.className = 'voeg-knop';
+    knop.setAttribute('aria-expanded', 'false');
+    knop.innerHTML = '<span aria-hidden="true">+</span> Categorie toevoegen';
+    const lade = document.createElement('div');
+    lade.className = 'chips';
+    optioneel.forEach(({ cat, rij }) => {
+      const chip = document.createElement('button');
+      chip.type = 'button'; chip.className = 'chip-voeg';
+      chip.textContent = '+ ' + cat.naam;
+      chip.addEventListener('click', () => {
+        rij.style.display = '';
+        rij.querySelector('input[type=text]').focus();
+        chip.remove();
+        if (!lade.children.length) { lade.remove(); knop.remove(); }
+      });
+      lade.appendChild(chip);
+    });
+    knop.addEventListener('click', () => {
+      const open = lade.classList.toggle('open');
+      knop.setAttribute('aria-expanded', open);
+    });
+    houder.appendChild(knop);
+    houder.appendChild(lade);
+  }
 }
 
 const PIJLER_META = {
