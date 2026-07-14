@@ -35,13 +35,9 @@
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%;color-scheme:light;scroll-behavior:smooth}
-  body{margin:0;padding:12px 8px;background:transparent;color:var(--ink);font:16px/1.6 var(--body)}
-  .pagina{position:relative;overflow:hidden;max-width:720px;margin:0 auto;background:var(--beige);border-radius:28px;padding:24px 16px 28px}
-  .pagina::before,.pagina::after{content:"";position:absolute;border-radius:50%;pointer-events:none;z-index:0}
-  .pagina::before{width:400px;height:400px;top:-150px;right:-130px;background:radial-gradient(closest-side,var(--zalm),transparent 72%);opacity:.5}
-  .pagina::after{width:340px;height:340px;bottom:-150px;left:-130px;background:radial-gradient(closest-side,var(--groen),transparent 72%);opacity:.55}
-  .pagina>*{position:relative;z-index:1}
-  @media(min-width:600px){.pagina{padding:36px 36px 40px}}
+  body{margin:0;background:var(--beige);color:var(--ink);font:16px/1.6 var(--body)}
+  .pagina{max-width:760px;margin:0 auto;padding:30px 20px 48px}
+  @media(min-width:600px){.pagina{padding:40px 24px 56px}}
 
   .badge{display:inline-block;background:var(--wit);color:var(--paarsrood);border:1.5px solid var(--paarsrood);
     border-radius:999px;padding:6px 16px;font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:0 0 16px;box-shadow:0 4px 14px -6px rgba(178,0,89,.3)}
@@ -123,42 +119,71 @@
   .duo h2{margin-bottom:2px}
 
   .sectiekop{margin:26px 0 14px}
-  .voetnoot{font-size:.8rem;color:var(--ink-zacht);margin:0 0 6px}
-  .voet-links{font-size:.85rem;margin:14px 0 0}
+  .voetnoot{display:none;font-size:.8rem;color:var(--ink-zacht);margin:0 0 6px}
+  html.embed .voetnoot{display:block}
+  .voet-links{display:none;font-size:.85rem;margin:14px 0 0}
+  html.embed .voet-links{display:block}
   .voet-links a{color:var(--paarsrood)}
   a{color:var(--paarsrood)}
   h1,h2{text-wrap:balance}
   @media(max-width:430px){.knop{padding:12px 16px;font-size:.95rem}}
 
-  /* site-navigatie bovenaan (verbergt zichzelf in een Podia-embed) */
-  .site-kop{max-width:720px;margin:0 auto 14px}
-  .site-kop .masthead{text-align:center;padding:4px 0 10px;border-bottom:1px solid var(--lijn)}
-  .site-kop .wordmark{font-family:var(--display);font-size:1.55rem;color:var(--ink);text-decoration:none;letter-spacing:.01em}
-  .site-kop .wordmark em{font-style:italic;color:var(--paarsrood);font-weight:600}
-  .site-kop .wordmark .b{font-family:var(--kop);font-weight:700}
-  .site-kop .hoofdnav{border-bottom:1px solid var(--lijn)}
-  .site-kop .nav-wrap{display:flex;justify-content:flex-start;gap:2px;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  @media(min-width:600px){.site-kop .nav-wrap{justify-content:center}}
-  .site-kop .hoofdnav a{display:inline-block;padding:11px 12px;font:600 .88rem var(--kop);color:var(--ink);
+  /* site-header & footer (zoals de homepage; verbergen zichzelf in een Podia-embed) */
+  .wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+  .topbar{border-bottom:1px solid var(--lijn);font-size:.78rem;color:var(--ink-zacht)}
+  .topbar .wrap{display:flex;justify-content:space-between;gap:12px;padding-top:9px;padding-bottom:9px;white-space:nowrap;overflow:hidden}
+  .topbar .dot{color:var(--paarsrood)}
+  .topbar strong{font-weight:600;color:var(--ink)}
+  .masthead{border-bottom:1px solid var(--lijn);text-align:center;padding:26px 0 18px}
+  .wordmark{font-family:var(--display);font-size:2.3rem;line-height:1;margin:0;color:var(--ink);letter-spacing:.01em;text-decoration:none;display:inline-block}
+  .wordmark em{font-style:italic;color:var(--paarsrood);font-weight:600}
+  .wordmark .b{font-family:var(--kop);font-weight:700;letter-spacing:-.01em}
+  .masthead .streep{width:64px;height:2px;background:var(--geel);margin:12px auto 10px;border-radius:2px}
+  .tagline{margin:0;font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-zacht)}
+  .hoofdnav{border-bottom:1px solid var(--lijn)}
+  .hoofdnav .wrap{display:flex;justify-content:flex-start;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  @media(min-width:700px){.hoofdnav .wrap{justify-content:center}}
+  .hoofdnav a{display:inline-block;padding:13px 14px;font:600 .92rem var(--kop);color:var(--ink);
     text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap}
-  .site-kop .hoofdnav a:hover{color:var(--paarsrood)}
-  .site-kop .hoofdnav a[aria-current]{color:var(--paarsrood);border-bottom-color:var(--paarsrood)}
-  .site-kop .ster{color:#8F6B1F}
-  html.embed .site-kop{display:none}
+  .hoofdnav a:hover{color:var(--paarsrood)}
+  .hoofdnav a[aria-current]{color:var(--paarsrood);border-bottom-color:var(--paarsrood)}
+  .ster{color:var(--goud)}
+  .site-footer{border-top:1px solid var(--lijn);padding:44px 0 30px;font-size:.9rem}
+  .voet-grid{display:grid;gap:28px;grid-template-columns:1fr}
+  @media(min-width:700px){.voet-grid{grid-template-columns:1fr 1fr 1fr}}
+  .site-footer h4{margin:0 0 10px;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--goud)}
+  .site-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+  .site-footer a{text-decoration:none;color:var(--ink)}
+  .site-footer a:hover{color:var(--paarsrood);text-decoration:underline}
+  .voet-onder{border-top:1px solid var(--lijn);margin-top:32px;padding-top:18px;font-size:.78rem;color:var(--ink-zacht)}
+  html.embed .site-header,html.embed .site-footer{display:none}
+  html.embed body{background:transparent;padding:12px 8px}
 </style>
 </head>
 <body>
 <script>if (window.self !== window.top) document.documentElement.classList.add('embed');</script>
-<div class="site-kop">
-  <header class="masthead"><a class="wordmark" href="index.html"><em>Margot</em> <span class="b">belegt</span></a></header>
-  <nav class="hoofdnav" aria-label="Hoofdnavigatie"><div class="nav-wrap">
+<div class="site-header">
+<div class="topbar">
+  <div class="wrap">
+    <span><span class="dot">●</span> <strong>Nieuw</strong> · De Geldlek-scanner en vier andere gratis tools staan live</span>
+    <span>100% gratis · geen download</span>
+  </div>
+</div>
+<header class="masthead">
+  <a class="wordmark" href="index.html"><em>Margot</em> <span class="b">belegt</span></a>
+  <div class="streep" aria-hidden="true"></div>
+  <p class="tagline">Geld &amp; beleggen — begrijpelijk voor vrouwen</p>
+</header>
+<nav class="hoofdnav" aria-label="Hoofdnavigatie">
+  <div class="wrap">
     <a href="index.html">Home</a>
     <a href="index.html#waarom">Waarom beleggen</a>
     <a href="index.html#tools">Tools</a>
     <a href="50-30-20-rekentool.html">50/30/20-rekentool</a>
     <a href="cursus-starten-met-beleggen.html" aria-current="page">Cursus <span class="ster">✦</span></a>
     <a href="index.html#over">Over Margot</a>
-  </div></nav>
+  </div>
+</nav>
 </div>
 <div class="pagina">
   <p class="badge">Cursus van Margot Belegt</p>
@@ -309,5 +334,39 @@
   <p class="voetnoot">Deze pagina is bedoeld als educatief hulpmiddel en is geen financieel of beleggingsadvies. Rendementen uit het verleden bieden geen garantie voor de toekomst. Beleggen brengt risico's met zich mee: je kunt (een deel van) je inleg verliezen.</p>
   <p class="voet-links"><a href="https://www.margotbelegt.nl/terms">Algemene voorwaarden</a> · <a href="https://www.margotbelegt.nl/privacy">Privacybeleid</a></p>
 </div>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="voet-grid">
+      <div>
+        <h4>Gratis tools</h4>
+        <ul>
+          <li><a href="50-30-20-rekentool.html">50/30/20-rekentool</a></li>
+          <li><a href="geldlek-scanner.html">Geldlek-scanner</a></li>
+          <li><a href="beleggen-voor-je-kind.html">Beleggen voor je kind</a></li>
+          <li><a href="sparen-vs-beleggen.html">Sparen vs. beleggen</a></li>
+          <li><a href="wat-kost-wachten.html">Wat kost wachten?</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Meer van Margot</h4>
+        <ul>
+          <li><a href="cursus-starten-met-beleggen.html">Cursus: Starten met beleggen</a></li>
+          <li><a href="https://www.margotbelegt.nl/rekentool-50_30_20-regel-geldlek">Excel-rekentool + cheatsheet</a></li>
+          <li><a href="https://open.spotify.com/episode/1D8di2CqmGpIGCmGYyd7LN">Margot Belegt de Podcast</a></li>
+          <li><a href="https://www.instagram.com/margotbelegt/">Instagram · @margotbelegt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Officieel</h4>
+        <ul>
+          <li><a href="https://www.margotbelegt.nl/">margotbelegt.nl</a></li>
+          <li><a href="https://www.margotbelegt.nl/terms">Algemene voorwaarden</a></li>
+          <li><a href="https://www.margotbelegt.nl/privacy">Privacybeleid</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="voet-onder">Deze tools zijn bedoeld als educatief hulpmiddel en zijn geen financieel of beleggingsadvies. De berekeningen zijn gebaseerd op de aannames die je zelf invult; rendementen uit het verleden bieden geen garantie voor de toekomst. Beleggen brengt risico's met zich mee: je kunt (een deel van) je inleg verliezen.</p>
+  </div>
+</footer>
 </body>
 </html>
