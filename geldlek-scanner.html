@@ -30,7 +30,7 @@
     --lijn:#EAD9C7; --wit:#FFFFFF; --radius:20px; --schaduw:0 14px 34px -16px rgba(45,42,38,.16);
     --kop:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
     --display:'Fraunces',Georgia,'Times New Roman',serif;
-    --rand:#F6E4D3;
+    --rand:#F6E4D3; --goud:#8F6B1F;
     --body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box}
@@ -55,8 +55,8 @@
   .rij-schuif{width:100%;min-height:36px;accent-color:var(--paarsrood);margin:0;display:block}
   .rij:last-child{border-bottom:0}
   .rij label{flex:1;font-size:.95rem}
-  .euroveld{display:flex;align-items:center;gap:6px;background:var(--beige);border:1.5px solid var(--lijn);
-    border-radius:12px;padding:0 10px;min-height:44px;width:8.5rem}
+  .euroveld{display:flex;align-items:center;gap:6px;background:var(--wit);border:1px solid var(--lijn);
+    border-radius:10px;padding:0 10px;min-height:44px;width:8.5rem}
   .euroveld:focus-within{border-color:var(--paarsrood)}
   .euroveld span{color:var(--ink-zacht)}
   .euroveld input{border:0;background:none;width:100%;min-height:42px;font:inherit;font-size:16px;color:var(--ink);text-align:right;padding:0}
@@ -121,6 +121,17 @@
   .site-kop .hoofdnav a[aria-current]{color:var(--paarsrood);border-bottom-color:var(--paarsrood)}
   .site-kop .ster{color:#8F6B1F}
   html.embed .site-kop{display:none}
+
+  /* strakke schuifjes met gevulde track */
+  input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;cursor:pointer}
+  input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;
+    background:linear-gradient(to right,var(--paarsrood) var(--vul,0%),#EBDCC8 var(--vul,0%))}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:19px;height:19px;border-radius:50%;
+    background:var(--wit);border:2.5px solid var(--paarsrood);margin-top:-7.5px;box-shadow:0 1px 4px rgba(45,42,38,.3)}
+  input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:#EBDCC8}
+  input[type=range]::-moz-range-progress{height:4px;border-radius:2px;background:var(--paarsrood)}
+  input[type=range]::-moz-range-thumb{width:19px;height:19px;border-radius:50%;background:var(--wit);
+    border:2.5px solid var(--paarsrood);box-shadow:0 1px 4px rgba(45,42,38,.3)}
 </style>
 </head>
 <body>
@@ -204,14 +215,22 @@
 /* =====================================================================
    INSTELLINGEN — dit blok mag je zelf aanpassen zonder verstand van code
    ===================================================================== */
+// Elke regel heeft een naam en een maximum voor het schuifje (typen boven het maximum kan altijd).
 const CATEGORIEEN = [
-  "Streamingdiensten", "App-abonnementen", "Goede doelen en loterijen",
-  "Sportschool", "Lunch en koffie buiten de deur", "Dubbele verzekeringen",
-  "Online shoppen", "Bezorgmaaltijden", "Auto", "Luxe boodschappen"
+  { naam: "Streamingdiensten", max: 150 },
+  { naam: "App-abonnementen", max: 150 },
+  { naam: "Goede doelen en loterijen", max: 200 },
+  { naam: "Sportschool", max: 150 },
+  { naam: "Lunch en koffie buiten de deur", max: 400 },
+  { naam: "Dubbele verzekeringen", max: 300 },
+  { naam: "Online shoppen", max: 750 },
+  { naam: "Bezorgmaaltijden", max: 400 },
+  { naam: "Auto", max: 1200 },
+  { naam: "Luxe boodschappen", max: 500 }
 ];
 const STANDAARD_JAREN = 10;      // standaard beleggingshorizon
 const STANDAARD_RENDEMENT = 8;   // standaard verwacht rendement in %
-const SCHUIF = { stap: 5, max: 500 };  // bereik van de schuifjes per categorie
+const schuifStap = max => max >= 2000 ? 25 : max >= 500 ? 10 : 5;  // stapgrootte per schuifje
 /* ==================== einde instellingen ==================== */
 
 const fmtEur = new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
@@ -228,13 +247,13 @@ const fvMaandinleg = (m, r, j) => {
 
 // Bouw de invoerrijen
 const houder = document.getElementById('rijen');
-CATEGORIEEN.forEach((naam, i) => {
+CATEGORIEEN.forEach((cat, i) => {
   const rij = document.createElement('div');
   rij.className = 'rij';
-  rij.innerHTML = `<div class="rij-boven"><label for="cat-${i}">${naam} <span style="color:var(--ink-zacht);font-size:.82rem">/ maand</span></label>
+  rij.innerHTML = `<div class="rij-boven"><label for="cat-${i}">${cat.naam} <span style="color:var(--ink-zacht);font-size:.82rem">/ maand</span></label>
     <div class="euroveld"><span aria-hidden="true">€</span>
-    <input id="cat-${i}" type="text" inputmode="decimal" placeholder="0" autocomplete="off" data-naam="${naam}"></div></div>
-    <input type="range" class="rij-schuif" min="0" max="${SCHUIF.max}" step="${SCHUIF.stap}" value="0" data-doel="cat-${i}" aria-label="${naam}, schuifregelaar">`;
+    <input id="cat-${i}" type="text" inputmode="decimal" placeholder="0" autocomplete="off" data-naam="${cat.naam}"></div></div>
+    <input type="range" class="rij-schuif" min="0" max="${cat.max}" step="${schuifStap(cat.max)}" value="0" data-doel="cat-${i}" aria-label="${cat.naam}, schuifregelaar">`;
   houder.appendChild(rij);
 });
 document.getElementById('jaren').value = STANDAARD_JAREN;
@@ -282,13 +301,14 @@ function reken() {
 // schuifjes en invoervelden gekoppeld houden
 document.querySelectorAll('.rij-schuif').forEach(s => s.addEventListener('input', () => {
   const veld = document.getElementById(s.dataset.doel);
-  veld.value = s.value === '0' ? '' : s.value;
+  veld.value = s.value === '0' ? '' : Number(s.value).toLocaleString('nl-NL');
 }));
 function syncSchuiven() {
   document.querySelectorAll('.rij-schuif').forEach(s => {
     if (document.activeElement === s) return;
     const veld = document.getElementById(s.dataset.doel);
     s.value = Math.min(parseEuro(veld.value), +s.max);
+    s.style.setProperty('--vul', (100 * s.value / (+s.max || 1)) + '%');
   });
 }
 document.querySelectorAll('input').forEach(inp => inp.addEventListener('input', () => { syncSchuiven(); reken(); }));
@@ -304,6 +324,12 @@ document.getElementById('kopieer-knop').addEventListener('click', async function
   const oud = this.textContent;
   this.textContent = 'Gekopieerd ✓';
   setTimeout(() => { this.textContent = oud; }, 2000);
+});
+</script>
+<script>
+document.querySelectorAll('input[type=range]').forEach(s => {
+  const vul = () => s.style.setProperty('--vul', (100 * (s.value - s.min) / ((s.max - s.min) || 1)) + '%');
+  s.addEventListener('input', vul); vul();
 });
 </script>
 </body>

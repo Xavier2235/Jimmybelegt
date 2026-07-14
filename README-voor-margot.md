@@ -65,7 +65,7 @@ Dat kan zonder programmeerkennis:
 
 1. Open het bestand in een tekstbewerker (op een Mac: klik met rechts → Open met → **Teksteditor**; op Windows: **Kladblok**).
 2. Zoek (Cmd+F / Ctrl+F) naar het woord **INSTELLINGEN**. Daar staat een duidelijk gemarkeerd blok, bijvoorbeeld:
-   - de **categorieën** (gewoon tekstjes tussen aanhalingstekens — je kunt er toevoegen of weghalen),
+   - de **categorieën** (elke regel heeft een naam en een `max` — dat is hoe ver het schuifje gaat; je kunt regels toevoegen of weghalen),
    - de **richtlijn-percentages** (50/20/30),
    - de **standaardwaarden** voor rendement en looptijd.
 3. Pas aan wat je wilt, sla op, en zet het bestand opnieuw online (push naar GitHub, of sleep de map opnieuw in Netlify).

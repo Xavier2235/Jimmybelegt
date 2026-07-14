@@ -32,7 +32,7 @@
     --chart-groen:#6B9440; --chart-terra:#C4502A;
     --kop:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
     --display:'Fraunces',Georgia,'Times New Roman',serif;
-    --rand:#F6E4D3;
+    --rand:#F6E4D3; --goud:#8F6B1F;
     --body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box}
@@ -54,15 +54,15 @@
   .veld{margin:0 0 14px}
   .veld:last-child{margin-bottom:0}
   .veld>label{display:block;font-weight:600;margin-bottom:6px}
-  .euroveld{display:flex;align-items:center;gap:6px;background:var(--beige);border:1.5px solid var(--lijn);
-    border-radius:12px;padding:0 10px;min-height:44px;max-width:11rem}
+  .euroveld{display:flex;align-items:center;gap:6px;background:var(--wit);border:1px solid var(--lijn);
+    border-radius:10px;padding:0 10px;min-height:44px;max-width:11rem}
   .euroveld:focus-within{border-color:var(--paarsrood)}
   .euroveld span{color:var(--ink-zacht)}
   .euroveld input{border:0;background:none;width:100%;min-height:42px;font:inherit;font-size:16px;color:var(--ink);text-align:right;padding:0}
   .euroveld input:focus{outline:none}
   .leeftijden{display:flex;gap:16px;flex-wrap:wrap}
   .leeftijden .veld{flex:1;min-width:9rem}
-  input[type=number]{background:var(--beige);border:1.5px solid var(--lijn);border-radius:12px;min-height:44px;
+  input[type=number]{background:var(--wit);border:1px solid var(--lijn);border-radius:10px;min-height:44px;
     padding:0 10px;font:inherit;font-size:16px;color:var(--ink);width:100%;max-width:11rem;text-align:right}
   input[type=number]:focus{outline:none;border-color:var(--paarsrood)}
   .schuif label{display:flex;justify-content:space-between;align-items:baseline;font-weight:600;margin-bottom:4px}
@@ -122,6 +122,17 @@
   .site-kop .hoofdnav a[aria-current]{color:var(--paarsrood);border-bottom-color:var(--paarsrood)}
   .site-kop .ster{color:#8F6B1F}
   html.embed .site-kop{display:none}
+
+  /* strakke schuifjes met gevulde track */
+  input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;cursor:pointer}
+  input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;
+    background:linear-gradient(to right,var(--paarsrood) var(--vul,0%),#EBDCC8 var(--vul,0%))}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:19px;height:19px;border-radius:50%;
+    background:var(--wit);border:2.5px solid var(--paarsrood);margin-top:-7.5px;box-shadow:0 1px 4px rgba(45,42,38,.3)}
+  input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:#EBDCC8}
+  input[type=range]::-moz-range-progress{height:4px;border-radius:2px;background:var(--paarsrood)}
+  input[type=range]::-moz-range-thumb{width:19px;height:19px;border-radius:50%;background:var(--wit);
+    border:2.5px solid var(--paarsrood);box-shadow:0 1px 4px rgba(45,42,38,.3)}
 </style>
 </head>
 <body>
@@ -300,6 +311,12 @@ document.getElementById('kopieer-knop').addEventListener('click', async function
   const oud = this.textContent;
   this.textContent = 'Gekopieerd ✓';
   setTimeout(() => { this.textContent = oud; }, 2000);
+});
+</script>
+<script>
+document.querySelectorAll('input[type=range]').forEach(s => {
+  const vul = () => s.style.setProperty('--vul', (100 * (s.value - s.min) / ((s.max - s.min) || 1)) + '%');
+  s.addEventListener('input', vul); vul();
 });
 </script>
 </body>

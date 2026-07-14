@@ -39,7 +39,7 @@
     --schaduw:0 14px 34px -16px rgba(45,42,38,.16);
     --kop:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
     --display:'Fraunces',Georgia,'Times New Roman',serif;
-    --rand:#F6E4D3;
+    --rand:#F6E4D3; --goud:#8F6B1F;
     --body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box}
@@ -66,8 +66,8 @@
   .inkomen .hint{display:block;font-weight:400;font-size:.85rem;color:var(--ink-zacht)}
 
   /* invoervelden */
-  .euroveld{display:flex;align-items:center;gap:6px;background:var(--beige);border:1.5px solid var(--lijn);
-    border-radius:12px;padding:0 10px;min-height:44px;width:8.5rem}
+  .euroveld{display:flex;align-items:center;gap:6px;background:var(--wit);border:1px solid var(--lijn);
+    border-radius:10px;padding:0 10px;min-height:44px;width:8.5rem}
   .euroveld:focus-within{border-color:var(--paarsrood)}
   .euroveld span{color:var(--ink-zacht)}
   .euroveld input{border:0;background:none;width:100%;min-height:42px;font:inherit;font-size:16px;
@@ -79,13 +79,13 @@
   /* categorie-rijen */
   .pijler{border:0;padding:0;margin:0 0 16px}
   .pijler-kop{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 16px;border-radius:var(--radius) var(--radius) 0 0}
-  .pijler-kop .icoon{font-size:1.3rem}
+  .stip{display:inline-block;width:10px;height:10px;border-radius:50%;flex:none;vertical-align:0;margin-right:2px}
   .pijler-kop .naam{font-family:var(--kop);font-weight:600;font-size:1.05rem}
-  .pijler-kop .richtlijn{font-size:.85rem;color:var(--ink-zacht)}
-  .pijler-kop .subtotaal{margin-left:auto;font-weight:700;font-variant-numeric:tabular-nums}
-  .pijler-nodig .pijler-kop{background:var(--groen)}
-  .pijler-toekomst .pijler-kop{background:var(--zalm)}
-  .pijler-leuk .pijler-kop{background:var(--geel)}
+  .pijler-kop .richtlijn{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--goud)}
+  .pijler-kop .subtotaal{margin-left:auto;font-family:var(--display);font-weight:600;font-size:1.1rem}
+  .pijler-nodig .pijler-kop{background:#E6EDD9}
+  .pijler-toekomst .pijler-kop{background:#FFE3D7}
+  .pijler-leuk .pijler-kop{background:#FFEFC9}
   .rijen{background:var(--wit);border-radius:0 0 var(--radius) var(--radius);box-shadow:var(--schaduw);padding:4px 16px 12px}
   .rij{padding:9px 0 5px;border-bottom:1px solid var(--beige)}
   .rij-boven{display:flex;align-items:center;justify-content:space-between;gap:12px}
@@ -97,7 +97,7 @@
   .uitslag-rij{padding:12px 0;border-bottom:1px solid var(--beige)}
   .uitslag-rij:last-of-type{border-bottom:0}
   .uitslag-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px}
-  .uitslag-top .p-naam{font-weight:600}
+  .uitslag-top .p-naam{font-weight:600;display:inline-flex;align-items:center;gap:7px}
   .uitslag-top .p-cijfers{color:var(--ink-zacht);font-size:.9rem;font-variant-numeric:tabular-nums}
   .chip{margin-left:auto;border-radius:999px;padding:3px 10px;font-size:.8rem;font-weight:600;white-space:nowrap}
   .chip-goed{background:var(--groen);color:var(--ink)}
@@ -159,6 +159,17 @@
   .site-kop .hoofdnav a[aria-current]{color:var(--paarsrood);border-bottom-color:var(--paarsrood)}
   .site-kop .ster{color:#8F6B1F}
   html.embed .site-kop{display:none}
+
+  /* strakke schuifjes met gevulde track */
+  input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;cursor:pointer}
+  input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;
+    background:linear-gradient(to right,var(--paarsrood) var(--vul,0%),#EBDCC8 var(--vul,0%))}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:19px;height:19px;border-radius:50%;
+    background:var(--wit);border:2.5px solid var(--paarsrood);margin-top:-7.5px;box-shadow:0 1px 4px rgba(45,42,38,.3)}
+  input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:#EBDCC8}
+  input[type=range]::-moz-range-progress{height:4px;border-radius:2px;background:var(--paarsrood)}
+  input[type=range]::-moz-range-thumb{width:19px;height:19px;border-radius:50%;background:var(--wit);
+    border:2.5px solid var(--paarsrood);box-shadow:0 1px 4px rgba(45,42,38,.3)}
 </style>
 </head>
 <body>
@@ -188,21 +199,21 @@
   </div>
 
   <section class="pijler pijler-nodig" aria-labelledby="kop-nodig">
-    <div class="pijler-kop"><span class="icoon" aria-hidden="true">🏠</span>
+    <div class="pijler-kop"><span class="stip" style="background:var(--groen)" aria-hidden="true"></span>
       <span class="naam" id="kop-nodig">Nodig</span><span class="richtlijn">richtlijn 50%</span>
       <span class="subtotaal" id="subtotaal-nodig">€ 0</span></div>
     <div class="rijen" id="rijen-nodig"></div>
   </section>
 
   <section class="pijler pijler-toekomst" aria-labelledby="kop-toekomst">
-    <div class="pijler-kop"><span class="icoon" aria-hidden="true">🌱</span>
+    <div class="pijler-kop"><span class="stip" style="background:var(--zalm)" aria-hidden="true"></span>
       <span class="naam" id="kop-toekomst">Toekomst</span><span class="richtlijn">richtlijn 20%</span>
       <span class="subtotaal" id="subtotaal-toekomst">€ 0</span></div>
     <div class="rijen" id="rijen-toekomst"></div>
   </section>
 
   <section class="pijler pijler-leuk" aria-labelledby="kop-leuk">
-    <div class="pijler-kop"><span class="icoon" aria-hidden="true">💛</span>
+    <div class="pijler-kop"><span class="stip" style="background:var(--geel)" aria-hidden="true"></span>
       <span class="naam" id="kop-leuk">Leuk</span><span class="richtlijn">richtlijn 30%</span>
       <span class="subtotaal" id="subtotaal-leuk">€ 0</span></div>
     <div class="rijen" id="rijen-leuk"></div>
@@ -249,24 +260,44 @@
    ===================================================================== */
 const RICHTLIJN = { nodig: 50, toekomst: 20, leuk: 30 };  // percentages van de 50/30/20-regel
 const MARGE = 5;  // hoeveel procentpunt afwijking nog "net erboven/eronder" (geel) is
-const SCHUIF = { stap: 10, max: { nodig: 2500, toekomst: 1500, leuk: 1000 }, inkomenMax: 10000 };  // bereik van de schuifjes
+const INKOMEN_SCHUIF_MAX = 10000;  // bereik van de inkomens-schuif
+const schuifStap = max => max >= 2000 ? 25 : max >= 500 ? 10 : 5;  // stapgrootte per schuifje
 
 // De categorieën per pijler. Voeg gerust regels toe of haal ze weg:
-// elke regel is gewoon een tekstje tussen aanhalingstekens, met een komma erachter.
+// elke regel heeft een naam en een maximum voor het schuifje (typen boven het maximum kan altijd).
 const CATEGORIEEN = {
   nodig: [
-    "Huur of hypotheek", "Gas, water, licht", "Zorg- en andere verzekeringen",
-    "Internet en telefoon", "Gemeentelijke belastingen", "Kinderopvang",
-    "Auto (benzine, onderhoud etc.)", "Streamingdiensten (Netflix, Disney+)",
-    "Boodschappen", "App-abonnementen (Canva, ChatGPT)", "Sportabonnement kids",
-    "Sportabonnement ouders", "Goede doelen en loterijen",
-    "Huisdieren (voer, verzekering etc.)", "Kleding gezin", "Afbetalen schuld"
+    { naam: "Huur of hypotheek", max: 5000 },
+    { naam: "Gas, water, licht", max: 600 },
+    { naam: "Zorg- en andere verzekeringen", max: 800 },
+    { naam: "Internet en telefoon", max: 250 },
+    { naam: "Gemeentelijke belastingen", max: 300 },
+    { naam: "Kinderopvang", max: 3000 },
+    { naam: "Auto (benzine, onderhoud etc.)", max: 1200 },
+    { naam: "Streamingdiensten (Netflix, Disney+)", max: 150 },
+    { naam: "Boodschappen", max: 1000 },
+    { naam: "App-abonnementen (Canva, ChatGPT)", max: 150 },
+    { naam: "Sportabonnement kids", max: 200 },
+    { naam: "Sportabonnement ouders", max: 200 },
+    { naam: "Goede doelen en loterijen", max: 200 },
+    { naam: "Huisdieren (voer, verzekering etc.)", max: 300 },
+    { naam: "Kleding gezin", max: 500 },
+    { naam: "Afbetalen schuld", max: 1500 }
   ],
-  toekomst: ["Beleggen", "Sparen", "Digital assets", "Pensioen", "Buffer"],
+  toekomst: [
+    { naam: "Beleggen", max: 2000 },
+    { naam: "Sparen", max: 2000 },
+    { naam: "Digital assets", max: 1000 },
+    { naam: "Pensioen", max: 1500 },
+    { naam: "Buffer", max: 1000 }
+  ],
   leuk: [
-    "Lunch en koffie buiten de deur", "Uitjes, concerten, bioscoop",
-    "Vakanties en weekendjes weg", "Online shoppen",
-    "Thuisbezorgd en Uber Eats", "Hobby's (muziek, kunst etc.)"
+    { naam: "Lunch en koffie buiten de deur", max: 400 },
+    { naam: "Uitjes, concerten, bioscoop", max: 500 },
+    { naam: "Vakanties en weekendjes weg", max: 1000 },
+    { naam: "Online shoppen", max: 750 },
+    { naam: "Thuisbezorgd en Uber Eats", max: 400 },
+    { naam: "Hobby's (muziek, kunst etc.)", max: 500 }
   ]
 };
 /* ==================== einde instellingen ==================== */
@@ -281,22 +312,22 @@ const parseEuro = s => {
 // Bouw de invoerrijen per pijler
 for (const [pijler, lijst] of Object.entries(CATEGORIEEN)) {
   const houder = document.getElementById('rijen-' + pijler);
-  lijst.forEach((naam, i) => {
+  lijst.forEach((cat, i) => {
     const id = `cat-${pijler}-${i}`;
     const rij = document.createElement('div');
     rij.className = 'rij';
-    rij.innerHTML = `<div class="rij-boven"><label for="${id}">${naam}</label>
+    rij.innerHTML = `<div class="rij-boven"><label for="${id}">${cat.naam}</label>
       <div class="euroveld"><span aria-hidden="true">€</span>
       <input id="${id}" type="text" inputmode="decimal" placeholder="0" autocomplete="off" data-pijler="${pijler}"></div></div>
-      <input type="range" class="rij-schuif" min="0" max="${SCHUIF.max[pijler]}" step="${SCHUIF.stap}" value="0" data-doel="${id}" aria-label="${naam}, schuifregelaar">`;
+      <input type="range" class="rij-schuif" min="0" max="${cat.max}" step="${schuifStap(cat.max)}" value="0" data-doel="${id}" aria-label="${cat.naam}, schuifregelaar">`;
     houder.appendChild(rij);
   });
 }
 
 const PIJLER_META = {
-  nodig:   { naam: 'Nodig',    icoon: '🏠', hogerIsBeter: false },
-  toekomst:{ naam: 'Toekomst', icoon: '🌱', hogerIsBeter: true },
-  leuk:    { naam: 'Leuk',     icoon: '💛', hogerIsBeter: false }
+  nodig:   { naam: 'Nodig',    kleur: 'var(--groen)', hogerIsBeter: false },
+  toekomst:{ naam: 'Toekomst', kleur: 'var(--zalm)',  hogerIsBeter: true },
+  leuk:    { naam: 'Leuk',     kleur: 'var(--geel)',  hogerIsBeter: false }
 };
 
 function status(pijler, pct) {
@@ -340,7 +371,7 @@ function reken() {
     rij.className = 'uitslag-rij';
     rij.innerHTML = `
       <div class="uitslag-top">
-        <span class="p-naam">${meta.icoon} ${meta.naam}</span>
+        <span class="p-naam"><span class="stip" style="background:${meta.kleur}" aria-hidden="true"></span>${meta.naam}</span>
         <span class="p-cijfers">${fmtPct(pct)}% · richtlijn ${RICHTLIJN[p]}% · ${fmtEur.format(totalen[p])}</span>
         <span class="chip chip-${st.cls}">${st.tekst}</span>
       </div>
@@ -368,16 +399,17 @@ function reken() {
 }
 
 // schuifjes en invoervelden gekoppeld houden
-document.getElementById('inkomen-schuif').max = SCHUIF.inkomenMax;
+document.getElementById('inkomen-schuif').max = INKOMEN_SCHUIF_MAX;
 document.querySelectorAll('.rij-schuif').forEach(s => s.addEventListener('input', () => {
   const veld = document.getElementById(s.dataset.doel);
-  veld.value = s.value === '0' ? '' : s.value;
+  veld.value = s.value === '0' ? '' : Number(s.value).toLocaleString('nl-NL');
 }));
 function syncSchuiven() {
   document.querySelectorAll('.rij-schuif').forEach(s => {
     if (document.activeElement === s) return;
     const veld = document.getElementById(s.dataset.doel);
     s.value = Math.min(parseEuro(veld.value), +s.max);
+    s.style.setProperty('--vul', (100 * s.value / (+s.max || 1)) + '%');
   });
 }
 document.querySelectorAll('input').forEach(inp => inp.addEventListener('input', () => { syncSchuiven(); reken(); }));
@@ -394,6 +426,12 @@ document.getElementById('kopieer-knop').addEventListener('click', async function
   const oud = this.textContent;
   this.textContent = 'Gekopieerd ✓';
   setTimeout(() => { this.textContent = oud; }, 2000);
+});
+</script>
+<script>
+document.querySelectorAll('input[type=range]').forEach(s => {
+  const vul = () => s.style.setProperty('--vul', (100 * (s.value - s.min) / ((s.max - s.min) || 1)) + '%');
+  s.addEventListener('input', vul); vul();
 });
 </script>
 </body>
