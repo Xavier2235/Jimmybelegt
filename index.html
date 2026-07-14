@@ -47,6 +47,7 @@
   .topbar .wrap{display:flex;justify-content:space-between;gap:12px;padding-top:9px;padding-bottom:9px;white-space:nowrap;overflow:hidden}
   .topbar .dot{color:var(--paarsrood)}
   .topbar strong{font-weight:600;color:var(--ink)}
+  @media(max-width:640px){.topbar .wrap span:last-child{display:none}}
 
   /* ===== masthead ===== */
   .masthead{border-bottom:1px solid var(--lijn);text-align:center;padding:26px 0 18px}
@@ -169,6 +170,8 @@
   @media(min-width:900px){.over-grid{grid-template-columns:1.1fr .9fr;gap:56px}}
   .over-grid p{color:var(--ink-zacht);margin:0 0 14px;max-width:32rem}
   .over-grid h2{margin-bottom:14px}
+  .margot-foto{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 18%;
+    border-radius:18px;border:1px solid var(--rand);box-shadow:var(--schaduw);margin:0 0 12px}
   .over-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .stat{background:var(--wit);border:1px solid var(--rand);border-radius:16px;padding:18px}
   .stat .s-waarde{font-family:var(--display);font-size:1.7rem;font-weight:600;margin:0;color:var(--ink)}
@@ -349,11 +352,14 @@
           <a class="knop knop-omlijnd" href="https://www.instagram.com/margotbelegt/">Volg @margotbelegt</a>
         </div>
       </div>
-      <div class="over-stats">
+      <div class="over-rechts">
+        <img class="margot-foto" src="margot.jpg" alt="Margot, oprichter van Margot Belegt" loading="lazy">
+        <div class="over-stats">
         <div class="stat"><p class="s-waarde">17.000+</p><p class="s-label">volgers op Instagram</p></div>
         <div class="stat"><p class="s-waarde">10 lessen</p><p class="s-label">cursus Starten met beleggen</p></div>
         <div class="stat"><p class="s-waarde">Wekelijks</p><p class="s-label">nieuwe podcast-aflevering</p></div>
         <div class="stat"><p class="s-waarde">2 kids</p><p class="s-label">voor wie ze zelf belegt</p></div>
+        </div>
       </div>
     </div>
   </section>

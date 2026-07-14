@@ -74,6 +74,8 @@
   /* verhaal */
   .verhaal{background:linear-gradient(135deg,var(--groen),#DDE8CB);border-radius:var(--radius);padding:20px 18px;margin:0 0 18px}
   .verhaal h2{color:var(--ink)}
+  .margot-avatar{float:right;width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:50% 18%;
+    border:2.5px solid var(--wit);box-shadow:0 4px 12px rgba(45,42,38,.25);margin:0 0 8px 14px}
   .verhaal .quote{font-size:1.02rem;margin:0 0 10px}
   .verhaal .naam{font-family:var(--kop);font-weight:600;margin:0}
 
@@ -134,6 +136,7 @@
   .topbar .wrap{display:flex;justify-content:space-between;gap:12px;padding-top:9px;padding-bottom:9px;white-space:nowrap;overflow:hidden}
   .topbar .dot{color:var(--paarsrood)}
   .topbar strong{font-weight:600;color:var(--ink)}
+  @media(max-width:640px){.topbar .wrap span:last-child{display:none}}
   .masthead{border-bottom:1px solid var(--lijn);text-align:center;padding:26px 0 18px}
   .wordmark{font-family:var(--display);font-size:2.3rem;line-height:1;margin:0;color:var(--ink);letter-spacing:.01em;text-decoration:none;display:inline-block}
   .wordmark em{font-style:italic;color:var(--paarsrood);font-weight:600}
@@ -227,6 +230,7 @@
 
   <!-- ===== Verhaal Margot ===== -->
   <div class="verhaal">
+    <img class="margot-avatar" src="margot.jpg" alt="Margot" loading="lazy">
     <h2>"Had iemand mij dit maar eerder geleerd"</h2>
     <p class="quote">Ik begon zelf pas op mijn 38e met beleggen. Jarenlang stond mijn geld op een spaarrekening, omdat ik dacht dat beleggen ingewikkeld en risicovol was. Inmiddels laat ik mijn vermogen groeien en beleg ik voor mezelf én voor mijn kinderen. En echt: starten is vaak veel eenvoudiger dan je denkt. Jij kan dit ook!</p>
     <p class="naam">— Margot</p>

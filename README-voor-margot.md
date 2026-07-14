@@ -1,20 +1,23 @@
-# Jouw gratis webtools — handleiding
+# Jouw website + gratis webtools — handleiding
 
-Hoi Margot! In deze map staan zes webpagina's die samen jouw gratis toolsuite vormen. Alles werkt op de telefoon (waar jouw Instagram-volgers vandaan komen), er hoeft niets gedownload te worden, en er zijn **geen maandkosten**: de tools zijn kant-en-klare bestanden zonder abonnementen, zonder cookies en zonder tracking.
+Hoi Margot! In deze map staat een complete mini-website: een landingspagina in jouw merkstijl, vijf gratis rekentools en een verkooppagina voor je cursus. Alles deelt dezelfde header, navigatie en footer, werkt perfect op de telefoon (waar jouw Instagram-volgers vandaan komen), en er zijn **geen maandkosten**: kant-en-klare bestanden zonder abonnementen, zonder cookies en zonder tracking.
 
 ## Wat zit erin?
 
 | Bestand | Wat het doet |
 |---|---|
-| `index.html` | Overzichtspagina met alle vijf de tools |
+| `index.html` | De homepage: hero met geldlek-barometer, "Waarom beleggen?", alle tools en jouw verhaal |
 | `50-30-20-rekentool.html` | De webversie van je Excel: inkomen verdelen over Nodig / Toekomst / Leuk |
 | `geldlek-scanner.html` | Maandbedragen invullen → zien wat dat "lek" waard kan worden als je het belegt |
 | `beleggen-voor-je-kind.html` | Wat kan er voor een kind klaarstaan op de 18e verjaardag |
 | `sparen-vs-beleggen.html` | Sparen vergeleken met beleggen, mét het effect van inflatie |
 | `wat-kost-wachten.html` | Wat kost het om 1, 3 of 5 jaar te wachten met beleggen |
 | `cursus-starten-met-beleggen.html` | Strakke herbouw van je verkooppagina, met je bestaande Podia-koopknop |
+| `margot.jpg` | Jouw portretfoto (van margotbelegt.nl) — vervang het bestand om de foto te wisselen |
 
 Elke tool heeft een deelknop ("Kopieer mijn resultaat"), een link naar je Excel-download en een knop naar je cursus *Starten met beleggen*.
+
+**Handig om te weten:** zet je een tool als embed in Podia (zie hieronder), dan verbergen de header en footer zichzelf automatisch — in een embed zie je alléén de tool. Bezoek je dezelfde pagina rechtstreeks via de link, dan staat de volledige site-navigatie eromheen.
 
 ## Zo zet je een tool op je Podia-site
 
