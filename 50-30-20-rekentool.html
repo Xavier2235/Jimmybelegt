@@ -87,7 +87,9 @@
   .pijler-toekomst .pijler-kop{background:var(--zalm)}
   .pijler-leuk .pijler-kop{background:var(--geel)}
   .rijen{background:var(--wit);border-radius:0 0 var(--radius) var(--radius);box-shadow:var(--schaduw);padding:4px 16px 12px}
-  .rij{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--beige)}
+  .rij{padding:9px 0 5px;border-bottom:1px solid var(--beige)}
+  .rij-boven{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .rij-schuif{width:100%;min-height:36px;accent-color:var(--paarsrood);margin:0;display:block}
   .rij:last-child{border-bottom:0}
   .rij label{flex:1;font-size:.95rem}
 
@@ -141,9 +143,37 @@
   a{color:var(--paarsrood)}
   h1,h2{text-wrap:balance}
   @media(max-width:430px){.knop{padding:12px 16px;font-size:.95rem}}
+
+  /* site-navigatie bovenaan (verbergt zichzelf in een Podia-embed) */
+  .site-kop{max-width:720px;margin:0 auto 14px}
+  .site-kop .masthead{text-align:center;padding:4px 0 10px;border-bottom:1px solid var(--lijn)}
+  .site-kop .wordmark{font-family:var(--display);font-size:1.55rem;color:var(--ink);text-decoration:none;letter-spacing:.01em}
+  .site-kop .wordmark em{font-style:italic;color:var(--paarsrood);font-weight:600}
+  .site-kop .wordmark .b{font-family:var(--kop);font-weight:700}
+  .site-kop .hoofdnav{border-bottom:1px solid var(--lijn)}
+  .site-kop .nav-wrap{display:flex;justify-content:flex-start;gap:2px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  @media(min-width:600px){.site-kop .nav-wrap{justify-content:center}}
+  .site-kop .hoofdnav a{display:inline-block;padding:11px 12px;font:600 .88rem var(--kop);color:var(--ink);
+    text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap}
+  .site-kop .hoofdnav a:hover{color:var(--paarsrood)}
+  .site-kop .hoofdnav a[aria-current]{color:var(--paarsrood);border-bottom-color:var(--paarsrood)}
+  .site-kop .ster{color:#8F6B1F}
+  html.embed .site-kop{display:none}
 </style>
 </head>
 <body>
+<script>if (window.self !== window.top) document.documentElement.classList.add('embed');</script>
+<div class="site-kop">
+  <header class="masthead"><a class="wordmark" href="index.html"><em>Margot</em> <span class="b">belegt</span></a></header>
+  <nav class="hoofdnav" aria-label="Hoofdnavigatie"><div class="nav-wrap">
+    <a href="index.html">Home</a>
+    <a href="index.html#waarom">Waarom beleggen</a>
+    <a href="index.html#tools">Tools</a>
+    <a href="geldlek-scanner.html">Geldlek-scanner</a>
+    <a href="cursus-starten-met-beleggen.html">Cursus <span class="ster">✦</span></a>
+    <a href="index.html#over">Over Margot</a>
+  </div></nav>
+</div>
 <div class="tool">
   <p class="badge">✨ Gratis tool van Margot Belegt</p>
   <h1>De 50/30/20-rekentool</h1>
@@ -154,6 +184,7 @@
       <span class="hint">Salaris, toeslagen, premies en andere inkomsten bij elkaar</span>
     </label>
     <div class="euroveld"><span aria-hidden="true">€</span><input id="inkomen" type="text" inputmode="decimal" placeholder="bijv. 3.300" autocomplete="off"></div>
+    <input type="range" class="rij-schuif" id="inkomen-schuif" min="0" max="10000" step="50" value="0" data-doel="inkomen" aria-label="Netto maandinkomen, schuifregelaar" style="margin-top:8px">
   </div>
 
   <section class="pijler pijler-nodig" aria-labelledby="kop-nodig">
@@ -218,6 +249,7 @@
    ===================================================================== */
 const RICHTLIJN = { nodig: 50, toekomst: 20, leuk: 30 };  // percentages van de 50/30/20-regel
 const MARGE = 5;  // hoeveel procentpunt afwijking nog "net erboven/eronder" (geel) is
+const SCHUIF = { stap: 10, max: { nodig: 2500, toekomst: 1500, leuk: 1000 }, inkomenMax: 10000 };  // bereik van de schuifjes
 
 // De categorieën per pijler. Voeg gerust regels toe of haal ze weg:
 // elke regel is gewoon een tekstje tussen aanhalingstekens, met een komma erachter.
@@ -253,9 +285,10 @@ for (const [pijler, lijst] of Object.entries(CATEGORIEEN)) {
     const id = `cat-${pijler}-${i}`;
     const rij = document.createElement('div');
     rij.className = 'rij';
-    rij.innerHTML = `<label for="${id}">${naam}</label>
+    rij.innerHTML = `<div class="rij-boven"><label for="${id}">${naam}</label>
       <div class="euroveld"><span aria-hidden="true">€</span>
-      <input id="${id}" type="text" inputmode="decimal" placeholder="0" autocomplete="off" data-pijler="${pijler}"></div>`;
+      <input id="${id}" type="text" inputmode="decimal" placeholder="0" autocomplete="off" data-pijler="${pijler}"></div></div>
+      <input type="range" class="rij-schuif" min="0" max="${SCHUIF.max[pijler]}" step="${SCHUIF.stap}" value="0" data-doel="${id}" aria-label="${naam}, schuifregelaar">`;
     houder.appendChild(rij);
   });
 }
@@ -334,7 +367,20 @@ function reken() {
   laatsteKopie = `Mijn 50/30/20-check ✨ Nodig ${fmtPct(pctPer.nodig)}% (richtlijn 50%) · Toekomst ${fmtPct(pctPer.toekomst)}% (20%) · Leuk ${fmtPct(pctPer.leuk)}% (30%). Doe de gratis check op margotbelegt.nl`;
 }
 
-document.querySelectorAll('input').forEach(inp => inp.addEventListener('input', reken));
+// schuifjes en invoervelden gekoppeld houden
+document.getElementById('inkomen-schuif').max = SCHUIF.inkomenMax;
+document.querySelectorAll('.rij-schuif').forEach(s => s.addEventListener('input', () => {
+  const veld = document.getElementById(s.dataset.doel);
+  veld.value = s.value === '0' ? '' : s.value;
+}));
+function syncSchuiven() {
+  document.querySelectorAll('.rij-schuif').forEach(s => {
+    if (document.activeElement === s) return;
+    const veld = document.getElementById(s.dataset.doel);
+    s.value = Math.min(parseEuro(veld.value), +s.max);
+  });
+}
+document.querySelectorAll('input').forEach(inp => inp.addEventListener('input', () => { syncSchuiven(); reken(); }));
 reken();
 
 // Kopieer-knop (met terugval voor oudere browsers)

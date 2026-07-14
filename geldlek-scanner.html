@@ -50,7 +50,9 @@
   .kaart{background:var(--wit);border:1px solid var(--rand);border-radius:var(--radius);box-shadow:var(--schaduw);padding:18px 16px;margin:0 0 16px}
 
   /* invoer */
-  .rij{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--beige)}
+  .rij{padding:9px 0 5px;border-bottom:1px solid var(--beige)}
+  .rij-boven{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .rij-schuif{width:100%;min-height:36px;accent-color:var(--paarsrood);margin:0;display:block}
   .rij:last-child{border-bottom:0}
   .rij label{flex:1;font-size:.95rem}
   .euroveld{display:flex;align-items:center;gap:6px;background:var(--beige);border:1.5px solid var(--lijn);
@@ -103,9 +105,37 @@
   a{color:var(--paarsrood)}
   h1,h2{text-wrap:balance}
   @media(max-width:430px){.knop{padding:12px 16px;font-size:.95rem}}
+
+  /* site-navigatie bovenaan (verbergt zichzelf in een Podia-embed) */
+  .site-kop{max-width:720px;margin:0 auto 14px}
+  .site-kop .masthead{text-align:center;padding:4px 0 10px;border-bottom:1px solid var(--lijn)}
+  .site-kop .wordmark{font-family:var(--display);font-size:1.55rem;color:var(--ink);text-decoration:none;letter-spacing:.01em}
+  .site-kop .wordmark em{font-style:italic;color:var(--paarsrood);font-weight:600}
+  .site-kop .wordmark .b{font-family:var(--kop);font-weight:700}
+  .site-kop .hoofdnav{border-bottom:1px solid var(--lijn)}
+  .site-kop .nav-wrap{display:flex;justify-content:flex-start;gap:2px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  @media(min-width:600px){.site-kop .nav-wrap{justify-content:center}}
+  .site-kop .hoofdnav a{display:inline-block;padding:11px 12px;font:600 .88rem var(--kop);color:var(--ink);
+    text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap}
+  .site-kop .hoofdnav a:hover{color:var(--paarsrood)}
+  .site-kop .hoofdnav a[aria-current]{color:var(--paarsrood);border-bottom-color:var(--paarsrood)}
+  .site-kop .ster{color:#8F6B1F}
+  html.embed .site-kop{display:none}
 </style>
 </head>
 <body>
+<script>if (window.self !== window.top) document.documentElement.classList.add('embed');</script>
+<div class="site-kop">
+  <header class="masthead"><a class="wordmark" href="index.html"><em>Margot</em> <span class="b">belegt</span></a></header>
+  <nav class="hoofdnav" aria-label="Hoofdnavigatie"><div class="nav-wrap">
+    <a href="index.html">Home</a>
+    <a href="index.html#waarom">Waarom beleggen</a>
+    <a href="index.html#tools">Tools</a>
+    <a href="geldlek-scanner.html" aria-current="page">Geldlek-scanner</a>
+    <a href="cursus-starten-met-beleggen.html">Cursus <span class="ster">✦</span></a>
+    <a href="index.html#over">Over Margot</a>
+  </div></nav>
+</div>
 <div class="tool">
   <p class="badge">✨ Gratis tool van Margot Belegt</p>
   <h1>De Geldlek-scanner</h1>
@@ -181,6 +211,7 @@ const CATEGORIEEN = [
 ];
 const STANDAARD_JAREN = 10;      // standaard beleggingshorizon
 const STANDAARD_RENDEMENT = 8;   // standaard verwacht rendement in %
+const SCHUIF = { stap: 5, max: 500 };  // bereik van de schuifjes per categorie
 /* ==================== einde instellingen ==================== */
 
 const fmtEur = new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
@@ -200,9 +231,10 @@ const houder = document.getElementById('rijen');
 CATEGORIEEN.forEach((naam, i) => {
   const rij = document.createElement('div');
   rij.className = 'rij';
-  rij.innerHTML = `<label for="cat-${i}">${naam} <span style="color:var(--ink-zacht);font-size:.82rem">/ maand</span></label>
+  rij.innerHTML = `<div class="rij-boven"><label for="cat-${i}">${naam} <span style="color:var(--ink-zacht);font-size:.82rem">/ maand</span></label>
     <div class="euroveld"><span aria-hidden="true">€</span>
-    <input id="cat-${i}" type="text" inputmode="decimal" placeholder="0" autocomplete="off" data-naam="${naam}"></div>`;
+    <input id="cat-${i}" type="text" inputmode="decimal" placeholder="0" autocomplete="off" data-naam="${naam}"></div></div>
+    <input type="range" class="rij-schuif" min="0" max="${SCHUIF.max}" step="${SCHUIF.stap}" value="0" data-doel="cat-${i}" aria-label="${naam}, schuifregelaar">`;
   houder.appendChild(rij);
 });
 document.getElementById('jaren').value = STANDAARD_JAREN;
@@ -247,7 +279,19 @@ function reken() {
   laatsteKopie = `Mijn geldlek: ${fmtEur.format(totaalMaand)}/maand = ${fmtEur.format(fvTotaal)} gemist vermogen in ${jaren} jaar 😱 Check de gratis geldlek-scanner op margotbelegt.nl`;
 }
 
-document.querySelectorAll('input').forEach(inp => inp.addEventListener('input', reken));
+// schuifjes en invoervelden gekoppeld houden
+document.querySelectorAll('.rij-schuif').forEach(s => s.addEventListener('input', () => {
+  const veld = document.getElementById(s.dataset.doel);
+  veld.value = s.value === '0' ? '' : s.value;
+}));
+function syncSchuiven() {
+  document.querySelectorAll('.rij-schuif').forEach(s => {
+    if (document.activeElement === s) return;
+    const veld = document.getElementById(s.dataset.doel);
+    s.value = Math.min(parseEuro(veld.value), +s.max);
+  });
+}
+document.querySelectorAll('input').forEach(inp => inp.addEventListener('input', () => { syncSchuiven(); reken(); }));
 reken();
 
 document.getElementById('kopieer-knop').addEventListener('click', async function () {

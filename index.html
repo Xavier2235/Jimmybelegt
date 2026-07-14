@@ -147,6 +147,34 @@
   footer a{text-decoration:none;color:var(--ink)}
   footer a:hover{color:var(--paarsrood);text-decoration:underline}
   .voet-onder{border-top:1px solid var(--lijn);margin-top:32px;padding-top:18px;font-size:.78rem;color:var(--ink-zacht)}
+
+  /* standen-schakelaar barometer */
+  .standen{display:flex;gap:4px;background:var(--beige);border:1px solid var(--rand);border-radius:12px;padding:4px;margin:0 0 18px}
+  .standen button{flex:1;border:1px solid transparent;background:none;min-height:40px;border-radius:9px;
+    font:600 .88rem var(--kop);color:var(--ink-zacht);cursor:pointer}
+  .standen button.actief{background:var(--wit);color:var(--ink);border-color:var(--rand);box-shadow:0 2px 8px rgba(45,42,38,.14)}
+  #naald{transition:transform .6s cubic-bezier(.34,1.56,.64,1)}
+
+  /* kennisblokken */
+  .kennis-grid{display:grid;gap:26px;grid-template-columns:1fr}
+  @media(min-width:820px){.kennis-grid{grid-template-columns:1fr 1fr 1fr;gap:34px}}
+  .kennis-grid article{border-top:1px solid var(--lijn);padding-top:18px}
+  .kennis-grid .nummer{margin:0 0 8px;font-family:var(--display);font-style:italic;font-size:1.05rem;color:var(--goud)}
+  .kennis-grid h3{font-family:var(--display);font-weight:600;font-size:1.3rem;line-height:1.25;margin:0 0 8px;color:var(--ink)}
+  .kennis-grid p{margin:0;font-size:.95rem;color:var(--ink-zacht)}
+  .kennis-grid a{font-weight:600}
+
+  /* over Margot */
+  .over-grid{display:grid;gap:40px;grid-template-columns:1fr;align-items:center}
+  @media(min-width:900px){.over-grid{grid-template-columns:1.1fr .9fr;gap:56px}}
+  .over-grid p{color:var(--ink-zacht);margin:0 0 14px;max-width:32rem}
+  .over-grid h2{margin-bottom:14px}
+  .over-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .stat{background:var(--wit);border:1px solid var(--rand);border-radius:16px;padding:18px}
+  .stat .s-waarde{font-family:var(--display);font-size:1.7rem;font-weight:600;margin:0;color:var(--ink)}
+  .stat .s-label{font-size:.85rem;color:var(--ink-zacht);margin:2px 0 0}
+
+  @media(max-width:430px){.knop{padding:12px 16px;font-size:.95rem}}
 </style>
 </head>
 <body>
@@ -167,11 +195,11 @@
 <nav class="hoofdnav" aria-label="Hoofdnavigatie">
   <div class="wrap">
     <a href="./" aria-current="page">Home</a>
+    <a href="#waarom">Waarom beleggen</a>
     <a href="#tools">Tools</a>
     <a href="geldlek-scanner.html">Geldlek-scanner</a>
-    <a href="50-30-20-rekentool.html">50/30/20</a>
     <a href="cursus-starten-met-beleggen.html">Cursus <span class="ster">✦</span></a>
-    <a href="https://www.margotbelegt.nl/over-mij">Over</a>
+    <a href="#over">Over Margot</a>
   </div>
 </nav>
 
@@ -190,25 +218,55 @@
 
       <div class="barometer">
         <p class="b-kicker">Geldlek-barometer</p>
+        <div class="standen" role="group" aria-label="Kies een voorbeeld-maandbedrag">
+          <button type="button" data-stand="100" aria-pressed="false">€ 100 p/m</button>
+          <button type="button" data-stand="250" aria-pressed="false">€ 250 p/m</button>
+          <button type="button" data-stand="500" aria-pressed="false">€ 500 p/m</button>
+        </div>
         <svg class="meter" viewBox="0 0 200 112" role="img" aria-label="Meter die aangeeft dat een gemiddeld huishouden een fors geldlek heeft">
           <path d="M20.05 97.21 A80 80 0 0 1 33.68 55.26" fill="none" stroke="#6B9440" stroke-width="20"/>
           <path d="M36.96 50.74 A80 80 0 0 1 72.64 24.82" fill="none" stroke="#9BA23B" stroke-width="20"/>
           <path d="M77.95 23.10 A80 80 0 0 1 122.05 23.10" fill="none" stroke="#E3B341" stroke-width="20"/>
           <path d="M127.36 24.82 A80 80 0 0 1 163.04 50.74" fill="none" stroke="#C4502A" stroke-width="20"/>
           <path d="M166.32 55.26 A80 80 0 0 1 179.95 97.21" fill="none" stroke="#B20059" stroke-width="20"/>
-          <line x1="100" y1="100" x2="138.6" y2="54" stroke="#2D2A26" stroke-width="3.5" stroke-linecap="round"/>
-          <circle cx="100" cy="100" r="6" fill="#2D2A26"/>
+          <g id="naald" style="transform-origin:100px 100px"><line x1="100" y1="100" x2="100" y2="42" stroke="#2D2A26" stroke-width="3.5" stroke-linecap="round"/><circle cx="100" cy="100" r="6" fill="#2D2A26"/></g>
         </svg>
         <div class="meter-labels" aria-hidden="true"><span>klein lek</span><span>fors lek</span></div>
-        <p class="b-titel">Gemiddeld huishouden: fors lek</p>
-        <p class="b-bron">rekenvoorbeeld uit de Geldlek-scanner</p>
+        <p class="b-titel" id="b-titel">Gemiddeld huishouden: stevig lek</p>
+        <p class="b-bron" id="b-bron">rekenvoorbeeld uit de Geldlek-scanner</p>
         <div class="tegels">
-          <div class="tegel"><p class="t-label">Maandlek</p><p class="t-waarde">€ 330</p><p class="t-sub">streaming, apps, shoppen…</p></div>
-          <div class="tegel"><p class="t-label">Per jaar</p><p class="t-waarde">€ 3.960</p><p class="t-sub">ongemerkt weggelekt</p></div>
-          <div class="tegel"><p class="t-label">Belegd, 10 jaar</p><p class="t-waarde">€ 60.372</p><p class="t-sub">bij 8% — jouw aanname</p></div>
+          <div class="tegel"><p class="t-label">Maandlek</p><p class="t-waarde" id="t-maand">€ 250</p><p class="t-sub">streaming, apps, shoppen…</p></div>
+          <div class="tegel"><p class="t-label">Per jaar</p><p class="t-waarde" id="t-jaar">€ 3.000</p><p class="t-sub">ongemerkt weggelekt</p></div>
+          <div class="tegel"><p class="t-label">Belegd, 10 jaar</p><p class="t-waarde" id="t-fv">€ 45.737</p><p class="t-sub">bij 8% — jouw aanname</p></div>
           <div class="tegel"><p class="t-label">Jouw lek?</p><p class="t-waarde">2 min.</p><p class="t-sub">gratis te scannen</p></div>
         </div>
         <p class="b-voet"><a href="geldlek-scanner.html">Scan jouw geldlek →</a> · rendement is een aanname, geen belofte</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sectie" id="waarom">
+    <div class="wrap">
+      <div class="sectie-kop">
+        <p class="kicker">Waarom beleggen?</p>
+        <h2>Drie dingen die <em>niemand</em> je op school leerde</h2>
+      </div>
+      <div class="kennis-grid">
+        <article>
+          <p class="nummer">01</p>
+          <h3>Stilstaand geld wordt stiekem minder waard</h3>
+          <p>Bij 2,5% inflatie koop je over 15 jaar nog maar ± €8.600 voor wat nu €10.000 waard is — ook al staat er "meer" op je rekening. <a href="sparen-vs-beleggen.html">Zie het effect →</a></p>
+        </article>
+        <article>
+          <p class="nummer">02</p>
+          <h3>Tijd doet het zware werk, niet timing</h3>
+          <p>€25 per maand kan bij 8% (jouw aanname) in 10 jaar groeien naar ± €4.600 — door rente op rente, niet door slim te timen. <a href="wat-kost-wachten.html">Wat kost wachten? →</a></p>
+        </article>
+        <article>
+          <p class="nummer">03</p>
+          <h3>Klein beginnen is het echte geheim</h3>
+          <p>Je hebt geen duizenden euro's nodig. Een paar tientjes per maand, gespreid en geduldig — daar begint vermogen. <a href="50-30-20-rekentool.html">Vind jouw ruimte →</a></p>
+        </article>
       </div>
     </div>
   </section>
@@ -279,6 +337,27 @@
     </div>
   </section>
 
+  <section class="sectie" id="over">
+    <div class="wrap over-grid">
+      <div>
+        <p class="kicker">Over Margot</p>
+        <h2>"Ik begon zelf pas op mijn <em>38e</em>"</h2>
+        <p>Jarenlang stond Margots geld op een spaarrekening, omdat ze dacht dat beleggen ingewikkeld en risicovol was. Inmiddels belegt ze voor zichzelf én haar twee kinderen — en leert ze duizenden vrouwen hetzelfde te doen: zonder jargon, zonder haast, met een duidelijk stappenplan.</p>
+        <p>Van ETF's tot boodschappenbudgetten: in haar cursus, podcast en op Instagram maakt ze geldzaken begrijpelijk én leuk.</p>
+        <div class="knoppenrij">
+          <a class="knop knop-omlijnd" href="https://www.margotbelegt.nl/over-mij">Lees haar verhaal</a>
+          <a class="knop knop-omlijnd" href="https://www.instagram.com/margotbelegt/">Volg @margotbelegt</a>
+        </div>
+      </div>
+      <div class="over-stats">
+        <div class="stat"><p class="s-waarde">17.000+</p><p class="s-label">volgers op Instagram</p></div>
+        <div class="stat"><p class="s-waarde">10 lessen</p><p class="s-label">cursus Starten met beleggen</p></div>
+        <div class="stat"><p class="s-waarde">Wekelijks</p><p class="s-label">nieuwe podcast-aflevering</p></div>
+        <div class="stat"><p class="s-waarde">2 kids</p><p class="s-label">voor wie ze zelf belegt</p></div>
+      </div>
+    </div>
+  </section>
+
   <section class="quote-band">
     <div class="wrap">
       <p class="quote">"Had iemand mij dit maar eerder geleerd. Starten is vaak veel eenvoudiger dan je denkt — jij kan dit ook."</p>
@@ -322,5 +401,26 @@
     <p class="voet-onder">Deze tools zijn bedoeld als educatief hulpmiddel en zijn geen financieel of beleggingsadvies. De berekeningen zijn gebaseerd op de aannames die je zelf invult; rendementen uit het verleden bieden geen garantie voor de toekomst. Beleggen brengt risico's met zich mee: je kunt (een deel van) je inleg verliezen.</p>
   </div>
 </footer>
+<script>
+(function(){
+  const fmt = new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+  const fv = m => { const i = 0.08 / 12; return m * ((1 + i) ** 120 - 1) / i; };
+  const HOEK = { 100: -55, 250: 0, 500: 60 };
+  const TITEL = { 100: 'Klein lek, groot effect', 250: 'Gemiddeld huishouden: stevig lek', 500: 'Fors lek — hier zit je winst' };
+  const naald = document.getElementById('naald');
+  const knoppen = document.querySelectorAll('.standen button');
+  function zet(m){
+    naald.style.transform = 'rotate(' + HOEK[m] + 'deg)';
+    document.getElementById('b-titel').textContent = TITEL[m];
+    document.getElementById('b-bron').textContent = 'voorbeeld: ' + fmt.format(m) + ' per maand, 10 jaar belegd tegen 8% (aanname)';
+    document.getElementById('t-maand').textContent = fmt.format(m);
+    document.getElementById('t-jaar').textContent = fmt.format(m * 12);
+    document.getElementById('t-fv').textContent = fmt.format(fv(m));
+    knoppen.forEach(k => { const actief = +k.dataset.stand === m; k.classList.toggle('actief', actief); k.setAttribute('aria-pressed', actief); });
+  }
+  knoppen.forEach(k => k.addEventListener('click', () => zet(+k.dataset.stand)));
+  zet(250);
+})();
+</script>
 </body>
 </html>
