@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pensioengat | Rekentool</title>
+<meta name="description" content="Schat je maandelijkse pensioentekort in en wat je nu opzij zou moeten zetten om het te dichten.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:title" content="Pensioengat | Rekentool">
+<meta property="og:description" content="Schat je maandelijkse pensioentekort in en wat je nu opzij zou moeten zetten om het te dichten.">
+<meta property="og:url" content="/rekentools/pensioengat">
+<meta property="og:image" content="/img/og-beeld.svg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="demobar" data-component="demobar">
+  <div class="wrap-wide">
+    <span class="demobar-tekst"></span>
+    <button type="button" class="demobar-sluit" aria-label="DEMO-balk sluiten">&times;</button>
+  </div>
+</div>
+<a class="skip-link" href="#hoofdinhoud">Naar hoofdinhoud</a>
+<header class="site-header">
+  <div class="wrap-wide">
+    <a class="wordmark" href="/" data-brand="naam"></a>
+    <nav class="main-nav" aria-label="Hoofdnavigatie">
+      <a href="/rekentools">Rekentools</a>
+      <a href="/cursus">Cursus</a>
+      <a href="/coaching">Coaching</a>
+      <a href="/over">Over</a>
+      <a href="/transparantie">Transparantie</a>
+    </nav>
+    <button type="button" class="nav-toggle" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  </div>
+  <nav class="mobile-nav" aria-label="Mobiel menu">
+    <a href="/rekentools">Rekentools</a>
+    <a href="/cursus">Cursus</a>
+    <a href="/coaching">Coaching</a>
+    <a href="/over">Over</a>
+    <a href="/transparantie">Transparantie</a>
+    <a href="/voorwaarden">Voorwaarden</a>
+  </nav>
+</header>
+<main id="hoofdinhoud">
+
+<div class="wrap-wide section" data-tool="pensioengat">
+  <div class="section-head">
+      <p class="card-eyebrow">Rekentool</p>
+      <h1>Pensioengat</h1>
+      <p>Schat je maandelijkse tekort in en wat je nu opzij zou moeten zetten om het te dichten.</p>
+    </div>
+  <div class="tool-layout">
+    <div class="card stack">
+      <div class="veld" data-veld="leeftijd" data-range-groep>
+      <label for="leeftijd">Jouw leeftijd</label>
+      <div class="range-rij">
+        <input type="range" id="leeftijd" min="18" max="66" step="1" value="40">
+        <div class="getal-invoer"><span></span><input type="text" inputmode="decimal" aria-label="Jouw leeftijd"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="brutojaarinkomen" data-range-groep>
+      <label for="brutojaarinkomen">Brutojaarinkomen</label>
+      <div class="range-rij">
+        <input type="range" id="brutojaarinkomen" min="0" max="200000" step="500" value="55000">
+        <div class="getal-invoer"><span>&euro;</span><input type="text" inputmode="decimal" aria-label="Brutojaarinkomen"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="opgebouwd-pensioen" data-range-groep>
+      <label for="opgebouwd-pensioen">Al opgebouwd pensioen (incl. AOW), per maand</label>
+      <div class="range-rij">
+        <input type="range" id="opgebouwd-pensioen" min="0" max="5000" step="25" value="1200">
+        <div class="getal-invoer"><span>&euro;</span><input type="text" inputmode="decimal" aria-label="Al opgebouwd pensioen (incl. AOW), per maand"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="gewenst-inkomen" data-range-groep>
+      <label for="gewenst-inkomen">Gewenst netto-inkomen na pensionering, per maand</label>
+      <div class="range-rij">
+        <input type="range" id="gewenst-inkomen" min="0" max="8000" step="25" value="2500">
+        <div class="getal-invoer"><span>&euro;</span><input type="text" inputmode="decimal" aria-label="Gewenst netto-inkomen na pensionering, per maand"></div>
+      </div>
+      
+    </div>
+      <p class="veld-hint">Vul bij &ldquo;al opgebouwd pensioen&rdquo; het bedrag in van je eigen pensioenoverzicht (bijv. mijnpensioenoverzicht.nl) &mdash; wij gebruiken geen officieel AOW-bedrag.</p>
+    </div>
+    <div class="card stack">
+      <p class="text-muted fs-small">Geschat tekort per maand (bij pensioenleeftijd 67, over <span data-uitvoer="jaren-tot-pensioen"></span> jaar)</p>
+      <div class="band-rij">
+      <div class="band-tegel band-tegel-laag"><p class="band-label">Laag</p><p class="band-waarde" data-band="laag">&euro; 0</p></div>
+      <div class="band-tegel band-tegel-midden"><p class="band-label">Midden</p><p class="band-waarde" data-band="midden">&euro; 0</p></div>
+      <div class="band-tegel band-tegel-hoog"><p class="band-label">Hoog</p><p class="band-waarde" data-band="hoog">&euro; 0</p></div>
+    </div>
+      <p class="text-muted fs-small">Je gewenste inkomen is <strong data-uitvoer="pct-van-bruto"></strong> van je huidige brutojaarinkomen.</p>
+      <div>
+        <p class="text-muted fs-small">Benodigde maandinleg om het tekort te dichten, in 3 rendementsscenario's (3% / 6% / 9%)</p>
+        <div class="band-rij">
+          <div class="band-tegel band-tegel-laag"><p class="band-label">Bij 9%</p><p class="band-waarde" data-inleg="laag">&euro; 0</p></div>
+          <div class="band-tegel band-tegel-midden"><p class="band-label">Bij 6%</p><p class="band-waarde" data-inleg="midden">&euro; 0</p></div>
+          <div class="band-tegel band-tegel-hoog"><p class="band-label">Bij 3%</p><p class="band-waarde" data-inleg="hoog">&euro; 0</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <details class="accordion-item " data-component="aannames-accordion">
+      <summary>Aannames <span class="teller"></span></summary>
+      <div class="accordion-body"><ul><li>Pensioenleeftijd is vast aangenomen op 67 jaar.</li><li>Het opgebouwde pensioen wordt met &plusmn;10% gevarieerd om de bandbreedte van het tekort te bepalen &mdash; vergelijkbaar met de pessimistisch/verwacht/optimistisch-scenario's op mijnpensioenoverzicht.nl.</li><li>Het benodigde kapitaal gaat uit van een uitkeerperiode van 20 jaar na pensionering, zonder rendement of inflatie tijdens die periode.</li><li>De 3 rendementsscenario's (3% / 6% / 9%) zijn aannames tijdens de opbouwfase, geen garanties.</li><li>Er is geen rekening gehouden met belastingen, AOW-opbouw of wijzigingen in de pensioenleeftijd.</li></ul></div>
+    </details>
+  <div class="disclaimer" data-component="disclaimer"></div>
+  <div class="gate" data-component="gate">
+      <h3>Ontvang je pensioenrapport</h3>
+      <p class="text-muted fs-small">Demo: er wordt geen rapport verstuurd.</p>
+      <form>
+        <input type="email" placeholder="jouw@email.nl" required aria-label="E-mailadres">
+        <button type="submit" class="btn btn-primair">Verstuur</button>
+      </form>
+      <div class="checkbox-rij gate-toestemming">
+        <input type="checkbox" required>
+        <label></label>
+      </div>
+      <p class="gate-succes" role="status"></p>
+    </div>
+</div>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap-wide">
+    <div class="grid grid-3">
+      <div>
+        <h4>Rekentools</h4>
+        <ul>
+          <li><a href="/rekentools/wat-had-je-nu-gehad">Wat had je nu gehad?</a></li>
+          <li><a href="/rekentools/box-3">Box 3-tool</a></li>
+          <li><a href="/rekentools/inflatie">Inflatietool</a></li>
+          <li><a href="/rekentools/pensioengat">Pensioengat</a></li>
+          <li><a href="/rekentools/positiegrootte">Positiegrootte</a></li>
+          <li><a href="/rekentools/kosten">Kostenimpact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Meer</h4>
+        <ul>
+          <li><a href="/cursus">Cursus</a></li>
+          <li><a href="/coaching">Coaching</a></li>
+          <li><a href="/over">Over</a></li>
+          <li><a data-brand-href="instagramUrl" href="#" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Juridisch</h4>
+        <ul>
+          <li><a href="/transparantie">Transparantie</a></li>
+          <li><a href="/voorwaarden">Voorwaarden</a></li>
+          <li><a href="/voorwaarden#privacy">Privacy</a></li>
+          <li><a href="/voorwaarden#disclaimer">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-brand="footerNoot"></p>
+      <p class="fs-small">&copy; <span id="footer-jaar"></span> <span data-brand="naam"></span> &mdash; demo-omgeving, geen bestaande onderneming.</p>
+    </div>
+  </div>
+</footer>
+<script type="module" src="/src/js/main.js"></script>
+<script type="module" src="/src/js/pages/tool-pensioengat.js"></script>
+</body>
+</html>
