@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Positiegrootte & risk-of-ruin | Rekentool</title>
+<meta name="description" content="Neutrale rekenkunde over verwachtingswaarde, verwacht resultaat en risico van ruïne.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:title" content="Positiegrootte & risk-of-ruin | Rekentool">
+<meta property="og:description" content="Neutrale rekenkunde over verwachtingswaarde, verwacht resultaat en risico van ruïne.">
+<meta property="og:url" content="/rekentools/positiegrootte">
+<meta property="og:image" content="/img/og-beeld.svg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="demobar" data-component="demobar">
+  <div class="wrap-wide">
+    <span class="demobar-tekst"></span>
+    <button type="button" class="demobar-sluit" aria-label="DEMO-balk sluiten">&times;</button>
+  </div>
+</div>
+<a class="skip-link" href="#hoofdinhoud">Naar hoofdinhoud</a>
+<header class="site-header">
+  <div class="wrap-wide">
+    <a class="wordmark" href="/" data-brand="naam"></a>
+    <nav class="main-nav" aria-label="Hoofdnavigatie">
+      <a href="/rekentools">Rekentools</a>
+      <a href="/cursus">Cursus</a>
+      <a href="/coaching">Coaching</a>
+      <a href="/over">Over</a>
+      <a href="/transparantie">Transparantie</a>
+    </nav>
+    <button type="button" class="nav-toggle" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  </div>
+  <nav class="mobile-nav" aria-label="Mobiel menu">
+    <a href="/rekentools">Rekentools</a>
+    <a href="/cursus">Cursus</a>
+    <a href="/coaching">Coaching</a>
+    <a href="/over">Over</a>
+    <a href="/transparantie">Transparantie</a>
+    <a href="/voorwaarden">Voorwaarden</a>
+  </nav>
+</header>
+<main id="hoofdinhoud">
+
+<div class="wrap-wide section" data-tool="positiegrootte">
+  <div class="section-head">
+      <p class="card-eyebrow">Rekentool</p>
+      <h1>Positiegrootte &amp; risk-of-ruin</h1>
+      <p>Neutrale rekenkunde over verwachtingswaarde en risico &mdash; geen aanmoediging, geen ontmoediging.</p>
+    </div>
+  <div class="tool-layout">
+    <div class="card stack">
+      <div class="veld" data-veld="accountgrootte" data-range-groep>
+      <label for="accountgrootte">Accountgrootte</label>
+      <div class="range-rij">
+        <input type="range" id="accountgrootte" min="100" max="1000000" step="100" value="10000">
+        <div class="getal-invoer"><span>&euro;</span><input type="text" inputmode="decimal" aria-label="Accountgrootte"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="risico-per-trade" data-range-groep>
+      <label for="risico-per-trade">Risico per trade</label>
+      <div class="range-rij">
+        <input type="range" id="risico-per-trade" min="0.1" max="10" step="0.1" value="1">
+        <div class="getal-invoer"><span>%</span><input type="text" inputmode="decimal" aria-label="Risico per trade"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="winrate" data-range-groep>
+      <label for="winrate">Winrate</label>
+      <div class="range-rij">
+        <input type="range" id="winrate" min="0" max="100" step="1" value="45">
+        <div class="getal-invoer"><span>%</span><input type="text" inputmode="decimal" aria-label="Winrate"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="ratio" data-range-groep>
+      <label for="ratio">Gemiddelde winst/verlies-ratio</label>
+      <div class="range-rij">
+        <input type="range" id="ratio" min="0.1" max="5" step="0.1" value="1.5">
+        <div class="getal-invoer"><span>&times;</span><input type="text" inputmode="decimal" aria-label="Gemiddelde winst/verlies-ratio"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="aantal-trades" data-range-groep>
+      <label for="aantal-trades">Aantal trades</label>
+      <div class="range-rij">
+        <input type="range" id="aantal-trades" min="1" max="1000" step="1" value="100">
+        <div class="getal-invoer"><span></span><input type="text" inputmode="decimal" aria-label="Aantal trades"></div>
+      </div>
+      
+    </div>
+    </div>
+    <div class="card stack">
+      <div class="grid grid-2">
+        <div><p class="text-muted fs-small">Verwachtingswaarde per trade</p><p class="band-waarde" data-uitvoer="ev-per-trade">&euro; 0</p></div>
+        <div><p class="text-muted fs-small">Benodigde winrate voor break-even</p><p class="band-waarde" data-uitvoer="winrate-breakeven">0%</p></div>
+      </div>
+      <p data-uitvoer="ev-melding" class="pill pill-neutraal"></p>
+      <p class="text-muted fs-small">Verwacht resultaat na het opgegeven aantal trades (Monte Carlo, 5.000 simulaties)</p>
+      <div class="band-rij">
+      <div class="band-tegel band-tegel-laag"><p class="band-label">Laag</p><p class="band-waarde" data-band="laag">&euro; 0</p></div>
+      <div class="band-tegel band-tegel-midden"><p class="band-label">Midden</p><p class="band-waarde" data-band="midden">&euro; 0</p></div>
+      <div class="band-tegel band-tegel-hoog"><p class="band-label">Hoog</p><p class="band-waarde" data-band="hoog">&euro; 0</p></div>
+    </div>
+      <p class="text-muted fs-small">Kans dat het account op enig moment &minus;50% staat: <strong data-uitvoer="kans-ruine">0%</strong></p>
+      <p style="margin-top:var(--sp-4)"><a class="btn btn-secundair" href="/cursus">Meer leren over risicomanagement &rarr;</a></p>
+    </div>
+  </div>
+  <details class="accordion-item " data-component="aannames-accordion">
+      <summary>Aannames <span class="teller"></span></summary>
+      <div class="accordion-body"><ul><li>De Monte Carlo-simulatie draait 5.000 onafhankelijke reeksen van het opgegeven aantal trades.</li><li>Elke trade riskeert een vast percentage van het HUIDIGE accountsaldo (dus meebewegend met winst/verlies).</li><li>Win/verlies per trade wordt onafhankelijk getrokken op basis van de opgegeven winrate &mdash; geen seriële correlatie tussen trades.</li><li>"Risk of ruin" is hier gedefinieerd als het saldo dat op enig moment tijdens de reeks op of onder 50% van het startbedrag komt.</li></ul></div>
+    </details>
+  <div class="disclaimer" data-component="disclaimer"></div>
+</div>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap-wide">
+    <div class="grid grid-3">
+      <div>
+        <h4>Rekentools</h4>
+        <ul>
+          <li><a href="/rekentools/wat-had-je-nu-gehad">Wat had je nu gehad?</a></li>
+          <li><a href="/rekentools/box-3">Box 3-tool</a></li>
+          <li><a href="/rekentools/inflatie">Inflatietool</a></li>
+          <li><a href="/rekentools/pensioengat">Pensioengat</a></li>
+          <li><a href="/rekentools/positiegrootte">Positiegrootte</a></li>
+          <li><a href="/rekentools/kosten">Kostenimpact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Meer</h4>
+        <ul>
+          <li><a href="/cursus">Cursus</a></li>
+          <li><a href="/coaching">Coaching</a></li>
+          <li><a href="/over">Over</a></li>
+          <li><a data-brand-href="instagramUrl" href="#" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Juridisch</h4>
+        <ul>
+          <li><a href="/transparantie">Transparantie</a></li>
+          <li><a href="/voorwaarden">Voorwaarden</a></li>
+          <li><a href="/voorwaarden#privacy">Privacy</a></li>
+          <li><a href="/voorwaarden#disclaimer">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-brand="footerNoot"></p>
+      <p class="fs-small">&copy; <span id="footer-jaar"></span> <span data-brand="naam"></span> &mdash; demo-omgeving, geen bestaande onderneming.</p>
+    </div>
+  </div>
+</footer>
+<script type="module" src="/src/js/main.js"></script>
+<script type="module" src="/src/js/pages/tool-positiegrootte.js"></script>
+</body>
+</html>
