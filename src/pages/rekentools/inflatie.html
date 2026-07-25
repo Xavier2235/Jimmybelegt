@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inflatietool | Rekentool</title>
+<meta name="description" content="Zie wat een bedrag uit het verleden nu nog waard is aan koopkracht.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:title" content="Inflatietool | Rekentool">
+<meta property="og:description" content="Zie wat een bedrag uit het verleden nu nog waard is aan koopkracht.">
+<meta property="og:url" content="/rekentools/inflatie">
+<meta property="og:image" content="/img/og-beeld.svg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="demobar" data-component="demobar">
+  <div class="wrap-wide">
+    <span class="demobar-tekst"></span>
+    <button type="button" class="demobar-sluit" aria-label="DEMO-balk sluiten">&times;</button>
+  </div>
+</div>
+<a class="skip-link" href="#hoofdinhoud">Naar hoofdinhoud</a>
+<header class="site-header">
+  <div class="wrap-wide">
+    <a class="wordmark" href="/" data-brand="naam"></a>
+    <nav class="main-nav" aria-label="Hoofdnavigatie">
+      <a href="/rekentools">Rekentools</a>
+      <a href="/cursus">Cursus</a>
+      <a href="/coaching">Coaching</a>
+      <a href="/over">Over</a>
+      <a href="/transparantie">Transparantie</a>
+    </nav>
+    <button type="button" class="nav-toggle" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  </div>
+  <nav class="mobile-nav" aria-label="Mobiel menu">
+    <a href="/rekentools">Rekentools</a>
+    <a href="/cursus">Cursus</a>
+    <a href="/coaching">Coaching</a>
+    <a href="/over">Over</a>
+    <a href="/transparantie">Transparantie</a>
+    <a href="/voorwaarden">Voorwaarden</a>
+  </nav>
+</header>
+<main id="hoofdinhoud">
+
+<div class="wrap-wide section" data-tool="inflatie">
+  <div class="section-head">
+      <p class="card-eyebrow">Rekentool</p>
+      <h1>Inflatietool</h1>
+      <p>Zie wat een bedrag uit het verleden nu nog waard is aan koopkracht.</p>
+    </div>
+  <div class="tool-layout">
+    <div class="card stack">
+      <div class="veld" data-veld="bedrag" data-range-groep>
+      <label for="bedrag">Bedrag</label>
+      <div class="range-rij">
+        <input type="range" id="bedrag" min="10" max="100000" step="10" value="10000">
+        <div class="getal-invoer"><span>&euro;</span><input type="text" inputmode="decimal" aria-label="Bedrag"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="jaar" data-range-groep>
+      <label for="jaar">In het jaar</label>
+      <div class="range-rij">
+        <input type="range" id="jaar" min="1980" max="2025" step="1" value="2015">
+        <div class="getal-invoer"><span></span><input type="text" inputmode="decimal" aria-label="In het jaar"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="inflatie" data-range-groep>
+      <label for="inflatie">Gemiddelde inflatie per jaar (jouw aanname)</label>
+      <div class="range-rij">
+        <input type="range" id="inflatie" min="0" max="8" step="0.1" value="2.5">
+        <div class="getal-invoer"><span>%</span><input type="text" inputmode="decimal" aria-label="Gemiddelde inflatie per jaar (jouw aanname)"></div>
+      </div>
+      
+    </div>
+    </div>
+    <div class="card stack">
+      <p class="text-muted">Koopkracht in <span data-nu-jaar></span>:</p>
+      <div class="band-rij">
+      <div class="band-tegel band-tegel-laag"><p class="band-label">Laag</p><p class="band-waarde" data-band="laag">&euro; 0</p></div>
+      <div class="band-tegel band-tegel-midden"><p class="band-label">Midden</p><p class="band-waarde" data-band="midden">&euro; 0</p></div>
+      <div class="band-tegel band-tegel-hoog"><p class="band-label">Hoog</p><p class="band-waarde" data-band="hoog">&euro; 0</p></div>
+    </div>
+      <p>Dat is <strong data-uitvoer="verlies-pct"></strong> minder koopkracht dan het oorspronkelijke bedrag.</p>
+      <div class="grid grid-3">
+        <div class="card"><p class="fs-small text-muted">[PLACEHOLDER: vergelijking 1, bijv. boodschappen]</p><p class="fs-small">Koopkrachtverlies: <span data-uitvoer="verlies-pct-herhaald"></span></p></div>
+        <div class="card"><p class="fs-small text-muted">[PLACEHOLDER: vergelijking 2, bijv. energie]</p><p class="fs-small">Koopkrachtverlies: <span data-uitvoer="verlies-pct-herhaald"></span></p></div>
+        <div class="card"><p class="fs-small text-muted">[PLACEHOLDER: vergelijking 3, bijv. huur]</p><p class="fs-small">Koopkrachtverlies: <span data-uitvoer="verlies-pct-herhaald"></span></p></div>
+      </div>
+      <div class="deel-knop">
+      <button type="button" class="btn btn-secundair" data-actie="deel">Deel deze berekening</button>
+      <span class="kopie-bevestiging">Link gekopieerd &check;</span>
+    </div>
+    </div>
+  </div>
+  <details class="accordion-item " data-component="aannames-accordion">
+      <summary>Aannames <span class="teller"></span></summary>
+      <div class="accordion-body"><ul><li>Er is geen officiële historische inflatiereeks meegeleverd &mdash; het inflatiepercentage is een door jou instelbare aanname, geen vaststaand feit.</li><li>De bandbreedte toont de gevoeligheid van &plusmn;1 procentpunt rond jouw ingestelde aanname.</li><li>"Nu" is het huidige jaar op het moment dat je deze pagina bezoekt.</li></ul></div>
+    </details>
+  <div class="disclaimer" data-component="disclaimer"></div>
+</div>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap-wide">
+    <div class="grid grid-3">
+      <div>
+        <h4>Rekentools</h4>
+        <ul>
+          <li><a href="/rekentools/wat-had-je-nu-gehad">Wat had je nu gehad?</a></li>
+          <li><a href="/rekentools/box-3">Box 3-tool</a></li>
+          <li><a href="/rekentools/inflatie">Inflatietool</a></li>
+          <li><a href="/rekentools/pensioengat">Pensioengat</a></li>
+          <li><a href="/rekentools/positiegrootte">Positiegrootte</a></li>
+          <li><a href="/rekentools/kosten">Kostenimpact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Meer</h4>
+        <ul>
+          <li><a href="/cursus">Cursus</a></li>
+          <li><a href="/coaching">Coaching</a></li>
+          <li><a href="/over">Over</a></li>
+          <li><a data-brand-href="instagramUrl" href="#" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Juridisch</h4>
+        <ul>
+          <li><a href="/transparantie">Transparantie</a></li>
+          <li><a href="/voorwaarden">Voorwaarden</a></li>
+          <li><a href="/voorwaarden#privacy">Privacy</a></li>
+          <li><a href="/voorwaarden#disclaimer">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-brand="footerNoot"></p>
+      <p class="fs-small">&copy; <span id="footer-jaar"></span> <span data-brand="naam"></span> &mdash; demo-omgeving, geen bestaande onderneming.</p>
+    </div>
+  </div>
+</footer>
+<script type="module" src="/src/js/main.js"></script>
+<script type="module" src="/src/js/pages/tool-inflatie.js"></script>
+</body>
+</html>
