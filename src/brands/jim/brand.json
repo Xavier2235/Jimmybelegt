@@ -1,0 +1,56 @@
+{
+  "naam": "Beleg Slim met Jim",
+  "handle": "@belegslim.metjim",
+  "instagramUrl": "https://www.instagram.com/belegslim.metjim/",
+  "hero": {
+    "claim": "LEER BELEGGEN ZONDER RUIS",
+    "subline": "Rekenen, niet gokken."
+  },
+  "footerNoot": "[PLACEHOLDER: korte merkomschrijving voor de footer]",
+  "demoBalkTekst": "DEMO-OMGEVING — voorbeeldcijfers, geen echte betalingen of e-mailverzending.",
+  "disclaimerStandaard": "Deze rekentool is educatief en illustratief. Er wordt geen persoonlijk beleggingsadvies gegeven en geen aanbeveling gedaan over specifieke financiële instrumenten. Uitkomsten zijn indicatief; aan de resultaten kunnen geen rechten worden ontleend.",
+  "gate": {
+    "toestemmingTekst": "Dubbele bevestiging via e-mail",
+    "privacyLinkTekst": "privacyverklaring"
+  },
+  "cursus": {
+    "naam": "[PLACEHOLDER: cursusnaam]",
+    "prijzen": {
+      "eenmalig": 297,
+      "termijn2": 159,
+      "termijn3": 109
+    },
+    "garantieTekst": "[PLACEHOLDER: garantietekst, bijv. 14 dagen niet-goed-geld-terug]",
+    "modules": [
+      "[PLACEHOLDER: module 1 titel]",
+      "[PLACEHOLDER: module 2 titel]",
+      "[PLACEHOLDER: module 3 titel]",
+      "[PLACEHOLDER: module 4 titel]",
+      "[PLACEHOLDER: module 5 titel]",
+      "[PLACEHOLDER: module 6 titel]",
+      "[PLACEHOLDER: module 7 titel]",
+      "[PLACEHOLDER: module 8 titel]"
+    ]
+  },
+  "coaching": {
+    "investeringBandbreedte": "€ 1.500 – € 4.500",
+    "scoreDrempel": 60,
+    "stappen": [
+      "[PLACEHOLDER: stap 1 — kennismaking]",
+      "[PLACEHOLDER: stap 2 — intake]",
+      "[PLACEHOLDER: stap 3 — traject]",
+      "[PLACEHOLDER: stap 4 — evaluatie]"
+    ],
+    "nietVoorJouAls": [
+      "[PLACEHOLDER: reden 1]",
+      "[PLACEHOLDER: reden 2]",
+      "[PLACEHOLDER: reden 3]",
+      "[PLACEHOLDER: reden 4]"
+    ]
+  },
+  "belangen": [
+    "[PLACEHOLDER: product of dienst die Jim zelf verkoopt]",
+    "[PLACEHOLDER: eventuele samenwerking of affiliate-relatie]",
+    "[PLACEHOLDER: eigen beleggingsposities, indien relevant]"
+  ]
+}

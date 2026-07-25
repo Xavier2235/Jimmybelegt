@@ -1,0 +1,30 @@
+{
+  "_uitleg": "Kopieer deze map naar /src/brands/<merk>/ en vul elk veld in. Verwijder dit _uitleg-veld niet verplicht, maar het wordt nergens getoond — het is puur documentatie.",
+  "naam": "[MERKNAAM]",
+  "handle": "@[instagram-handle]",
+  "instagramUrl": "https://www.instagram.com/[instagram-handle]/",
+  "hero": {
+    "claim": "[PLACEHOLDER: korte, krachtige belofte — komt groot in de H1 op de landingspagina]",
+    "subline": "[PLACEHOLDER: max 8 woorden, komt in het scriptfont onder de H1]"
+  },
+  "footerNoot": "[PLACEHOLDER: korte merkomschrijving voor de footer]",
+  "demoBalkTekst": "DEMO-OMGEVING — voorbeeldcijfers, geen echte betalingen of e-mailverzending.",
+  "disclaimerStandaard": "[PLACEHOLDER: standaard disclaimertekst — verschijnt onder elke tool en salespagina]",
+  "gate": {
+    "toestemmingTekst": "Dubbele bevestiging via e-mail",
+    "privacyLinkTekst": "privacyverklaring"
+  },
+  "cursus": {
+    "naam": "[PLACEHOLDER: cursusnaam]",
+    "prijzen": { "eenmalig": 0, "termijn2": 0, "termijn3": 0 },
+    "garantieTekst": "[PLACEHOLDER: garantietekst]",
+    "modules": ["[PLACEHOLDER: module 1]", "[PLACEHOLDER: module 2]"]
+  },
+  "coaching": {
+    "investeringBandbreedte": "[PLACEHOLDER: bijv. € 1.000 – € 3.000]",
+    "scoreDrempel": 60,
+    "stappen": ["[PLACEHOLDER: stap 1]", "[PLACEHOLDER: stap 2]", "[PLACEHOLDER: stap 3]", "[PLACEHOLDER: stap 4]"],
+    "nietVoorJouAls": ["[PLACEHOLDER: reden 1]", "[PLACEHOLDER: reden 2]", "[PLACEHOLDER: reden 3]", "[PLACEHOLDER: reden 4]"]
+  },
+  "belangen": ["[PLACEHOLDER: belang 1]", "[PLACEHOLDER: belang 2]"]
+}

@@ -1,0 +1,53 @@
+/* ============================================================
+   MERK-TEMPLATE — kopieer deze map naar /src/brands/<jouw-merk>/
+   en vul elke variabele hieronder in. Verander geen variabele-NAMEN:
+   alle CSS/JS-componenten in dit project verwijzen naar precies deze
+   namen. Alleen de WAARDEN mogen per merk verschillen.
+   ============================================================ */
+:root{
+  /* Kleur — verplicht: minimaal WCAG AA (4,5:1) tussen --c-text en --c-bg,
+     en tussen --c-text en --c-surface. Valideer met de dataviz-validator
+     of een online contrastchecker voordat je live gaat. */
+  --c-bg: #000000;              /* paginabasis */
+  --c-surface: #111111;         /* kaarten, koppen */
+  --c-surface-2: #1A1A1A;       /* verdiepte panelen binnen een kaart */
+  --c-border: #333333;          /* hairlines */
+  --c-text: #FFFFFF;            /* hoofdtekst */
+  --c-text-muted: #999999;      /* secundaire tekst */
+  --c-accent: #FFFFFF;          /* primaire accentkleur — CTA's, cijfers, links */
+  --c-accent-soft: #333333;     /* accent op ±12% helderheid, voor achtergrondvlakken */
+  --c-positive: #3FB950;        /* status: gunstig resultaat (altijd met icoon + label) */
+  --c-negative: #E5534B;        /* status: ongunstig resultaat (altijd met icoon + label) */
+
+  /* Ordinale reeks (laag/midden/hoog) — één hue, drie helderheidsstappen
+     van je accentkleur. Nooit drie losse hues gebruiken voor een reeks. */
+  --c-band-laag: #555555;
+  --c-band-midden: #888888;
+  --c-band-hoog: #FFFFFF;
+
+  /* Grafiek: "ingelegd" (neutraal) vs "groei" (accent) — bewust gescheiden
+     van --c-positive/--c-negative, want dit is identiteit, geen status. */
+  --c-chart-ingelegd: #555555;
+  --c-chart-groei: #FFFFFF;
+
+  /* Typografie — drie rollen, elk vervangbaar. --font-script is optioneel:
+     laat 'm gelijk aan --font-display als je merk geen scriptfont gebruikt. */
+  --font-display: 'Arial', sans-serif;   /* koppen */
+  --font-script: 'Arial', sans-serif;    /* korte sublines, spaarzaam */
+  --font-body: 'Arial', sans-serif;      /* alles overig */
+
+  --fs-h1: clamp(2.25rem, 8vw, 4rem);
+  --fs-h2: clamp(1.75rem, 5vw, 2.75rem);
+  --fs-h3: clamp(1.25rem, 3vw, 1.5rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 0.875rem;
+
+  /* Spacing — laat dit 4px-grid staan, vrijwel nooit per merk anders */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
+  --sp-9: 80px; --sp-10: 96px; --sp-11: 128px; --sp-12: 160px;
+
+  /* Radius & breedte — ook zelden per merk anders */
+  --r-sm: 6px; --r-md: 12px; --r-lg: 20px; --r-pill: 999px;
+  --w-content: 720px; --w-wide: 1120px;
+}

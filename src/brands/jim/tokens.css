@@ -1,0 +1,48 @@
+/* ============================================================
+   Merk: Beleg Slim met Jim
+   Donker, filmisch, hoog contrast. Goud als spaarzame accentkleur.
+   Elke pagina laadt precies één brand-tokens.css — nooit twee tegelijk.
+   ============================================================ */
+:root{
+  /* Kleur */
+  --c-bg: #0B0B0D;
+  --c-surface: #16161A;
+  --c-surface-2: #1F1F25;
+  --c-border: #2C2C33;
+  --c-text: #FFFFFF;
+  --c-text-muted: #9A9AA3;
+  --c-accent: #E0A93B;
+  --c-accent-soft: #3A2E14;
+  --c-positive: #3FB950;
+  --c-negative: #E5534B;
+
+  /* Ordinale reeks (laag/midden/hoog) — één hue, alleen lichtheid varieert */
+  --c-band-laag: #7A5E23;
+  --c-band-midden: #B8862F;
+  --c-band-hoog: #E0A93B;
+
+  /* Grafiek: neutrale kleur voor "ingelegd", goud voor "groei" —
+     bewust NIET goud+groen naast elkaar (te laag CVD-contrast voor protanopie) */
+  --c-chart-ingelegd: #4A4A52;
+  --c-chart-groei: #E0A93B;
+
+  /* Typografie */
+  --font-display: 'Anton', 'Liberation Sans', sans-serif;
+  --font-script: 'Caveat', cursive;
+  --font-body: 'Inter', 'DejaVu Sans', sans-serif;
+
+  --fs-h1: clamp(2.25rem, 8vw, 4rem);
+  --fs-h2: clamp(1.75rem, 5vw, 2.75rem);
+  --fs-h3: clamp(1.25rem, 3vw, 1.5rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 0.875rem;
+
+  /* Spacing (4px-grid) */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
+  --sp-9: 80px; --sp-10: 96px; --sp-11: 128px; --sp-12: 160px;
+
+  /* Radius & breedte */
+  --r-sm: 6px; --r-md: 12px; --r-lg: 20px; --r-pill: 999px;
+  --w-content: 720px; --w-wide: 1120px;
+}
