@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
+  <defs>
+    <pattern id="diag-jim-portret.svg" width="24" height="24" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <rect width="24" height="24" fill="#16161A"/>
+      <line x1="0" y1="0" x2="0" y2="24" stroke="#232329" stroke-width="10"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="1000" fill="url(#diag-jim-portret.svg)"/>
+  <rect width="800" height="1000" fill="#0B0B0D" opacity="0.35"/>
+  <text x="50%" y="50%" font-family="Inter, sans-serif" font-size="15" letter-spacing="1" fill="#9A9AA3" text-anchor="middle" dominant-baseline="middle">[FOTO: portret Jim]</text>
+</svg>
