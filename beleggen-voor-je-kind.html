@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beleggen voor je kind | Beleg Slim met Jim</title>
+<meta name="description" content="Gratis rekentool: bereken wat maandelijks beleggen voor je kind kan opleveren tot de doelleeftijd — en wat wachten kost.">
+<meta name="theme-color" content="#F3EFE6">
+<link rel="canonical" href="https://belegslim-met-jim.vercel.app/beleggen-voor-je-kind.html">
+<link rel="icon" href="jim-icoon-180.png">
+<link rel="apple-touch-icon" href="jim-icoon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:site_name" content="Beleg Slim met Jim">
+<meta property="og:title" content="Beleggen voor je kind | Beleg Slim met Jim">
+<meta property="og:description" content="Gratis rekentool: bereken wat maandelijks beleggen voor je kind kan opleveren tot de doelleeftijd — en wat wachten kost.">
+<meta property="og:url" content="https://belegslim-met-jim.vercel.app/beleggen-voor-je-kind.html">
+<meta property="og:image" content="https://belegslim-met-jim.vercel.app/jim-og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== Beleg Slim met Jim design tokens ===== */
+  :root{
+    --bg:#F3EFE6; --teal:#067A5E; --mint:#D7E8DF; --koraal:#D9542A;
+    --amber:#F3DA96; --ink:#1C2530; --teal-donker:#055B47; --ink-zacht:#5B6570;
+    --lijn:#E3DDCE; --wit:#FFFFFF; --radius:20px; --schaduw:0 14px 34px -16px rgba(28,37,48,.16);
+    /* grafiekkleuren (gevalideerd op contrast en kleurenblind-veiligheid) */
+    --chart-blauw:#2C5AA0; --chart-koraal:#D9542A;
+    --kop:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --display:'Fraunces',Georgia,'Times New Roman',serif;
+    --rand:#EDE6D5; --goud:#7D5F14;
+    --body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;color-scheme:light}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--body)}
+  .tool{max-width:760px;margin:0 auto;padding:30px 20px 48px}
+  @media(min-width:600px){.tool{padding:40px 24px 56px}}
+  .badge{display:inline-block;background:var(--wit);color:var(--teal);border:1.5px solid var(--teal);
+    border-radius:999px;padding:6px 16px;font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:0 0 16px;box-shadow:0 4px 14px -6px rgba(6,122,94,.3)}
+  h1{font-family:var(--display);font-weight:700;color:var(--teal);font-size:2.1rem;line-height:1.1;letter-spacing:-.01em;margin:0 0 10px}
+  h2{font-family:var(--display);font-weight:600;color:var(--ink);font-size:1.35rem;margin:0 0 12px}
+  .intro{margin:0 0 20px;color:var(--ink-zacht)}
+  .kaart{background:var(--wit);border:1px solid var(--rand);border-radius:var(--radius);box-shadow:var(--schaduw);padding:18px 16px;margin:0 0 16px}
+
+  .veld{margin:0 0 14px}
+  .veld:last-child{margin-bottom:0}
+  .veld>label{display:block;font-weight:600;margin-bottom:6px}
+  .euroveld{display:flex;align-items:center;gap:6px;background:var(--wit);border:1px solid var(--lijn);
+    border-radius:10px;padding:0 10px;min-height:44px;max-width:11rem}
+  .euroveld:focus-within{border-color:var(--teal)}
+  .euroveld span{color:var(--ink-zacht)}
+  .euroveld input{border:0;background:none;width:100%;min-height:42px;font:inherit;font-size:16px;color:var(--ink);text-align:right;padding:0}
+  .euroveld input:focus{outline:none}
+  .leeftijden{display:flex;gap:16px;flex-wrap:wrap}
+  .leeftijden .veld{flex:1;min-width:9rem}
+  input[type=number]{background:var(--wit);border:1px solid var(--lijn);border-radius:10px;min-height:44px;
+    padding:0 10px;font:inherit;font-size:16px;color:var(--ink);width:100%;max-width:11rem;text-align:right}
+  input[type=number]:focus{outline:none;border-color:var(--teal)}
+  .schuif label{display:flex;justify-content:space-between;align-items:baseline;font-weight:600;margin-bottom:4px}
+  .schuif output{font-variant-numeric:tabular-nums;color:var(--teal);font-weight:700}
+  .schuif input[type=range]{width:100%;min-height:44px;accent-color:var(--teal);margin:0}
+  .schuif .uitleg{font-size:.82rem;color:var(--ink-zacht);margin:2px 0 0}
+
+  /* resultaat */
+  .hero{text-align:center;padding:4px 0 0}
+  .hero .label{margin:0;font-weight:600}
+  .hero .getal{font-family:var(--display);font-size:3.1rem;font-weight:600;line-height:1.1;color:var(--teal);margin:4px 0 2px}
+  .hero .sub{margin:0 0 16px;color:var(--ink-zacht);font-size:.9rem}
+  .stapel{display:flex;height:24px;border-radius:7px;overflow:hidden;background:var(--bg);border:1px solid var(--lijn)}
+  .stapel .seg-inleg{background:var(--chart-blauw)}
+  .stapel .seg-groei{background:var(--chart-koraal);border-left:2px solid var(--wit)}
+  .legenda{display:flex;gap:18px;flex-wrap:wrap;margin:10px 0 0;font-size:.9rem}
+  .legenda .sleutel{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  .legenda .waarde{font-weight:700;font-variant-numeric:tabular-nums}
+  .wacht-noot{background:var(--geel);border-radius:12px;padding:12px 14px;margin:16px 0 0;font-size:.95rem}
+  .fout{background:var(--koraal);border-radius:12px;padding:12px 14px;font-size:.95rem;margin:0}
+
+  .knop{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 24px;
+    border-radius:999px;border:0;font:600 1rem var(--kop);cursor:pointer;text-decoration:none;transition:transform .15s ease,box-shadow .15s ease}
+  .knop-primair{background:var(--teal);color:var(--wit);box-shadow:0 8px 22px -8px rgba(6,122,94,.55)}
+  .knop-primair:hover{background:var(--teal-donker);transform:translateY(-1px)}
+  .knop-secundair{background:var(--wit);color:var(--teal);border:1.5px solid var(--teal)}
+  .knop-secundair:hover{background:var(--bg)}
+  :focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:6px}
+
+  details{background:var(--wit);border-radius:var(--radius);box-shadow:var(--schaduw);margin:0 0 16px}
+  details summary{cursor:pointer;font-weight:600;padding:14px 16px;list-style-position:inside}
+  details[open] summary{border-bottom:1px solid var(--bg)}
+  details .inhoud{padding:4px 16px 14px}
+  .tip{background:var(--geel);border-radius:var(--radius);padding:14px 16px;margin:0 0 16px;font-size:.95rem}
+  .soft-cta{background:var(--wit);border:1.5px dashed var(--koraal);border-radius:var(--radius);padding:14px 16px;margin:16px 0;font-size:.95rem}
+  .soft-cta a{color:var(--teal);font-weight:600}
+  .cursus-cta{background:linear-gradient(135deg,var(--koraal),#FFC7AC);border-radius:var(--radius);padding:20px 16px;text-align:center;margin:0 0 16px}
+  .cursus-cta p{margin:0 0 12px;font-family:var(--kop);font-weight:600;font-size:1.05rem}
+  .cursus-cta .gratis-noot{font-family:var(--body);font-weight:400;font-size:.85rem;margin:10px 0 0}
+  .disclaimer{display:none;font-size:.8rem;color:var(--ink-zacht);margin:0}
+  html.embed .disclaimer{display:block}
+  a{color:var(--teal)}
+  h1,h2{text-wrap:balance}
+  @media(max-width:430px){.knop{padding:12px 16px;font-size:.95rem}}
+
+  /* site-header & footer (zoals de homepage; verbergen zichzelf in een Podia-embed) */
+  .wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+  .topbar{border-bottom:1px solid var(--lijn);font-size:.78rem;color:var(--ink-zacht)}
+  .topbar .wrap{display:flex;justify-content:space-between;gap:12px;padding-top:9px;padding-bottom:9px;white-space:nowrap;overflow:hidden}
+  .topbar .dot{color:var(--teal)}
+  .topbar strong{font-weight:600;color:var(--ink)}
+  @media(max-width:640px){.topbar .wrap span:last-child{display:none}}
+  .masthead{border-bottom:1px solid var(--lijn);text-align:center;padding:26px 0 18px}
+  .wordmark{font-family:var(--display);font-size:2.3rem;line-height:1;margin:0;color:var(--ink);letter-spacing:.01em;text-decoration:none;display:inline-block}
+  .wordmark em{font-style:italic;color:var(--teal);font-weight:600}
+  .wordmark .b{font-family:var(--kop);font-weight:700;letter-spacing:-.01em}
+  .masthead .streep{width:64px;height:2px;background:var(--geel);margin:12px auto 10px;border-radius:2px}
+  .tagline{margin:0;font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-zacht)}
+  .hoofdnav{border-bottom:1px solid var(--lijn)}
+  .hoofdnav .wrap{display:flex;justify-content:flex-start;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  @media(min-width:700px){.hoofdnav .wrap{justify-content:center}}
+  .hoofdnav a{display:inline-block;padding:13px 14px;font:600 .92rem var(--kop);color:var(--ink);
+    text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap}
+  .hoofdnav a:hover{color:var(--teal)}
+  .hoofdnav a[aria-current]{color:var(--teal);border-bottom-color:var(--teal)}
+  .ster{color:var(--goud)}
+  .site-footer{border-top:1px solid var(--lijn);padding:44px 0 30px;font-size:.9rem}
+  .voet-grid{display:grid;gap:28px;grid-template-columns:1fr}
+  @media(min-width:700px){.voet-grid{grid-template-columns:1fr 1fr 1fr}}
+  .site-footer h4{margin:0 0 10px;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--goud)}
+  .site-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+  .site-footer a{text-decoration:none;color:var(--ink)}
+  .site-footer a:hover{color:var(--teal);text-decoration:underline}
+  .voet-onder{border-top:1px solid var(--lijn);margin-top:32px;padding-top:18px;font-size:.78rem;color:var(--ink-zacht)}
+  html.embed .site-header,html.embed .site-footer{display:none}
+  html.embed body{background:transparent;padding:12px 8px}
+
+  /* strakke schuifjes met gevulde track */
+  input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;cursor:pointer}
+  input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;
+    background:linear-gradient(to right,var(--teal) var(--vul,0%),#EBDCC8 var(--vul,0%))}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:19px;height:19px;border-radius:50%;
+    background:var(--wit);border:2.5px solid var(--teal);margin-top:-7.5px;box-shadow:0 1px 4px rgba(28,37,48,.3)}
+  input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:#EBDCC8}
+  input[type=range]::-moz-range-progress{height:4px;border-radius:2px;background:var(--teal)}
+  input[type=range]::-moz-range-thumb{width:19px;height:19px;border-radius:50%;background:var(--wit);
+    border:2.5px solid var(--teal);box-shadow:0 1px 4px rgba(28,37,48,.3)}
+</style>
+</head>
+<body>
+<script>if (window.self !== window.top) document.documentElement.classList.add('embed');</script>
+<div class="site-header">
+<div class="topbar">
+  <div class="wrap">
+    <span><span class="dot">●</span> <strong>Nieuw</strong> · De Geldlek-scanner en vier andere gratis tools staan live</span>
+    <span>100% gratis · geen download</span>
+  </div>
+</div>
+<header class="masthead">
+  <a class="wordmark" href="index.html"><em>Beleg</em> <span class="b">Slim</span></a>
+  <div class="streep" aria-hidden="true"></div>
+  <p class="tagline">Met Jim — geld &amp; beleggen zonder gedoe</p>
+</header>
+<nav class="hoofdnav" aria-label="Hoofdnavigatie">
+  <div class="wrap">
+    <a href="index.html">Home</a>
+    <a href="index.html#waarom">Waarom beleggen</a>
+    <a href="index.html#tools">Tools</a>
+    <a href="50-30-20-rekentool.html">50/30/20-rekentool</a>
+    <a href="cursus-starten-met-beleggen.html">Cursus <span class="ster">✦</span></a>
+    <a href="index.html#over">Over Jim</a>
+  </div>
+</nav>
+</div>
+<div class="tool">
+  <p class="badge">✨ Gratis tool van Beleg Slim met Jim</p>
+  <h1>Beleggen voor je kind</h1>
+  <p class="intro">Wat kan er klaarstaan voor je kind als je nu begint met een klein maandbedrag? Reken het hier uit — 100% gratis.</p>
+
+  <div class="kaart">
+    <h2>Jouw plan</h2>
+    <div class="veld">
+      <label for="start">Startbedrag (eenmalig)</label>
+      <div class="euroveld"><span aria-hidden="true">€</span><input id="start" type="text" inputmode="decimal" value="0" autocomplete="off"></div>
+    </div>
+    <div class="veld">
+      <label for="inleg">Maandelijkse inleg</label>
+      <div class="euroveld"><span aria-hidden="true">€</span><input id="inleg" type="text" inputmode="decimal" value="50" autocomplete="off"></div>
+    </div>
+    <div class="leeftijden">
+      <div class="veld">
+        <label for="leeftijd-nu">Leeftijd kind nu</label>
+        <input id="leeftijd-nu" type="number" inputmode="numeric" min="0" max="25" step="1" value="0">
+      </div>
+      <div class="veld">
+        <label for="leeftijd-doel">Tot welke leeftijd?</label>
+        <input id="leeftijd-doel" type="number" inputmode="numeric" min="1" max="30" step="1" value="18">
+      </div>
+    </div>
+    <div class="veld schuif">
+      <label for="rendement">Verwacht rendement per jaar <output id="rendement-uit">7%</output></label>
+      <input type="range" id="rendement" min="2" max="10" step="0.5" value="7">
+      <p class="uitleg">Dit is een aanname die je zelf kiest — geen belofte. Rendementen schommelen en kunnen ook negatief zijn.</p>
+    </div>
+  </div>
+
+  <div class="kaart" aria-live="polite">
+    <p class="fout" id="fout" hidden></p>
+    <div id="resultaat">
+      <div class="hero">
+        <p class="label" id="hero-label">🎁 Op de 18e verjaardag</p>
+        <p class="getal" id="hero-getal">€ 0</p>
+        <p class="sub" id="hero-sub"></p>
+      </div>
+      <div class="stapel" role="img" id="stapel" aria-label="">
+        <div class="seg-inleg" id="seg-inleg"></div>
+        <div class="seg-groei" id="seg-groei"></div>
+      </div>
+      <p class="legenda">
+        <span><span class="sleutel" style="background:var(--chart-blauw)" aria-hidden="true"></span>Zelf ingelegd <span class="waarde" id="waarde-inleg">€ 0</span></span>
+        <span><span class="sleutel" style="background:var(--chart-koraal)" aria-hidden="true"></span>Gegroeid door rendement <span class="waarde" id="waarde-groei">€ 0</span></span>
+      </p>
+      <p class="wacht-noot" id="wacht-noot" hidden></p>
+      <p style="margin:16px 0 0">
+        <button type="button" class="knop knop-secundair" id="kopieer-knop">📋 Kopieer mijn resultaat</button>
+      </p>
+    </div>
+  </div>
+
+  <details>
+    <summary>Hoe werkt het?</summary>
+    <div class="inhoud">
+      <p>We rekenen met <strong>samengestelde groei</strong>: je rendement groeit elk jaar óók over het rendement van de jaren ervoor. Hoe langer de horizon, hoe harder dat effect werkt — daarom is vroeg beginnen voor een kind zo krachtig.</p>
+      <p>Het startbedrag groeit vanaf dag één mee; de maandelijkse inleg bouwt daar elke maand op verder. Het rendement dat je instelt is een gemiddelde aanname over de hele periode.</p>
+    </div>
+  </details>
+
+  <aside class="tip">💡 <strong>Wist je dat?</strong> Bij beleggen voor je kind is tijd je grootste vriend: de eerste jaren doen op lange termijn het meeste werk. Zelfs een klein bedrag per maand telt.</aside>
+
+  <div class="soft-cta"><em>[Placeholder]</em> Hier kan een link naar een eigen freebie of cheatsheet van Jim komen.</div>
+
+  <div class="cursus-cta">
+    <p>Klaar om écht te starten voor je kind (en jezelf)?</p>
+    <a class="knop knop-primair" href="cursus-starten-met-beleggen.html">Cursus: Starten met beleggen →</a>
+    <p class="gratis-noot">Deze rekentool is en blijft gratis — de cursus is er als je meer wilt.</p>
+  </div>
+
+  <p class="disclaimer">Deze tool is bedoeld als educatief hulpmiddel en is geen financieel of beleggingsadvies. De berekeningen zijn gebaseerd op de aannames die je zelf invult; rendementen uit het verleden bieden geen garantie voor de toekomst. Beleggen brengt risico's met zich mee: je kunt (een deel van) je inleg verliezen.</p>
+</div>
+
+<script>
+/* =====================================================================
+   INSTELLINGEN — dit blok mag je zelf aanpassen zonder verstand van code
+   ===================================================================== */
+const STANDAARD_RENDEMENT = 7;  // standaard verwacht rendement in %
+const WACHT_JAREN = 5;          // de "zou je X jaar wachten"-vergelijking
+/* ==================== einde instellingen ==================== */
+
+const fmtEur = new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+const fmtPct = v => v.toLocaleString('nl-NL', { maximumFractionDigits: 1 });
+const parseEuro = s => {
+  const n = parseFloat(String(s).replace(/\s|\./g, '').replace(',', '.'));
+  return isNaN(n) || n < 0 ? 0 : n;
+};
+const fvMaandinleg = (m, r, j) => {
+  const i = r / 12, n = Math.round(j * 12);
+  return i === 0 ? m * n : m * ((1 + i) ** n - 1) / i;
+};
+const fvEenmalig = (b, r, j) => b * (1 + r / 12) ** (12 * j);
+
+document.getElementById('rendement').value = STANDAARD_RENDEMENT;
+let laatsteKopie = '';
+
+function reken() {
+  const start = parseEuro(document.getElementById('start').value);
+  const inleg = parseEuro(document.getElementById('inleg').value);
+  const nu = parseInt(document.getElementById('leeftijd-nu').value, 10);
+  const doel = parseInt(document.getElementById('leeftijd-doel').value, 10);
+  const rendement = parseFloat(document.getElementById('rendement').value);
+  document.getElementById('rendement-uit').textContent = `${fmtPct(rendement)}%`;
+
+  const fout = document.getElementById('fout');
+  const resultaat = document.getElementById('resultaat');
+  if (isNaN(nu) || isNaN(doel) || doel <= nu) {
+    fout.hidden = false; resultaat.hidden = true;
+    fout.textContent = 'Kies een doelleeftijd die hoger is dan de leeftijd van je kind nu.';
+    return;
+  }
+  fout.hidden = true; resultaat.hidden = false;
+
+  const jaren = doel - nu;
+  const r = rendement / 100;
+  const eind = fvEenmalig(start, r, jaren) + fvMaandinleg(inleg, r, jaren);
+  const ingelegd = start + inleg * 12 * jaren;
+  const groei = Math.max(0, eind - ingelegd);
+
+  document.getElementById('hero-label').textContent = `🎁 Op de ${doel}e verjaardag`;
+  document.getElementById('hero-getal').textContent = fmtEur.format(eind);
+  document.getElementById('hero-sub').textContent =
+    `bij ${fmtEur.format(inleg)} per maand${start > 0 ? ` + ${fmtEur.format(start)} startbedrag` : ''}, ${jaren} jaar lang, tegen ${fmtPct(rendement)}% per jaar (jouw aanname)`;
+
+  const pctInleg = eind > 0 ? ingelegd / eind * 100 : 0;
+  document.getElementById('seg-inleg').style.width = pctInleg + '%';
+  document.getElementById('seg-groei').style.width = (100 - pctInleg) + '%';
+  document.getElementById('stapel').setAttribute('aria-label',
+    `Verdeling eindbedrag: ${fmtEur.format(ingelegd)} zelf ingelegd, ${fmtEur.format(groei)} gegroeid door rendement`);
+  document.getElementById('waarde-inleg').textContent = fmtEur.format(ingelegd);
+  document.getElementById('waarde-groei').textContent = fmtEur.format(groei);
+
+  // Wat als je wacht?
+  const wachtNoot = document.getElementById('wacht-noot');
+  const laterLeeftijd = nu + WACHT_JAREN;
+  if (laterLeeftijd < doel && (inleg > 0 || start > 0)) {
+    const jarenLater = doel - laterLeeftijd;
+    const eindLater = fvEenmalig(start, r, jarenLater) + fvMaandinleg(inleg, r, jarenLater);
+    wachtNoot.hidden = false;
+    wachtNoot.innerHTML = `⏳ Zou je wachten tot je kind <strong>${laterLeeftijd}</strong> is, dan kom je uit op <strong>${fmtEur.format(eindLater)}</strong> — ${nu === 0 ? 'starten bij de geboorte' : 'nu starten'} scheelt <strong>${fmtEur.format(eind - eindLater)}</strong>.`;
+  } else {
+    wachtNoot.hidden = true;
+  }
+
+  laatsteKopie = `Als ik ${fmtEur.format(inleg)} per maand beleg voor mijn kind, kan er op de ${doel}e verjaardag ± ${fmtEur.format(eind)} klaarstaan ✨ (waarvan ${fmtEur.format(groei)} gegroeid door rendement). Bereken het gratis via Beleg Slim met Jim`;
+}
+
+document.querySelectorAll('input').forEach(inp => inp.addEventListener('input', reken));
+reken();
+
+document.getElementById('kopieer-knop').addEventListener('click', async function () {
+  try { await navigator.clipboard.writeText(laatsteKopie); }
+  catch (e) {
+    const t = document.createElement('textarea');
+    t.value = laatsteKopie; document.body.appendChild(t); t.select();
+    document.execCommand('copy'); t.remove();
+  }
+  const oud = this.textContent;
+  this.textContent = 'Gekopieerd ✓';
+  setTimeout(() => { this.textContent = oud; }, 2000);
+});
+</script>
+<script>
+document.querySelectorAll('input[type=range]').forEach(s => {
+  const vul = () => s.style.setProperty('--vul', (100 * (s.value - s.min) / ((s.max - s.min) || 1)) + '%');
+  s.addEventListener('input', vul); vul();
+});
+</script>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="voet-grid">
+      <div>
+        <h4>Gratis tools</h4>
+        <ul>
+          <li><a href="50-30-20-rekentool.html">50/30/20-rekentool</a></li>
+          <li><a href="geldlek-scanner.html">Geldlek-scanner</a></li>
+          <li><a href="beleggen-voor-je-kind.html">Beleggen voor je kind</a></li>
+          <li><a href="sparen-vs-beleggen.html">Sparen vs. beleggen</a></li>
+          <li><a href="wat-kost-wachten.html">Wat kost wachten?</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Meer van Jim</h4>
+        <ul>
+          <li><a href="cursus-starten-met-beleggen.html">Cursus (voorbeeld)</a></li>
+          <li><a href="https://www.instagram.com/belegslim.metjim/" target="_blank" rel="noopener">Instagram · @belegslim.metjim</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Officieel <span style="font-weight:400;text-transform:none;letter-spacing:0">(nog in te vullen)</span></h4>
+        <ul>
+          <li><a href="#">Algemene voorwaarden</a></li>
+          <li><a href="#">Privacybeleid</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="voet-onder">Deze tools zijn bedoeld als educatief hulpmiddel en zijn geen financieel of beleggingsadvies. De berekeningen zijn gebaseerd op de aannames die je zelf invult; rendementen uit het verleden bieden geen garantie voor de toekomst. Beleggen brengt risico's met zich mee: je kunt (een deel van) je inleg verliezen.</p>
+  </div>
+</footer>
+</body>
+</html>

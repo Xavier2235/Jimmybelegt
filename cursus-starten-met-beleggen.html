@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cursus Starten met beleggen (voorbeeld) | Beleg Slim met Jim</title>
+<meta name="description" content="Voorbeeldpagina voor een cursus: geen voorkennis nodig, inclusief live Q&A en levenslang toegang.">
+<meta name="theme-color" content="#F3EFE6">
+<!-- TODO: canonical/og-URL's naar de echte Vercel-URL zetten zodra die bekend is -->
+<link rel="canonical" href="https://belegslim-met-jim.vercel.app/cursus-starten-met-beleggen.html">
+<link rel="icon" href="jim-icoon-180.png">
+<link rel="apple-touch-icon" href="jim-icoon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:site_name" content="Beleg Slim met Jim">
+<meta property="og:title" content="Cursus Starten met beleggen (voorbeeld) | Beleg Slim met Jim">
+<meta property="og:description" content="Voorbeeldpagina voor een cursus: geen voorkennis nodig, inclusief live Q&A en levenslang toegang.">
+<meta property="og:url" content="https://belegslim-met-jim.vercel.app/cursus-starten-met-beleggen.html">
+<meta property="og:image" content="https://belegslim-met-jim.vercel.app/jim-og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== Beleg Slim met Jim design tokens ===== */
+  :root{
+    --bg:#F3EFE6; --teal:#067A5E; --mint:#D7E8DF; --koraal:#D9542A;
+    --amber:#F3DA96; --ink:#1C2530; --teal-donker:#055B47; --ink-zacht:#5B6570;
+    --lijn:#E3DDCE; --wit:#FFFFFF; --radius:20px; --schaduw:0 14px 34px -16px rgba(28,37,48,.16);
+    --kop:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --display:'Fraunces',Georgia,'Times New Roman',serif;
+    --rand:#EDE6D5;
+    --body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;color-scheme:light;scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--body)}
+  .pagina{max-width:760px;margin:0 auto;padding:30px 20px 48px}
+  @media(min-width:600px){.pagina{padding:40px 24px 56px}}
+
+  .badge{display:inline-block;background:var(--wit);color:var(--teal);border:1.5px solid var(--teal);
+    border-radius:999px;padding:6px 16px;font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:0 0 16px;box-shadow:0 4px 14px -6px rgba(6,122,94,.3)}
+  .kicker{font-size:.85rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-zacht);margin:0 0 6px}
+  h1{font-family:var(--display);font-weight:700;color:var(--teal);font-size:2.4rem;line-height:1.08;letter-spacing:-.01em;margin:0 0 10px}
+  h2{font-family:var(--display);font-weight:600;color:var(--ink);font-size:1.4rem;line-height:1.25;margin:0 0 12px}
+  .sub{font-size:1.08rem;color:var(--ink-zacht);margin:0 0 20px}
+
+  .kaart{background:var(--wit);border:1px solid var(--rand);border-radius:var(--radius);box-shadow:var(--schaduw);padding:20px 18px;margin:0 0 18px}
+  @media(min-width:600px){.kaart{padding:24px}}
+
+  /* prijs & CTA */
+  .prijsblok{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 14px}
+  .prijs{font-family:var(--display);font-size:2.6rem;font-weight:600;color:var(--teal);line-height:1}
+  .prijs-oud{color:var(--ink-zacht)}
+  .prijs-oud s{text-decoration-thickness:2px}
+  .prijs-noot{width:100%;font-size:.9rem;color:var(--ink-zacht);margin:0}
+  .knop{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:14px 28px;
+    border-radius:999px;border:0;font:600 1.05rem var(--kop);cursor:pointer;text-decoration:none;transition:transform .15s ease,box-shadow .15s ease}
+  .knop-primair{background:var(--teal);color:var(--wit);box-shadow:0 8px 22px -8px rgba(6,122,94,.55)}
+  .knop-primair:hover{background:var(--teal-donker);transform:translateY(-1px)}
+  .knop-secundair{background:var(--wit);color:var(--teal);border:1.5px solid var(--teal)}
+  .knop-secundair:hover{background:var(--bg)}
+  :focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:6px}
+
+  /* vinklijsten */
+  ul.vink{list-style:none;padding:0;margin:0;display:grid;gap:9px}
+  ul.vink li{padding-left:30px;position:relative}
+  ul.vink li::before{content:"✓";position:absolute;left:0;top:0;width:22px;height:22px;border-radius:50%;
+    background:var(--mint);color:var(--ink);font-size:.8rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .usp-rij{display:grid;gap:9px;grid-template-columns:1fr;margin:14px 0 0}
+  @media(min-width:520px){.usp-rij{grid-template-columns:1fr 1fr}}
+
+  /* verhaal */
+  .verhaal{background:linear-gradient(135deg,var(--mint),#DDE8CB);border-radius:var(--radius);padding:20px 18px;margin:0 0 18px}
+  .verhaal h2{color:var(--ink)}
+  .jim-avatar{float:right;width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--teal),var(--teal-donker));color:var(--wit);font-family:var(--display);
+    font-style:italic;font-weight:600;font-size:1.9rem;
+    border:2.5px solid var(--wit);box-shadow:0 4px 12px rgba(28,37,48,.25);margin:0 0 8px 14px}
+  .verhaal .quote{font-size:1.02rem;margin:0 0 10px}
+  .verhaal .naam{font-family:var(--kop);font-weight:600;margin:0}
+
+  /* modules */
+  ol.modules{list-style:none;counter-reset:mod;padding:0;margin:0;display:grid;gap:8px}
+  ol.modules li{counter-increment:mod;display:flex;align-items:center;gap:12px;background:var(--bg);
+    border-radius:12px;padding:11px 14px;font-weight:600}
+  ol.modules li::before{content:counter(mod);flex:none;width:28px;height:28px;border-radius:50%;
+    background:var(--teal);color:var(--wit);font-size:.9rem;display:flex;align-items:center;justify-content:center}
+  ul.bonus{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+  ul.bonus li{display:flex;align-items:center;gap:12px;background:var(--geel);border-radius:12px;padding:11px 14px;font-weight:600}
+  ul.bonus li::before{content:"🎁";flex:none}
+  .meta-regel{margin:14px 0 0;font-size:.9rem;color:var(--ink-zacht)}
+
+  /* reviews */
+  .reviews{display:grid;gap:12px;margin:0}
+  .review{background:var(--wit);border-radius:var(--radius);box-shadow:var(--schaduw);padding:18px}
+  .review p{margin:0 0 10px;font-size:.98rem}
+  .review .wie{margin:0;font-family:var(--kop);font-weight:600;color:var(--teal);font-size:.95rem}
+  .review .wat{font-family:var(--body);font-weight:400;color:var(--ink-zacht);font-size:.82rem}
+  .sterren{color:var(--geel);letter-spacing:2px;font-size:.95rem;margin:0 0 8px;text-shadow:0 0 1px var(--ink-zacht)}
+
+  /* cta-band */
+  .cta-band{background:linear-gradient(135deg,var(--koraal),#FFC7AC);border-radius:var(--radius);padding:26px 18px;text-align:center;margin:0 0 18px}
+  .cta-band h2{color:var(--ink)}
+  .cta-band .prijsregel{margin:0 0 16px;font-size:1.05rem}
+  .cta-band .prijsregel strong{font-size:1.6rem;color:var(--teal-donker)}
+  .cta-band .garantie{font-size:.88rem;margin:12px 0 0}
+
+  /* faq */
+  details{background:var(--wit);border-radius:var(--radius);box-shadow:var(--schaduw);margin:0 0 10px}
+  details summary{cursor:pointer;font-weight:600;padding:15px 16px;list-style-position:inside}
+  details[open] summary{border-bottom:1px solid var(--bg)}
+  details .inhoud{padding:6px 16px 15px}
+  details .inhoud p{margin:0 0 8px}
+
+  /* podcast & socials */
+  .duo{display:grid;gap:12px;grid-template-columns:1fr;margin:0 0 18px}
+  @media(min-width:600px){.duo{grid-template-columns:1fr 1fr}}
+  .duo .kaart{margin:0;display:flex;flex-direction:column;gap:10px}
+  .duo .kaart p{margin:0;font-size:.95rem}
+  .duo .kaart .knop{margin-top:auto;align-self:flex-start}
+  .duo h2{margin-bottom:2px}
+
+  .sectiekop{margin:26px 0 14px}
+  .voetnoot{display:none;font-size:.8rem;color:var(--ink-zacht);margin:0 0 6px}
+  html.embed .voetnoot{display:block}
+  .voet-links{display:none;font-size:.85rem;margin:14px 0 0}
+  html.embed .voet-links{display:block}
+  .voet-links a{color:var(--teal)}
+  a{color:var(--teal)}
+  h1,h2{text-wrap:balance}
+  @media(max-width:430px){.knop{padding:12px 16px;font-size:.95rem}}
+
+  /* site-header & footer (zoals de homepage; verbergen zichzelf in een Podia-embed) */
+  .wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+  .topbar{border-bottom:1px solid var(--lijn);font-size:.78rem;color:var(--ink-zacht)}
+  .topbar .wrap{display:flex;justify-content:space-between;gap:12px;padding-top:9px;padding-bottom:9px;white-space:nowrap;overflow:hidden}
+  .topbar .dot{color:var(--teal)}
+  .topbar strong{font-weight:600;color:var(--ink)}
+  @media(max-width:640px){.topbar .wrap span:last-child{display:none}}
+  .masthead{border-bottom:1px solid var(--lijn);text-align:center;padding:26px 0 18px}
+  .wordmark{font-family:var(--display);font-size:2.3rem;line-height:1;margin:0;color:var(--ink);letter-spacing:.01em;text-decoration:none;display:inline-block}
+  .wordmark em{font-style:italic;color:var(--teal);font-weight:600}
+  .wordmark .b{font-family:var(--kop);font-weight:700;letter-spacing:-.01em}
+  .masthead .streep{width:64px;height:2px;background:var(--geel);margin:12px auto 10px;border-radius:2px}
+  .tagline{margin:0;font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-zacht)}
+  .hoofdnav{border-bottom:1px solid var(--lijn)}
+  .hoofdnav .wrap{display:flex;justify-content:flex-start;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  @media(min-width:700px){.hoofdnav .wrap{justify-content:center}}
+  .hoofdnav a{display:inline-block;padding:13px 14px;font:600 .92rem var(--kop);color:var(--ink);
+    text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap}
+  .hoofdnav a:hover{color:var(--teal)}
+  .hoofdnav a[aria-current]{color:var(--teal);border-bottom-color:var(--teal)}
+  .ster{color:var(--goud)}
+  .site-footer{border-top:1px solid var(--lijn);padding:44px 0 30px;font-size:.9rem}
+  .voet-grid{display:grid;gap:28px;grid-template-columns:1fr}
+  @media(min-width:700px){.voet-grid{grid-template-columns:1fr 1fr 1fr}}
+  .site-footer h4{margin:0 0 10px;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--goud)}
+  .site-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+  .site-footer a{text-decoration:none;color:var(--ink)}
+  .site-footer a:hover{color:var(--teal);text-decoration:underline}
+  .voet-onder{border-top:1px solid var(--lijn);margin-top:32px;padding-top:18px;font-size:.78rem;color:var(--ink-zacht)}
+  html.embed .site-header,html.embed .site-footer{display:none}
+  html.embed body{background:transparent;padding:12px 8px}
+</style>
+</head>
+<body>
+<script>if (window.self !== window.top) document.documentElement.classList.add('embed');</script>
+<div class="site-header">
+<div class="topbar">
+  <div class="wrap">
+    <span><span class="dot">●</span> <strong>Nieuw</strong> · De Geldlek-scanner en vier andere gratis tools staan live</span>
+    <span>100% gratis · geen download</span>
+  </div>
+</div>
+<header class="masthead">
+  <a class="wordmark" href="index.html"><em>Beleg</em> <span class="b">Slim</span></a>
+  <div class="streep" aria-hidden="true"></div>
+  <p class="tagline">Met Jim — geld &amp; beleggen zonder gedoe</p>
+</header>
+<nav class="hoofdnav" aria-label="Hoofdnavigatie">
+  <div class="wrap">
+    <a href="index.html">Home</a>
+    <a href="index.html#waarom">Waarom beleggen</a>
+    <a href="index.html#tools">Tools</a>
+    <a href="50-30-20-rekentool.html">50/30/20-rekentool</a>
+    <a href="cursus-starten-met-beleggen.html" aria-current="page">Cursus <span class="ster">✦</span></a>
+    <a href="index.html#over">Over Jim</a>
+  </div>
+</nav>
+</div>
+<div class="pagina">
+  <p class="badge">Cursus van Beleg Slim met Jim</p>
+
+  <!-- ===== Hero ===== -->
+  <p class="kicker">Online cursus · 10 lessen · ± 5 uur · eigen tempo</p>
+  <h1>Starten met beleggen</h1>
+  <p class="sub">Van spaarder naar belegger — zonder jargon, zonder voorkennis, met een duidelijk stappenplan voor jezelf én je kinderen.</p>
+
+  <div class="kaart">
+    <div class="prijsblok">
+      <span class="prijs">€ 37</span>
+      <span class="prijs-oud">✨ tijdelijk, <s>€ 159</s></span>
+      <p class="prijs-noot">Inclusief gratis maandelijks webinar <em>Starten met beleggen</em> en levenslang toegang.</p>
+    </div>
+    <!-- TODO: dit is een placeholder-knop; vervang href="#" door de echte checkout-link zodra die bestaat -->
+    <a class="knop knop-primair" href="#" aria-disabled="true">Ja, ik start vandaag → <span style="font-weight:400;opacity:.8">(voorbeeld)</span></a>
+    <ul class="vink usp-rij">
+      <li>Geen voorkennis nodig</li>
+      <li>Inclusief live Q&amp;A</li>
+      <li>Levenslang toegang</li>
+      <li>Praktische voorbeelden</li>
+    </ul>
+  </div>
+
+  <!-- ===== Waarom ===== -->
+  <div class="kaart">
+    <h2>Waarom nu?</h2>
+    <p>Veel mensen sparen hard, maar laten hun geld onbedoeld stilstaan. Terwijl spaargeld door inflatie sluipend koopkracht verliest, groeide wereldwijd gespreid beleggen historisch met gemiddeld zo'n 7% per jaar — geen garantie voor de toekomst, wél een groot verschil op lange termijn. In deze cursus leer je hoe je op een eenvoudige manier begint, zodat je vermogen opbouwt voor jezelf én je toekomst.</p>
+  </div>
+
+  <!-- ===== Voor wie ===== -->
+  <div class="kaart">
+    <h2>Voor wie is deze cursus?</h2>
+    <ul class="vink">
+      <li>Je hebt spaargeld staan maar weet niet waar je moet beginnen</li>
+      <li>Je wilt beleggen voor jezelf of je toekomst</li>
+      <li>Je wilt vermogen opbouwen zonder dagelijks naar de beurs te kijken</li>
+      <li>Je bent klaar met twijfelen en wilt gewoon een duidelijk stappenplan</li>
+    </ul>
+  </div>
+
+  <!-- VOORBEELDTEKST — Jims eigen verhaal komt hier in de eerste persoon -->
+  <div class="verhaal">
+    <span class="jim-avatar" aria-hidden="true">J</span>
+    <h2>"Had iemand mij dit maar eerder geleerd"</h2>
+    <p class="quote">[Voorbeeldtekst] Ik begon zelf relatief laat met beleggen. Jarenlang stond mijn geld op een spaarrekening, omdat ik dacht dat beleggen ingewikkeld en risicovol was. Inmiddels laat ik mijn vermogen groeien en help ik anderen om die eerste stap te zetten. En echt: starten is vaak veel eenvoudiger dan je denkt. Jij kan dit ook!</p>
+    <p class="naam">— Jim</p>
+  </div>
+
+  <div class="kaart">
+    <h2>Deze cursus is voor jou als…</h2>
+    <ul class="vink">
+      <li>je al langer denkt: "ik moet hier eigenlijk iets mee doen"</li>
+      <li>je beleggen altijd ingewikkeld vond</li>
+      <li>je slim bent, maar nooit financiële educatie hebt gekregen</li>
+      <li>je vermogen wilt opbouwen op een simpele manier</li>
+      <li>je praktische uitleg wilt zonder moeilijke financiële termen</li>
+      <li>je financiële rust en vrijheid belangrijk vindt</li>
+    </ul>
+  </div>
+
+  <!-- ===== Inhoud ===== -->
+  <h2 class="sectiekop">Wat leer je? <span style="font-family:var(--body);font-weight:400;font-size:.9rem;color:var(--ink-zacht)">(10 lessen: intro + 6 modules + 3 bonussen)</span></h2>
+  <div class="kaart">
+    <ol class="modules">
+      <li>Introductie: Starten met beleggen <span style="font-weight:400;color:var(--ink-zacht);font-size:.85rem">(gratis voorbeeldles)</span></li>
+      <li>Basisinformatie van de beurs</li>
+      <li>Beleggingsproducten</li>
+      <li>Basisregels van beleggen</li>
+      <li>Beleggingsstrategieën</li>
+      <li>Financiële doelen</li>
+      <li>De juiste broker kiezen</li>
+    </ol>
+    <ul class="bonus">
+      <li>Bonus: ETF-afkijklijstje</li>
+      <li>Bonus: Stappenplan beleggen voor je kind</li>
+      <li>Actie: In 5 stappen starten met beleggen</li>
+    </ul>
+    <p class="meta-regel">Elke module is theorie + opdrachten en kost je ongeveer een uur — in je eigen tempo, wanneer het jou uitkomt.</p>
+  </div>
+
+  <!-- VOORBEELDTEKST — verzonnen reviews, vervang door echte testimonials zodra die er zijn -->
+  <h2 class="sectiekop">Reviews van deelnemers <span style="font-family:var(--body);font-weight:400;font-size:.85rem;color:var(--ink-zacht)">(voorbeeld)</span></h2>
+  <div class="reviews">
+    <div class="review">
+      <p class="sterren" aria-label="vijf sterren">★★★★★</p>
+      <p>"[Voorbeeldreview] De cursus staat vol met praktische informatie, echt leuk en laagdrempelig — en ik ben eindelijk begonnen."</p>
+      <p class="wie">Voorbeeldnaam 1 <span class="wat">· Cursus Starten met beleggen</span></p>
+    </div>
+    <div class="review">
+      <p class="sterren" aria-label="vijf sterren">★★★★★</p>
+      <p>"[Voorbeeldreview] Ik heb veel nieuwe inzichten opgedaan en genoeg informatie om zelf te starten met beleggen."</p>
+      <p class="wie">Voorbeeldnaam 2 <span class="wat">· Cursus Starten met beleggen</span></p>
+    </div>
+    <div class="review">
+      <p class="sterren" aria-label="vijf sterren">★★★★★</p>
+      <p>"[Voorbeeldreview] Ik zag door de bomen het bos niet meer. Jim heeft mij op weg geholpen om mijn vermogen verder te laten groeien."</p>
+      <p class="wie">Voorbeeldnaam 3 <span class="wat">· 1-op-1 coaching</span></p>
+    </div>
+  </div>
+
+  <!-- ===== CTA-band ===== -->
+  <div class="cta-band" style="margin-top:18px">
+    <h2>Klaar om te starten?</h2>
+    <p class="prijsregel">Nu tijdelijk <strong>€ 37</strong> <s>€ 159</s></p>
+    <!-- TODO: dit is een placeholder-knop; vervang href="#" door de echte checkout-link zodra die bestaat -->
+    <a class="knop knop-primair" href="#" aria-disabled="true">Ja! Ik start → <span style="font-weight:400;opacity:.8">(voorbeeld)</span></a>
+    <p class="garantie">Direct toegang · levenslang terugkijken · inclusief gratis maandelijks webinar</p>
+  </div>
+
+  <!-- ===== FAQ ===== -->
+  <h2 class="sectiekop">Veelgestelde vragen</h2>
+  <details>
+    <summary>Moet ik veel geld hebben om te beginnen?</summary>
+    <div class="inhoud"><p>Je kunt al starten vanaf een paar tientjes per maand. Het belangrijkste is dat je begint en het volhoudt: het gaat vooral om tijd ín de markt. Hoe eerder je begint, hoe groter het vermogen dat je met een bescheiden maandbedrag kunt opbouwen.</p></div>
+  </details>
+  <details>
+    <summary>Ik heb geen verstand van beleggen. Is dit wel voor mij?</summary>
+    <div class="inhoud"><p>Juist! Deze aanpak is gemaakt voor mensen zonder financiële achtergrond. Alles wordt simpel uitgelegd, zonder jargon — je hoeft het niet "te snappen als een expert" om te starten. In de community zitten beleggers van alle niveaus; we leren van en met elkaar.</p></div>
+  </details>
+  <details>
+    <summary>Is beleggen niet heel risicovol?</summary>
+    <div class="inhoud"><p>Beleggen brengt risico's met zich mee, maar niet beleggen ook: als je geld alleen spaart, verlies je op de lange termijn vaak koopkracht door inflatie. In de cursus leer je hoe je gespreid en rustig opbouwt, zodat je risico beheersbaar blijft.</p></div>
+  </details>
+  <details>
+    <summary>Hoeveel tijd kost de cursus?</summary>
+    <div class="inhoud"><p>De cursus <em>Starten met beleggen</em> volg je in je eigen tempo. De 10 lessen (een introductie, zes modules en drie bonussen) kosten je samen ongeveer vijf uur, als combinatie van theorie en opdrachten. Aan het einde kun je zelf starten met beleggen.</p></div>
+  </details>
+  <details>
+    <summary>Mijn vraag staat er niet bij. Wat nu?</summary>
+    <div class="inhoud"><p>Wil je nog iets weten voordat je beslist? Stuur gerust een berichtje via Instagram <a href="https://www.instagram.com/belegslim.metjim/" target="_blank" rel="noopener">@belegslim.metjim</a> — je krijgt persoonlijk antwoord.</p></div>
+  </details>
+
+  <!-- ===== Instagram ===== -->
+  <h2 class="sectiekop">Nog even snuffelen?</h2>
+  <div class="kaart">
+    <h2>📱 Instagram · @belegslim.metjim</h2>
+    <p>[Voorbeeldtekst] Volg voor toegankelijke financiële content — en ontdek hoe ook jij je geld voor je kunt laten werken.</p>
+    <a class="knop knop-secundair" href="https://www.instagram.com/belegslim.metjim/" target="_blank" rel="noopener">Volg @belegslim.metjim →</a>
+  </div>
+
+  <!-- ===== Footer ===== -->
+  <p class="voetnoot">Deze pagina is bedoeld als educatief hulpmiddel en is geen financieel of beleggingsadvies. Rendementen uit het verleden bieden geen garantie voor de toekomst. Beleggen brengt risico's met zich mee: je kunt (een deel van) je inleg verliezen.</p>
+  <p class="voet-links"><a href="#">Algemene voorwaarden</a> · <a href="#">Privacybeleid</a></p>
+</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="voet-grid">
+      <div>
+        <h4>Gratis tools</h4>
+        <ul>
+          <li><a href="50-30-20-rekentool.html">50/30/20-rekentool</a></li>
+          <li><a href="geldlek-scanner.html">Geldlek-scanner</a></li>
+          <li><a href="beleggen-voor-je-kind.html">Beleggen voor je kind</a></li>
+          <li><a href="sparen-vs-beleggen.html">Sparen vs. beleggen</a></li>
+          <li><a href="wat-kost-wachten.html">Wat kost wachten?</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Meer van Jim</h4>
+        <ul>
+          <li><a href="cursus-starten-met-beleggen.html">Cursus (voorbeeld)</a></li>
+          <li><a href="https://www.instagram.com/belegslim.metjim/" target="_blank" rel="noopener">Instagram · @belegslim.metjim</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Officieel <span style="font-weight:400;text-transform:none;letter-spacing:0">(nog in te vullen)</span></h4>
+        <ul>
+          <li><a href="#">Algemene voorwaarden</a></li>
+          <li><a href="#">Privacybeleid</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="voet-onder">Deze tools zijn bedoeld als educatief hulpmiddel en zijn geen financieel of beleggingsadvies. De berekeningen zijn gebaseerd op de aannames die je zelf invult; rendementen uit het verleden bieden geen garantie voor de toekomst. Beleggen brengt risico's met zich mee: je kunt (een deel van) je inleg verliezen.</p>
+  </div>
+</footer>
+</body>
+</html>
