@@ -35,14 +35,13 @@ Zoek in de bestanden op **"[Voorbeeldtekst]"**, **"(voorbeeld)"** en **TODO** om
 - **Algemene voorwaarden / privacybeleid** in de footer zijn `#`-placeholders — die moeten naar echte pagina's zodra die bestaan (verplicht voordat je hier echt geld mee vraagt).
 - **Excel-downloadlink** die in het origineel stond is verwijderd — die verwees naar een bestaand product van iemand anders. Als Jim een eigen weggever krijgt, kan die hier terugkomen.
 
-## Hoe zet je dit online?
+## Hoe staat dit online?
 
-1. Maak een gratis Vercel-account (met je GitHub-login) en klik **"Add New… → Project"**.
-2. Importeer deze repository — Vercel herkent een map met losse HTML-bestanden automatisch, geen configuratie nodig.
-3. Na de deploy krijg je een adres zoals `https://jouw-projectnaam.vercel.app`.
-4. Werk daarna de `<link rel="canonical">` en `og:url`/`og:image`-regels in elk bestand bij naar dat echte adres (nu staat er overal de placeholder `https://belegslim-met-jim.vercel.app/`).
+Deze repository had al GitHub Pages aanstaan (van een eerder project) — die koppeling is intact gebleven, dus deze site staat automatisch live op:
 
-Elke push naar de hoofdbranch deployt automatisch opnieuw.
+**https://xavier2235.github.io/Margotbelegt/**
+
+Elke push naar de `main`-branch verschijnt binnen ongeveer een minuut live, zonder verdere configuratie.
 
 ## Zelf teksten of bedragen aanpassen
 
