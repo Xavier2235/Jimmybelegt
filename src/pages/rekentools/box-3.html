@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Box 3-tool | Rekentool</title>
+<meta name="description" content="Bereken je verschuldigde box 3-belasting via het forfait, plus het tegenbewijs op basis van je werkelijke rendement.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:title" content="Box 3-tool | Rekentool">
+<meta property="og:description" content="Bereken je verschuldigde box 3-belasting via het forfait, plus het tegenbewijs op basis van je werkelijke rendement.">
+<meta property="og:url" content="/rekentools/box-3">
+<meta property="og:image" content="/img/og-beeld.svg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="demobar" data-component="demobar">
+  <div class="wrap-wide">
+    <span class="demobar-tekst"></span>
+    <button type="button" class="demobar-sluit" aria-label="DEMO-balk sluiten">&times;</button>
+  </div>
+</div>
+<a class="skip-link" href="#hoofdinhoud">Naar hoofdinhoud</a>
+<header class="site-header">
+  <div class="wrap-wide">
+    <a class="wordmark" href="/" data-brand="naam"></a>
+    <nav class="main-nav" aria-label="Hoofdnavigatie">
+      <a href="/rekentools">Rekentools</a>
+      <a href="/cursus">Cursus</a>
+      <a href="/coaching">Coaching</a>
+      <a href="/over">Over</a>
+      <a href="/transparantie">Transparantie</a>
+    </nav>
+    <button type="button" class="nav-toggle" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  </div>
+  <nav class="mobile-nav" aria-label="Mobiel menu">
+    <a href="/rekentools">Rekentools</a>
+    <a href="/cursus">Cursus</a>
+    <a href="/coaching">Coaching</a>
+    <a href="/over">Over</a>
+    <a href="/transparantie">Transparantie</a>
+    <a href="/voorwaarden">Voorwaarden</a>
+  </nav>
+</header>
+<main id="hoofdinhoud">
+
+<div class="wrap-wide section" data-tool="box-3">
+  <div class="section-head">
+      <p class="card-eyebrow">Rekentool</p>
+      <h1>Box 3-tool</h1>
+      <p>Bereken je verschuldigde belasting via het forfait, plus het tegenbewijs op basis van je werkelijke rendement.</p>
+    </div>
+  <div class="tool-layout">
+    <div class="card stack">
+      <div class="veld" data-veld="spaargeld" data-range-groep>
+      <label for="spaargeld">Spaargeld</label>
+      <div class="range-rij">
+        <input type="range" id="spaargeld" min="0" max="500000" step="500" value="20000">
+        <div class="getal-invoer"><span>&euro;</span><input type="text" inputmode="decimal" aria-label="Spaargeld"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="beleggingen" data-range-groep>
+      <label for="beleggingen">Beleggingen</label>
+      <div class="range-rij">
+        <input type="range" id="beleggingen" min="0" max="1000000" step="500" value="50000">
+        <div class="getal-invoer"><span>&euro;</span><input type="text" inputmode="decimal" aria-label="Beleggingen"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="schulden" data-range-groep>
+      <label for="schulden">Schulden (box 3)</label>
+      <div class="range-rij">
+        <input type="range" id="schulden" min="0" max="500000" step="500" value="0">
+        <div class="getal-invoer"><span>&euro;</span><input type="text" inputmode="decimal" aria-label="Schulden (box 3)"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="groene-beleggingen" data-range-groep>
+      <label for="groene-beleggingen">Waarvan groene beleggingen</label>
+      <div class="range-rij">
+        <input type="range" id="groene-beleggingen" min="0" max="100000" step="500" value="0">
+        <div class="getal-invoer"><span>&euro;</span><input type="text" inputmode="decimal" aria-label="Waarvan groene beleggingen"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="werkelijk-rendement" data-range-groep>
+      <label for="werkelijk-rendement">Werkelijk rendement (jouw aanname)</label>
+      <div class="range-rij">
+        <input type="range" id="werkelijk-rendement" min="0" max="15" step="0.1" value="4">
+        <div class="getal-invoer"><span>%</span><input type="text" inputmode="decimal" aria-label="Werkelijk rendement (jouw aanname)"></div>
+      </div>
+      
+    </div>
+      <div class="veld">
+        <label>Fiscaal partner?</label>
+        <div class="keuze-rij">
+          <label class="keuze-chip"><input type="radio" name="fiscaal-partner" value="nee" checked> Nee</label>
+          <label class="keuze-chip"><input type="radio" name="fiscaal-partner" value="ja"> Ja</label>
+        </div>
+      </div>
+    </div>
+    <div class="card stack">
+      <div class="grid grid-2">
+        <div class="band-tegel"><p class="band-label">Belasting (forfait)</p><p class="band-waarde" data-uitvoer="belasting-forfait">&euro; 0</p></div>
+        <div class="band-tegel"><p class="band-label">Belasting (tegenbewijs)</p><p class="band-waarde" data-uitvoer="belasting-werkelijk">&euro; 0</p></div>
+      </div>
+      <p data-uitvoer="tegenbewijs-melding" class="pill pill-neutraal"></p>
+      <div class="grid grid-2">
+        <div><p class="text-muted fs-small">Effectieve druk</p><p class="band-waarde" data-uitvoer="druk">0%</p></div>
+        <div><p class="text-muted fs-small">Forfaitair percentage</p><p class="band-waarde" data-uitvoer="forfait-percentage">0%</p></div>
+      </div>
+      <p class="text-muted fs-small">Grondslag na heffingsvrij vermogen: <strong data-uitvoer="grondslag">&euro; 0</strong></p>
+      <div>
+        <h3 class="fs-small text-muted" style="text-transform:uppercase;letter-spacing:.06em">Gebruikte cijfers</h3>
+        <ul data-uitvoer="bronnenlijst" style="margin-top:var(--sp-2)"></ul>
+      </div>
+    </div>
+  </div>
+  <details class="accordion-item " data-component="aannames-accordion">
+      <summary>Aannames <span class="teller"></span></summary>
+      <div class="accordion-body"><ul><li>Berekening volgens de forfaitaire spaarvariant box 3, zoals aangekondigd voor 2026.</li><li>De banktegoeden-, beleggingen- en schuldenforfaits voor 2026 zijn ten dele nog voorlopig (zie bronvermelding per cijfer).</li><li>De tegenbewijsregeling wordt hier vereenvoudigd toegepast op basis van het door jou opgegeven werkelijke rendement.</li><li>Groene beleggingen tellen mee als bezitting; alleen het vrijgestelde deel ontvangt geen forfaitair rendement.</li></ul></div>
+    </details>
+  <div class="disclaimer" data-component="disclaimer"></div>
+  <div class="gate" data-component="gate">
+      <h3>Ontvang je berekening als PDF</h3>
+      <p class="text-muted fs-small">Demo: er wordt geen PDF verstuurd.</p>
+      <form>
+        <input type="email" placeholder="jouw@email.nl" required aria-label="E-mailadres">
+        <button type="submit" class="btn btn-primair">Verstuur</button>
+      </form>
+      <div class="checkbox-rij gate-toestemming">
+        <input type="checkbox" required>
+        <label></label>
+      </div>
+      <p class="gate-succes" role="status"></p>
+    </div>
+</div>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap-wide">
+    <div class="grid grid-3">
+      <div>
+        <h4>Rekentools</h4>
+        <ul>
+          <li><a href="/rekentools/wat-had-je-nu-gehad">Wat had je nu gehad?</a></li>
+          <li><a href="/rekentools/box-3">Box 3-tool</a></li>
+          <li><a href="/rekentools/inflatie">Inflatietool</a></li>
+          <li><a href="/rekentools/pensioengat">Pensioengat</a></li>
+          <li><a href="/rekentools/positiegrootte">Positiegrootte</a></li>
+          <li><a href="/rekentools/kosten">Kostenimpact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Meer</h4>
+        <ul>
+          <li><a href="/cursus">Cursus</a></li>
+          <li><a href="/coaching">Coaching</a></li>
+          <li><a href="/over">Over</a></li>
+          <li><a data-brand-href="instagramUrl" href="#" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Juridisch</h4>
+        <ul>
+          <li><a href="/transparantie">Transparantie</a></li>
+          <li><a href="/voorwaarden">Voorwaarden</a></li>
+          <li><a href="/voorwaarden#privacy">Privacy</a></li>
+          <li><a href="/voorwaarden#disclaimer">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-brand="footerNoot"></p>
+      <p class="fs-small">&copy; <span id="footer-jaar"></span> <span data-brand="naam"></span> &mdash; demo-omgeving, geen bestaande onderneming.</p>
+    </div>
+  </div>
+</footer>
+<script type="module" src="/src/js/main.js"></script>
+<script type="module" src="/src/js/pages/tool-box-3.js"></script>
+</body>
+</html>
