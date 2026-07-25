@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transparantie | Beleg Slim met Jim</title>
+<meta name="description" content="Wat deze site wel en niet is, en welke bronnen en aannames elke rekentool gebruikt.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:title" content="Transparantie | Beleg Slim met Jim">
+<meta property="og:description" content="Wat deze site wel en niet is, en welke bronnen en aannames elke rekentool gebruikt.">
+<meta property="og:url" content="/transparantie">
+<meta property="og:image" content="/img/og-beeld.svg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="demobar" data-component="demobar">
+  <div class="wrap-wide">
+    <span class="demobar-tekst"></span>
+    <button type="button" class="demobar-sluit" aria-label="DEMO-balk sluiten">&times;</button>
+  </div>
+</div>
+<a class="skip-link" href="#hoofdinhoud">Naar hoofdinhoud</a>
+<header class="site-header">
+  <div class="wrap-wide">
+    <a class="wordmark" href="/" data-brand="naam"></a>
+    <nav class="main-nav" aria-label="Hoofdnavigatie">
+      <a href="/rekentools">Rekentools</a>
+      <a href="/cursus">Cursus</a>
+      <a href="/coaching">Coaching</a>
+      <a href="/over">Over</a>
+      <a href="/transparantie">Transparantie</a>
+    </nav>
+    <button type="button" class="nav-toggle" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  </div>
+  <nav class="mobile-nav" aria-label="Mobiel menu">
+    <a href="/rekentools">Rekentools</a>
+    <a href="/cursus">Cursus</a>
+    <a href="/coaching">Coaching</a>
+    <a href="/over">Over</a>
+    <a href="/transparantie">Transparantie</a>
+    <a href="/voorwaarden">Voorwaarden</a>
+  </nav>
+</header>
+<main id="hoofdinhoud">
+
+<div class="wrap section">
+  <p class="card-eyebrow">Transparantie</p>
+  <h1>Transparantie</h1>
+
+  <div class="section">
+    <h2>Wat dit wel is</h2>
+    <p class="text-muted">Deze site biedt educatieve rekentools die je helpen cijfers rond beleggen, belasting en risico zelf te verkennen. Alle tools rekenen live, lokaal in je browser.</p>
+  </div>
+
+  <div class="section">
+    <h2>Wat dit uitdrukkelijk niet is</h2>
+    <p class="text-muted">Dit is geen persoonlijk beleggingsadvies, geen vermogensbeheer en geen aanbeveling voor specifieke aandelen, fondsen, brokers of cryptomunten. De uitkomsten zijn indicatief.</p>
+  </div>
+
+  <div class="section">
+    <h2>Gebruikte bronnen per rekentool</h2>
+    <ul class="accordion-body">
+      <li><strong>Box 3-tool</strong> &mdash; Belastingdienst, box 3 berekening 2026 (zie bronvermelding per cijfer in de tool zelf).</li>
+      <li><strong>Wat had je nu gehad?</strong> &mdash; fictieve, zelf gegenereerde reeksen. Geen historische marktdata.</li>
+      <li><strong>Inflatietool, Pensioengat, Kostenimpact</strong> &mdash; rekenen met aannames die je zelf instelt (geen officiële historische reeksen).</li>
+      <li><strong>Positiegrootte &amp; risk-of-ruin</strong> &mdash; zuivere kansrekening op basis van je eigen invoer.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Methodiek en aannames</h2>
+    <p class="text-muted">Elke tool toont zijn eigen aannames in een uitklapbaar blok ("Aannames"). Uitkomsten worden altijd als bandbreedte getoond, nooit als één hard getal.</p>
+  </div>
+</div>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap-wide">
+    <div class="grid grid-3">
+      <div>
+        <h4>Rekentools</h4>
+        <ul>
+          <li><a href="/rekentools/wat-had-je-nu-gehad">Wat had je nu gehad?</a></li>
+          <li><a href="/rekentools/box-3">Box 3-tool</a></li>
+          <li><a href="/rekentools/inflatie">Inflatietool</a></li>
+          <li><a href="/rekentools/pensioengat">Pensioengat</a></li>
+          <li><a href="/rekentools/positiegrootte">Positiegrootte</a></li>
+          <li><a href="/rekentools/kosten">Kostenimpact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Meer</h4>
+        <ul>
+          <li><a href="/cursus">Cursus</a></li>
+          <li><a href="/coaching">Coaching</a></li>
+          <li><a href="/over">Over</a></li>
+          <li><a data-brand-href="instagramUrl" href="#" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Juridisch</h4>
+        <ul>
+          <li><a href="/transparantie">Transparantie</a></li>
+          <li><a href="/voorwaarden">Voorwaarden</a></li>
+          <li><a href="/voorwaarden#privacy">Privacy</a></li>
+          <li><a href="/voorwaarden#disclaimer">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-brand="footerNoot"></p>
+      <p class="fs-small">&copy; <span id="footer-jaar"></span> <span data-brand="naam"></span> &mdash; demo-omgeving, geen bestaande onderneming.</p>
+    </div>
+  </div>
+</footer>
+<script type="module" src="/src/js/main.js"></script>
+
+</body>
+</html>
