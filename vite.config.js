@@ -58,22 +58,39 @@ function schoneUrlsInDev() {
 // gewenste locatie (bijv. dist/rekentools/box-3.html) — exact het pad
 // dat Vercel als live URL serveert.
 function schoneUrlsInBuild(outDir = 'dist') {
+  // writeBundle (niet closeBundle) — Rollup garandeert dat op dit punt alle
+  // bestanden van déze bundel al naar schijf zijn geschreven. closeBundle
+  // bleek in GitHub Actions-CI onbetrouwbaar: de HTML-bestanden bleven daar
+  // op hun Vite-spiegelpad (dist/src/pages/...) staan in plaats van te
+  // verhuizen naar de schone URL-structuur (dist/rekentools/box-3.html).
+  let uitgevoerd = false;
+  function verplaats() {
+    if (uitgevoerd) return; // idempotent: writeBundle kan meerdere keren vuren
+    const distRoot = r(outDir);
+    let verplaatst = 0;
+    for (const [naam, absPad] of Object.entries(paginas)) {
+      const relBron = absPad.slice(__dirname.length + 1).split(sep).join('/');
+      const bronPad = join(distRoot, relBron);
+      const doelPad = naam === 'main' ? join(distRoot, 'index.html') : join(distRoot, `${naam}.html`);
+      if (existsSync(bronPad) && bronPad !== doelPad) {
+        mkdirSync(dirname(doelPad), { recursive: true });
+        renameSync(bronPad, doelPad);
+        verplaatst += 1;
+      } else if (!existsSync(doelPad) && !existsSync(bronPad)) {
+        // eslint-disable-next-line no-console
+        console.warn(`[schone-urls-build] WAARSCHUWING: geen bronbestand gevonden voor "${naam}" (verwacht: ${bronPad})`);
+      }
+    }
+    // eslint-disable-next-line no-console
+    console.log(`[schone-urls-build] ${verplaatst} pagina('s) verplaatst naar hun schone URL-pad.`);
+    const overgeblevenSrc = join(distRoot, 'src');
+    if (existsSync(overgeblevenSrc)) rmSync(overgeblevenSrc, { recursive: true, force: true });
+    uitgevoerd = true;
+  }
   return {
     name: 'schone-urls-build',
-    closeBundle() {
-      const distRoot = r(outDir);
-      for (const [naam, absPad] of Object.entries(paginas)) {
-        const relBron = absPad.slice(__dirname.length + 1).split(sep).join('/');
-        const bronPad = join(distRoot, relBron);
-        const doelPad = naam === 'main' ? join(distRoot, 'index.html') : join(distRoot, `${naam}.html`);
-        if (existsSync(bronPad) && bronPad !== doelPad) {
-          mkdirSync(dirname(doelPad), { recursive: true });
-          renameSync(bronPad, doelPad);
-        }
-      }
-      const overgeblevenSrc = join(distRoot, 'src');
-      if (existsSync(overgeblevenSrc)) rmSync(overgeblevenSrc, { recursive: true, force: true });
-    },
+    writeBundle() { verplaats(); },
+    closeBundle() { verplaats(); }, // vangnet: dubbel zekerheid, idempotent door de guard hierboven
   };
 }
 
