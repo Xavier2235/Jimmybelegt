@@ -1,0 +1,48 @@
+{
+  "_bron": "Belastingdienst, box 3 berekening 2026",
+  "tarief": {
+    "waarde": 0.36,
+    "status": "definitief",
+    "bron": "Belastingdienst, box 3 berekening 2026"
+  },
+  "heffingsvrijVermogen": {
+    "waarde": 59357,
+    "eenheid": "per persoon",
+    "status": "definitief",
+    "bron": "Belastingdienst, box 3 berekening 2026"
+  },
+  "heffingsvrijVermogenFiscalePartners": {
+    "waarde": 118714,
+    "status": "definitief",
+    "bron": "Belastingdienst, box 3 berekening 2026"
+  },
+  "forfaitBeleggingen": {
+    "waarde": 0.0600,
+    "status": "definitief",
+    "bron": "Belastingdienst, box 3 berekening 2026"
+  },
+  "forfaitBanktegoeden": {
+    "waarde": 0.0128,
+    "status": "voorlopig",
+    "toelichting": "definitief begin 2027",
+    "bron": "Belastingdienst, box 3 berekening 2026"
+  },
+  "forfaitSchulden": {
+    "waarde": 0.0270,
+    "status": "voorlopig",
+    "toelichting": "definitief begin 2027",
+    "bron": "Belastingdienst, box 3 berekening 2026"
+  },
+  "schuldendrempel": {
+    "alleenstaand": 3800,
+    "fiscalePartners": 7600,
+    "status": "definitief",
+    "bron": "Belastingdienst, box 3 berekening 2026"
+  },
+  "vrijstellingGroenBeleggen": {
+    "alleenstaand": 26715,
+    "fiscalePartners": 53430,
+    "status": "definitief",
+    "bron": "Belastingdienst, box 3 berekening 2026"
+  }
+}
