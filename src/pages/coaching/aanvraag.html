@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aanvraag coaching | Beleg Slim met Jim</title>
+<meta name="description" content="Vraag een intake voor coaching aan in drie korte stappen.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:title" content="Aanvraag coaching | Beleg Slim met Jim">
+<meta property="og:description" content="Vraag een intake voor coaching aan in drie korte stappen.">
+<meta property="og:url" content="/coaching/aanvraag">
+<meta property="og:image" content="/img/og-beeld.svg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="demobar" data-component="demobar">
+  <div class="wrap-wide">
+    <span class="demobar-tekst"></span>
+    <button type="button" class="demobar-sluit" aria-label="DEMO-balk sluiten">&times;</button>
+  </div>
+</div>
+<a class="skip-link" href="#hoofdinhoud">Naar hoofdinhoud</a>
+<header class="site-header">
+  <div class="wrap-wide">
+    <a class="wordmark" href="/" data-brand="naam"></a>
+    <nav class="main-nav" aria-label="Hoofdnavigatie">
+      <a href="/rekentools">Rekentools</a>
+      <a href="/cursus">Cursus</a>
+      <a href="/coaching">Coaching</a>
+      <a href="/over">Over</a>
+      <a href="/transparantie">Transparantie</a>
+    </nav>
+    <button type="button" class="nav-toggle" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  </div>
+  <nav class="mobile-nav" aria-label="Mobiel menu">
+    <a href="/rekentools">Rekentools</a>
+    <a href="/cursus">Cursus</a>
+    <a href="/coaching">Coaching</a>
+    <a href="/over">Over</a>
+    <a href="/transparantie">Transparantie</a>
+    <a href="/voorwaarden">Voorwaarden</a>
+  </nav>
+</header>
+<main id="hoofdinhoud">
+
+<div class="wrap section">
+  <h1>Aanvraag coaching</h1>
+  <p class="text-muted">Drie korte stappen. Niets wordt echt verzonden &mdash; dit is een demo.</p>
+
+  <form id="aanvraag-formulier" novalidate style="margin-top:var(--sp-6)">
+    <div class="form-voortgang">
+      <div class="stap-bol"></div><div class="stap-bol"></div><div class="stap-bol"></div>
+    </div>
+
+    <section class="form-stap">
+      <h2>Situatie</h2>
+      <div class="veld"><label>Wat is je doel?</label><div class="radio-kaart-lijst"><label class="radio-kaart"><input type="radio" name="doel" value="meer-rendement" required> Meer rendement</label><label class="radio-kaart"><input type="radio" name="doel" value="leren-handelen"> Actief leren handelen</label><label class="radio-kaart"><input type="radio" name="doel" value="pensioen"> Pensioen opbouwen</label><label class="radio-kaart"><input type="radio" name="doel" value="anders"> Anders</label></div></div>
+      <div class="veld"><label>Ervaring met beleggen</label><div class="radio-kaart-lijst"><label class="radio-kaart"><input type="radio" name="ervaring" value="geen" required> Geen ervaring</label><label class="radio-kaart"><input type="radio" name="ervaring" value="minder-dan-1-jaar"> Minder dan 1 jaar</label><label class="radio-kaart"><input type="radio" name="ervaring" value="1-3-jaar"> 1&ndash;3 jaar</label><label class="radio-kaart"><input type="radio" name="ervaring" value="meer-dan-3-jaar"> Meer dan 3 jaar</label></div></div>
+      <div class="veld"><label>Beschikbaar risicokapitaal</label><div class="radio-kaart-lijst"><label class="radio-kaart"><input type="radio" name="risicokapitaal" value="onder-5000" required> &lt; &euro; 5.000</label><label class="radio-kaart"><input type="radio" name="risicokapitaal" value="5000-25000"> &euro; 5.000 &ndash; 25.000</label><label class="radio-kaart"><input type="radio" name="risicokapitaal" value="25000-100000"> &euro; 25.000 &ndash; 100.000</label><label class="radio-kaart"><input type="radio" name="risicokapitaal" value="boven-100000"> &gt; &euro; 100.000</label></div></div>
+      <div class="veld"><label>Tijd per week</label><div class="radio-kaart-lijst"><label class="radio-kaart"><input type="radio" name="tijd" value="onder-2-uur" required> &lt; 2 uur</label><label class="radio-kaart"><input type="radio" name="tijd" value="2-5-uur"> 2&ndash;5 uur</label><label class="radio-kaart"><input type="radio" name="tijd" value="5-10-uur"> 5&ndash;10 uur</label><label class="radio-kaart"><input type="radio" name="tijd" value="boven-10-uur"> &gt; 10 uur</label></div></div>
+      <div class="form-nav">
+        <span></span>
+        <button type="button" class="btn btn-primair" data-stap-volgende>Volgende &rarr;</button>
+      </div>
+    </section>
+
+    <section class="form-stap">
+      <h2>Verwachting</h2>
+      <div class="veld">
+        <label for="verwachting">Wat wil je over 12 maanden anders hebben dan nu?</label>
+        <textarea id="verwachting" name="verwachting" maxlength="500" required></textarea>
+        <p class="char-teller"><span id="char-count">0</span>/500</p>
+      </div>
+      <div class="veld"><label>Eerder een cursus of coaching gevolgd?</label><div class="radio-kaart-lijst"><label class="radio-kaart"><input type="radio" name="eerder-gevolgd" value="ja" required> Ja</label><label class="radio-kaart"><input type="radio" name="eerder-gevolgd" value="nee"> Nee</label></div></div>
+      <div class="veld">
+        <label for="toelichting">Toelichting (optioneel)</label>
+        <textarea id="toelichting" name="toelichting"></textarea>
+      </div>
+      <div class="form-nav">
+        <button type="button" class="btn btn-secundair" data-stap-terug>&larr; Terug</button>
+        <button type="button" class="btn btn-primair" data-stap-volgende>Volgende &rarr;</button>
+      </div>
+    </section>
+
+    <section class="form-stap">
+      <h2>Contact</h2>
+      <div class="veld"><label for="naam">Naam</label><input type="text" id="naam" name="naam" required></div>
+      <div class="veld"><label for="email">E-mail</label><input type="email" id="email" name="email" required></div>
+      <div class="veld"><label for="telefoon">Telefoon (optioneel)</label><input type="tel" id="telefoon" name="telefoon"></div>
+      <div class="checkbox-rij" style="margin-bottom:var(--sp-3)">
+        <input type="checkbox" id="akkoord-traject" name="akkoord-traject" required>
+        <label for="akkoord-traject">Ik begrijp dat dit een trainingstraject is en geen persoonlijk beleggingsadvies, en dat er geen aan- of verkoopadvies over specifieke financiële instrumenten wordt gegeven.</label>
+      </div>
+      <div class="checkbox-rij">
+        <input type="checkbox" id="akkoord-privacy" name="akkoord-privacy" required>
+        <label for="akkoord-privacy">Ik ga akkoord met de <a class="link" href="/voorwaarden#privacy">privacyverklaring</a>.</label>
+      </div>
+      <div class="form-nav">
+        <button type="button" class="btn btn-secundair" data-stap-terug>&larr; Terug</button>
+        <button type="submit" class="btn btn-primair">Verstuur aanvraag</button>
+      </div>
+    </section>
+  </form>
+
+  <div class="card" data-resultaat="gekwalificeerd" hidden style="margin-top:var(--sp-6)">
+    <h2>Bedankt voor je aanvraag</h2>
+    <p class="text-muted">Op basis van je antwoorden lijkt coaching een goede match. Kies een moment voor een vrijblijvend kennismakingsgesprek.</p>
+    <p style="margin-top:var(--sp-4)"><button type="button" class="btn btn-primair" disabled>Kies een moment (demo)</button></p>
+  </div>
+  <div class="card" data-resultaat="vervolg" hidden style="margin-top:var(--sp-6)">
+    <h2>Bedankt voor je aanvraag</h2>
+    <p class="text-muted">Op basis van je antwoorden is de cursus waarschijnlijk een fijne, logische eerste stap &mdash; daarna kun je altijd nog voor coaching kiezen.</p>
+    <p style="margin-top:var(--sp-4)"><a class="btn btn-primair" href="/cursus">Bekijk de cursus &rarr;</a></p>
+  </div>
+</div>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap-wide">
+    <div class="grid grid-3">
+      <div>
+        <h4>Rekentools</h4>
+        <ul>
+          <li><a href="/rekentools/wat-had-je-nu-gehad">Wat had je nu gehad?</a></li>
+          <li><a href="/rekentools/box-3">Box 3-tool</a></li>
+          <li><a href="/rekentools/inflatie">Inflatietool</a></li>
+          <li><a href="/rekentools/pensioengat">Pensioengat</a></li>
+          <li><a href="/rekentools/positiegrootte">Positiegrootte</a></li>
+          <li><a href="/rekentools/kosten">Kostenimpact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Meer</h4>
+        <ul>
+          <li><a href="/cursus">Cursus</a></li>
+          <li><a href="/coaching">Coaching</a></li>
+          <li><a href="/over">Over</a></li>
+          <li><a data-brand-href="instagramUrl" href="#" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Juridisch</h4>
+        <ul>
+          <li><a href="/transparantie">Transparantie</a></li>
+          <li><a href="/voorwaarden">Voorwaarden</a></li>
+          <li><a href="/voorwaarden#privacy">Privacy</a></li>
+          <li><a href="/voorwaarden#disclaimer">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-brand="footerNoot"></p>
+      <p class="fs-small">&copy; <span id="footer-jaar"></span> <span data-brand="naam"></span> &mdash; demo-omgeving, geen bestaande onderneming.</p>
+    </div>
+  </div>
+</footer>
+<script type="module" src="/src/js/main.js"></script>
+<script type="module" src="/src/js/pages/coaching-aanvraag.js"></script>
+</body>
+</html>
