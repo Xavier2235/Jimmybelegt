@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kostenimpact | Rekentool</title>
+<meta name="description" content="Zie wat lopende kosten en transactiekosten je na jaren beleggen daadwerkelijk kosten.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:title" content="Kostenimpact | Rekentool">
+<meta property="og:description" content="Zie wat lopende kosten en transactiekosten je na jaren beleggen daadwerkelijk kosten.">
+<meta property="og:url" content="/rekentools/kosten">
+<meta property="og:image" content="/img/og-beeld.svg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="demobar" data-component="demobar">
+  <div class="wrap-wide">
+    <span class="demobar-tekst"></span>
+    <button type="button" class="demobar-sluit" aria-label="DEMO-balk sluiten">&times;</button>
+  </div>
+</div>
+<a class="skip-link" href="#hoofdinhoud">Naar hoofdinhoud</a>
+<header class="site-header">
+  <div class="wrap-wide">
+    <a class="wordmark" href="/" data-brand="naam"></a>
+    <nav class="main-nav" aria-label="Hoofdnavigatie">
+      <a href="/rekentools">Rekentools</a>
+      <a href="/cursus">Cursus</a>
+      <a href="/coaching">Coaching</a>
+      <a href="/over">Over</a>
+      <a href="/transparantie">Transparantie</a>
+    </nav>
+    <button type="button" class="nav-toggle" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  </div>
+  <nav class="mobile-nav" aria-label="Mobiel menu">
+    <a href="/rekentools">Rekentools</a>
+    <a href="/cursus">Cursus</a>
+    <a href="/coaching">Coaching</a>
+    <a href="/over">Over</a>
+    <a href="/transparantie">Transparantie</a>
+    <a href="/voorwaarden">Voorwaarden</a>
+  </nav>
+</header>
+<main id="hoofdinhoud">
+
+<div class="wrap-wide section" data-tool="kosten">
+  <div class="section-head">
+      <p class="card-eyebrow">Rekentool</p>
+      <h1>Kostenimpact</h1>
+      <p>Zie wat lopende kosten en transactiekosten na jaren beleggen daadwerkelijk kosten.</p>
+    </div>
+  <div class="tool-layout">
+    <div class="card stack">
+      <div class="veld" data-veld="startbedrag" data-range-groep>
+      <label for="startbedrag">Startbedrag</label>
+      <div class="range-rij">
+        <input type="range" id="startbedrag" min="0" max="100000" step="500" value="5000">
+        <div class="getal-invoer"><span>&euro;</span><input type="text" inputmode="decimal" aria-label="Startbedrag"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="maandinleg" data-range-groep>
+      <label for="maandinleg">Maandelijkse inleg</label>
+      <div class="range-rij">
+        <input type="range" id="maandinleg" min="0" max="5000" step="25" value="250">
+        <div class="getal-invoer"><span>&euro;</span><input type="text" inputmode="decimal" aria-label="Maandelijkse inleg"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="horizon" data-range-groep>
+      <label for="horizon">Horizon (jaren)</label>
+      <div class="range-rij">
+        <input type="range" id="horizon" min="1" max="40" step="1" value="20">
+        <div class="getal-invoer"><span></span><input type="text" inputmode="decimal" aria-label="Horizon (jaren)"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="brutorendement" data-range-groep>
+      <label for="brutorendement">Verwacht brutorendement (jouw aanname)</label>
+      <div class="range-rij">
+        <input type="range" id="brutorendement" min="0" max="12" step="0.1" value="7">
+        <div class="getal-invoer"><span>%</span><input type="text" inputmode="decimal" aria-label="Verwacht brutorendement (jouw aanname)"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="ter" data-range-groep>
+      <label for="ter">Lopende kosten (TER)</label>
+      <div class="range-rij">
+        <input type="range" id="ter" min="0" max="3" step="0.01" value="0.2">
+        <div class="getal-invoer"><span>%</span><input type="text" inputmode="decimal" aria-label="Lopende kosten (TER)"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="transactiekosten" data-range-groep>
+      <label for="transactiekosten">Transactiekosten per order</label>
+      <div class="range-rij">
+        <input type="range" id="transactiekosten" min="0" max="50" step="0.5" value="2">
+        <div class="getal-invoer"><span>&euro;</span><input type="text" inputmode="decimal" aria-label="Transactiekosten per order"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="orders-per-jaar" data-range-groep>
+      <label for="orders-per-jaar">Aantal orders per jaar</label>
+      <div class="range-rij">
+        <input type="range" id="orders-per-jaar" min="0" max="52" step="1" value="12">
+        <div class="getal-invoer"><span></span><input type="text" inputmode="decimal" aria-label="Aantal orders per jaar"></div>
+      </div>
+      
+    </div>
+      <p class="veld-hint">Broker-agnostisch: vul zelf de percentages en kosten in die voor jouw situatie gelden. Geen namen, geen vergelijking van aanbieders.</p>
+    </div>
+    <div class="card stack">
+      <p class="text-muted fs-small">Eindvermogen zonder kosten</p>
+      <div class="band-rij">
+        <div class="band-tegel band-tegel-laag"><p class="band-label">Laag</p><p class="band-waarde" data-band-zonder="laag">&euro; 0</p></div>
+        <div class="band-tegel band-tegel-midden"><p class="band-label">Midden</p><p class="band-waarde" data-band-zonder="midden">&euro; 0</p></div>
+        <div class="band-tegel band-tegel-hoog"><p class="band-label">Hoog</p><p class="band-waarde" data-band-zonder="hoog">&euro; 0</p></div>
+      </div>
+      <p class="text-muted fs-small">Eindvermogen met kosten</p>
+      <div class="band-rij">
+        <div class="band-tegel band-tegel-laag"><p class="band-label">Laag</p><p class="band-waarde" data-band-met="laag">&euro; 0</p></div>
+        <div class="band-tegel band-tegel-midden"><p class="band-label">Midden</p><p class="band-waarde" data-band-met="midden">&euro; 0</p></div>
+        <div class="band-tegel band-tegel-hoog"><p class="band-label">Hoog</p><p class="band-waarde" data-band-met="hoog">&euro; 0</p></div>
+      </div>
+      <div class="chart-houder" data-uitvoer="grafiek"></div>
+      <div class="chart-legenda">
+        <span><span class="sleutel" style="background:var(--c-accent)"></span>Netto eindvermogen</span>
+        <span><span class="sleutel" style="background:var(--c-negative)"></span>Weggegaan aan kosten</span>
+      </div>
+      <p>Kosten totaal: <strong data-uitvoer="kosten-euro">&euro; 0</strong> (<span data-uitvoer="kosten-pct">0%</span> van het eindresultaat)</p>
+      <div class="deel-knop">
+      <button type="button" class="btn btn-secundair" data-actie="deel">Deel deze berekening</button>
+      <span class="kopie-bevestiging">Link gekopieerd &check;</span>
+    </div>
+    </div>
+  </div>
+  <details class="accordion-item " data-component="aannames-accordion">
+      <summary>Aannames <span class="teller"></span></summary>
+      <div class="accordion-body"><ul><li>TER wordt jaarlijks van het brutorendement afgetrokken; transactiekosten worden eenmaal per jaar van het saldo afgehaald.</li><li>De bandbreedte toont de gevoeligheid van &plusmn;1 procentpunt rond jouw ingestelde rendementsaanname.</li><li>Er zijn geen belastingen (zoals box 3) in deze berekening meegenomen.</li><li>Deze tool noemt bewust geen brokers, fondsen of aanbieders &mdash; vul je eigen percentages in.</li></ul></div>
+    </details>
+  <div class="disclaimer" data-component="disclaimer"></div>
+  <div class="gate" data-component="gate">
+      <h3>Vergelijk drie scenario's naast elkaar</h3>
+      <p class="text-muted fs-small">Demo: er wordt niets verstuurd.</p>
+      <form>
+        <input type="email" placeholder="jouw@email.nl" required aria-label="E-mailadres">
+        <button type="submit" class="btn btn-primair">Verstuur</button>
+      </form>
+      <div class="checkbox-rij gate-toestemming">
+        <input type="checkbox" required>
+        <label></label>
+      </div>
+      <p class="gate-succes" role="status"></p>
+    </div>
+</div>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap-wide">
+    <div class="grid grid-3">
+      <div>
+        <h4>Rekentools</h4>
+        <ul>
+          <li><a href="/rekentools/wat-had-je-nu-gehad">Wat had je nu gehad?</a></li>
+          <li><a href="/rekentools/box-3">Box 3-tool</a></li>
+          <li><a href="/rekentools/inflatie">Inflatietool</a></li>
+          <li><a href="/rekentools/pensioengat">Pensioengat</a></li>
+          <li><a href="/rekentools/positiegrootte">Positiegrootte</a></li>
+          <li><a href="/rekentools/kosten">Kostenimpact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Meer</h4>
+        <ul>
+          <li><a href="/cursus">Cursus</a></li>
+          <li><a href="/coaching">Coaching</a></li>
+          <li><a href="/over">Over</a></li>
+          <li><a data-brand-href="instagramUrl" href="#" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Juridisch</h4>
+        <ul>
+          <li><a href="/transparantie">Transparantie</a></li>
+          <li><a href="/voorwaarden">Voorwaarden</a></li>
+          <li><a href="/voorwaarden#privacy">Privacy</a></li>
+          <li><a href="/voorwaarden#disclaimer">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-brand="footerNoot"></p>
+      <p class="fs-small">&copy; <span id="footer-jaar"></span> <span data-brand="naam"></span> &mdash; demo-omgeving, geen bestaande onderneming.</p>
+    </div>
+  </div>
+</footer>
+<script type="module" src="/src/js/main.js"></script>
+<script type="module" src="/src/js/pages/tool-kosten.js"></script>
+</body>
+</html>
