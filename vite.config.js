@@ -78,6 +78,10 @@ function schoneUrlsInBuild(outDir = 'dist') {
 }
 
 export default defineConfig({
+  // Deze repo serveert via GitHub Pages op xavier2235.github.io/Margotbelegt/
+  // — een submap, geen domeinroot. Vite prefixt hiermee automatisch alle
+  // eigen gebouwde asset-referenties (JS/CSS-bundels, favicon, og-beeld).
+  base: '/Margotbelegt/',
   plugins: [schoneUrlsInDev(), schoneUrlsInBuild()],
   build: {
     rollupOptions: { input: paginas },
