@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wat had je nu gehad? | Rekentool</title>
+<meta name="description" content="Reken door wat een eenmalige inleg had kunnen worden, op basis van illustratieve reeksen.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:title" content="Wat had je nu gehad? | Rekentool">
+<meta property="og:description" content="Reken door wat een eenmalige inleg had kunnen worden, op basis van illustratieve reeksen.">
+<meta property="og:url" content="/rekentools/wat-had-je-nu-gehad">
+<meta property="og:image" content="/img/og-beeld.svg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="demobar" data-component="demobar">
+  <div class="wrap-wide">
+    <span class="demobar-tekst"></span>
+    <button type="button" class="demobar-sluit" aria-label="DEMO-balk sluiten">&times;</button>
+  </div>
+</div>
+<a class="skip-link" href="#hoofdinhoud">Naar hoofdinhoud</a>
+<header class="site-header">
+  <div class="wrap-wide">
+    <a class="wordmark" href="/" data-brand="naam"></a>
+    <nav class="main-nav" aria-label="Hoofdnavigatie">
+      <a href="/rekentools">Rekentools</a>
+      <a href="/cursus">Cursus</a>
+      <a href="/coaching">Coaching</a>
+      <a href="/over">Over</a>
+      <a href="/transparantie">Transparantie</a>
+    </nav>
+    <button type="button" class="nav-toggle" aria-label="Menu" aria-expanded="false">&#9776;</button>
+  </div>
+  <nav class="mobile-nav" aria-label="Mobiel menu">
+    <a href="/rekentools">Rekentools</a>
+    <a href="/cursus">Cursus</a>
+    <a href="/coaching">Coaching</a>
+    <a href="/over">Over</a>
+    <a href="/transparantie">Transparantie</a>
+    <a href="/voorwaarden">Voorwaarden</a>
+  </nav>
+</header>
+<main id="hoofdinhoud">
+
+<div class="wrap-wide section" data-tool="wat-had-je-nu-gehad">
+  <div class="section-head">
+      <p class="card-eyebrow">Rekentool</p>
+      <h1>Wat had je nu gehad?</h1>
+      <p>Reken door wat een eenmalige inleg had kunnen worden &mdash; op basis van illustratieve reeksen.</p>
+    </div>
+  <div class="melding-demo-data">
+    <strong>Let op:</strong> deze grafiek gebruikt <strong>demo-data</strong> &mdash; nog niet gekoppeld aan bronnen.
+  </div>
+  <div class="tool-layout">
+    <div class="card stack">
+      <div class="veld" data-veld="bedrag" data-range-groep>
+      <label for="bedrag">Eenmalige inleg</label>
+      <div class="range-rij">
+        <input type="range" id="bedrag" min="10" max="10000" step="10" value="1000">
+        <div class="getal-invoer"><span>&euro;</span><input type="text" inputmode="decimal" aria-label="Eenmalige inleg"></div>
+      </div>
+      
+    </div>
+      <div class="veld" data-veld="startjaar" data-range-groep>
+      <label for="startjaar">Startjaar</label>
+      <div class="range-rij">
+        <input type="range" id="startjaar" min="1980" max="2024" step="1" value="2010">
+        <div class="getal-invoer"><span></span><input type="text" inputmode="decimal" aria-label="Startjaar"></div>
+      </div>
+      
+    </div>
+      <div class="veld">
+        <label>Reeks</label>
+        <div class="keuze-rij">
+          <label class="keuze-chip"><input type="radio" name="reeks" value="A" checked> Reeks A</label>
+          <label class="keuze-chip"><input type="radio" name="reeks" value="B"> Reeks B</label>
+          <label class="keuze-chip"><input type="radio" name="reeks" value="C"> Reeks C</label>
+        </div>
+        <span class="veld-hint">Alle drie zijn fictieve, illustratieve reeksen &mdash; geen historische marktdata.</span>
+      </div>
+    </div>
+    <div class="card stack">
+      <div class="band-rij">
+      <div class="band-tegel band-tegel-laag"><p class="band-label">Laag</p><p class="band-waarde" data-band="laag">&euro; 0</p></div>
+      <div class="band-tegel band-tegel-midden"><p class="band-label">Midden</p><p class="band-waarde" data-band="midden">&euro; 0</p></div>
+      <div class="band-tegel band-tegel-hoog"><p class="band-label">Hoog</p><p class="band-waarde" data-band="hoog">&euro; 0</p></div>
+    </div>
+      <div class="chart-houder" data-uitvoer="grafiek"></div>
+      <div class="chart-legenda">
+        <span><span class="sleutel" style="background:var(--c-accent)"></span>Gekozen reeks</span>
+      </div>
+      <div class="grid grid-2">
+        <div><p class="text-muted fs-small">Ingelegd</p><p class="band-waarde" data-uitvoer="ingelegd">&euro; 0</p></div>
+        <div><p class="text-muted fs-small">Groei</p><p class="band-waarde" data-uitvoer="groei">&euro; 0</p></div>
+      </div>
+      <div class="chart-houder" data-uitvoer="stapel"></div>
+      <div class="deel-knop">
+      <button type="button" class="btn btn-secundair" data-actie="deel">Deel deze berekening</button>
+      <span class="kopie-bevestiging">Link gekopieerd &check;</span>
+    </div>
+    </div>
+  </div>
+  <details class="accordion-item " data-component="aannames-accordion">
+      <summary>Aannames <span class="teller"></span></summary>
+      <div class="accordion-body"><ul><li>De drie reeksen zijn fictieve, door ons gegenereerde jaarrendementen (1980&ndash;2024) &mdash; geen historische marktdata.</li><li>De inleg is eenmalig, aan het begin van het gekozen startjaar.</li><li>Er is geen rekening gehouden met kosten, dividendbelasting of inflatie.</li><li>De bandbreedte (laag/midden/hoog) is de laagste, middelste en hoogste uitkomst van de drie reeksen bij dezelfde inleg en hetzelfde startjaar.</li><li>De reeksen lopen tot en met 2024; latere jaren worden niet meegerekend.</li></ul></div>
+    </details>
+  <div class="disclaimer" data-component="disclaimer"></div>
+  <div class="gate" data-component="gate">
+      <h3>Stuur mij het volledige overzicht per jaar</h3>
+      <p class="text-muted fs-small">Demo: er wordt niets echt verzonden.</p>
+      <form>
+        <input type="email" placeholder="jouw@email.nl" required aria-label="E-mailadres">
+        <button type="submit" class="btn btn-primair">Verstuur</button>
+      </form>
+      <div class="checkbox-rij gate-toestemming">
+        <input type="checkbox" required>
+        <label></label>
+      </div>
+      <p class="gate-succes" role="status"></p>
+    </div>
+</div>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap-wide">
+    <div class="grid grid-3">
+      <div>
+        <h4>Rekentools</h4>
+        <ul>
+          <li><a href="/rekentools/wat-had-je-nu-gehad">Wat had je nu gehad?</a></li>
+          <li><a href="/rekentools/box-3">Box 3-tool</a></li>
+          <li><a href="/rekentools/inflatie">Inflatietool</a></li>
+          <li><a href="/rekentools/pensioengat">Pensioengat</a></li>
+          <li><a href="/rekentools/positiegrootte">Positiegrootte</a></li>
+          <li><a href="/rekentools/kosten">Kostenimpact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Meer</h4>
+        <ul>
+          <li><a href="/cursus">Cursus</a></li>
+          <li><a href="/coaching">Coaching</a></li>
+          <li><a href="/over">Over</a></li>
+          <li><a data-brand-href="instagramUrl" href="#" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Juridisch</h4>
+        <ul>
+          <li><a href="/transparantie">Transparantie</a></li>
+          <li><a href="/voorwaarden">Voorwaarden</a></li>
+          <li><a href="/voorwaarden#privacy">Privacy</a></li>
+          <li><a href="/voorwaarden#disclaimer">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-brand="footerNoot"></p>
+      <p class="fs-small">&copy; <span id="footer-jaar"></span> <span data-brand="naam"></span> &mdash; demo-omgeving, geen bestaande onderneming.</p>
+    </div>
+  </div>
+</footer>
+<script type="module" src="/src/js/main.js"></script>
+<script type="module" src="/src/js/pages/tool-wat-had-je-nu-gehad.js"></script>
+</body>
+</html>
