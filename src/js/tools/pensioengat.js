@@ -4,6 +4,7 @@
 // Pensioenleeftijd (67) en uitkeerperiode (20 jaar) staan als vaste,
 // expliciet benoemde aannames in de accordion — geen verzwegen aannames.
 import { koppelRangeVelden } from '../components/rangeInput.js';
+import { tekenGestapeldeStaven } from '../components/chart.js';
 import { euro } from '../format.js';
 
 const PENSIOENLEEFTIJD = 67;
@@ -23,6 +24,7 @@ export function initPensioengatPagina() {
   koppelRangeVelden(root);
 
   const veld = (naam) => Number(root.querySelector(`[data-veld="${naam}"] input[type="range"]`).value);
+  const chartContainer = root.querySelector('[data-uitvoer="grafiek"]');
 
   function herberekenen() {
     const leeftijd = veld('leeftijd');
@@ -45,6 +47,16 @@ export function initPensioengatPagina() {
     root.querySelector('[data-inleg="midden"]').textContent = `${euro(inleggen[1])} / mnd`;
     root.querySelector('[data-inleg="hoog"]').textContent = `${euro(inleggen[2])} / mnd`;
     root.querySelector('[data-uitvoer="jaren-tot-pensioen"]').textContent = jarenTotPensioen;
+
+    if (chartContainer) {
+      tekenGestapeldeStaven(chartContainer, {
+        categorieen: [
+          { label: 'Bij 9%', segmenten: [{ naam: 'Maandinleg', waarde: inleggen[0], kleur: 'var(--c-band-laag)' }] },
+          { label: 'Bij 6%', segmenten: [{ naam: 'Maandinleg', waarde: inleggen[1], kleur: 'var(--c-band-midden)' }] },
+          { label: 'Bij 3%', segmenten: [{ naam: 'Maandinleg', waarde: inleggen[2], kleur: 'var(--c-band-hoog)' }] },
+        ],
+      });
+    }
 
     const brutojaarinkomen = veld('brutojaarinkomen');
     const pctVanBruto = brutojaarinkomen > 0 ? ((gewenst * 12) / brutojaarinkomen) * 100 : 0;

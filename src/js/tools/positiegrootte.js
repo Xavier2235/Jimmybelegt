@@ -2,6 +2,7 @@
 // gepresenteerd: geen aanmoediging of ontmoediging, alleen de uitkomst.
 // Monte Carlo met 5.000 iteraties voor de kans op -50% account.
 import { koppelRangeVelden } from '../components/rangeInput.js';
+import { tekenGestapeldeStaven } from '../components/chart.js';
 import { euro, percentage } from '../format.js';
 
 const ITERATIES = 5000;
@@ -30,7 +31,24 @@ function simuleer({ accountgrootte, risicoPct, winratePct, ratio, aantalTrades }
     laag: percentiel(0.1),
     midden: percentiel(0.5),
     hoog: percentiel(0.9),
+    eindbalansen,
   };
+}
+
+// Verdeelt de eindsaldi over een handvol gelijke bins voor een histogram —
+// puur beschrijvend, geen aparte kansverdeling-aanname.
+function histogram(eindbalansen, aantalBins = 8) {
+  const max = Math.max(1, ...eindbalansen);
+  const binBreedte = max / aantalBins;
+  const bins = new Array(aantalBins).fill(0);
+  eindbalansen.forEach((b) => {
+    const idx = Math.min(aantalBins - 1, Math.floor(b / binBreedte));
+    bins[idx] += 1;
+  });
+  return bins.map((count, i) => ({
+    label: `€${Math.round((i * binBreedte) / 1000)}k+`,
+    count,
+  }));
 }
 
 export function initPositiegrootePagina() {
@@ -39,6 +57,7 @@ export function initPositiegrootePagina() {
   koppelRangeVelden(root);
 
   const veld = (naam) => Number(root.querySelector(`[data-veld="${naam}"] input[type="range"]`).value);
+  const chartContainer = root.querySelector('[data-uitvoer="grafiek"]');
 
   function herberekenen() {
     const accountgrootte = veld('accountgrootte');
@@ -67,6 +86,17 @@ export function initPositiegrootePagina() {
     root.querySelector('[data-band="midden"]').textContent = euro(sim.midden);
     root.querySelector('[data-band="hoog"]').textContent = euro(sim.hoog);
     root.querySelector('[data-uitvoer="kans-ruine"]').textContent = percentage(sim.kansOpRuine * 100);
+
+    if (chartContainer) {
+      const bins = histogram(sim.eindbalansen);
+      tekenGestapeldeStaven(chartContainer, {
+        categorieen: bins.map(({ label, count }) => ({
+          label,
+          segmenten: [{ naam: 'Simulaties', waarde: count, kleur: 'var(--c-accent)' }],
+        })),
+        yFormat: (v) => Math.round(v).toLocaleString('nl-NL'),
+      });
+    }
   }
 
   root.addEventListener('veldwijziging', herberekenen);

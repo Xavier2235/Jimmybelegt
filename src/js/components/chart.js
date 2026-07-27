@@ -117,8 +117,10 @@ export function tekenLijnGrafiek(container, { series, xLabels, watermerk }) {
 /**
  * Gestapelde staafgrafiek (verticaal, één staaf per categorie, twee segmenten).
  * @param {{label:string, segmenten:{waarde:number, kleur:string, naam:string}[]}[]} categorieen
+ * @param {(v:number)=>string} [yFormat] - as-labels; standaard euro, geef een
+ *   eigen formatter mee voor niet-geldwaarden (bijv. aantallen).
  */
-export function tekenGestapeldeStaven(container, { categorieen }) {
+export function tekenGestapeldeStaven(container, { categorieen, yFormat = (v) => `€ ${kortEuro(v)}` }) {
   container.innerHTML = '';
   const totalen = categorieen.map((c) => c.segmenten.reduce((a, s) => a + s.waarde, 0));
   const maxTotaal = mooiePlafond(Math.max(1, ...totalen) * 1.05);
@@ -132,7 +134,7 @@ export function tekenGestapeldeStaven(container, { categorieen }) {
     const yy = y0 - (y0 - y1) * (v / maxTotaal);
     svg.append(el('line', { x1: x0, x2: x1, y1: yy, y2: yy, stroke: 'var(--c-border)', 'stroke-width': 1 }));
     const t = el('text', { x: x0 - 8, y: yy + 4, 'text-anchor': 'end', 'font-size': 11, fill: 'var(--c-text-muted)' });
-    t.textContent = `€ ${kortEuro(v)}`;
+    t.textContent = yFormat(v);
     svg.append(t);
   }
 

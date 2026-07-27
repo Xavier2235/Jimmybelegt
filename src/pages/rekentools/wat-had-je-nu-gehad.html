@@ -58,18 +58,19 @@
   </div>
   <div class="tool-layout">
     <div class="card stack">
-      <div class="veld">
-        <label>Type inleg</label>
-        <div class="keuze-rij">
-          <label class="keuze-chip"><input type="radio" name="inleg-modus" value="eenmalig" checked> Eenmalig</label>
-          <label class="keuze-chip"><input type="radio" name="inleg-modus" value="dca"> Maandelijks (DCA)</label>
-        </div>
-      </div>
       <div class="veld" data-veld="bedrag" data-range-groep>
       <label for="bedrag">Eenmalige inleg</label>
       <div class="range-rij">
-        <input type="range" id="bedrag" min="10" max="10000" step="10" value="1000">
-        <div class="getal-invoer"><span>&euro;</span><input type="text" inputmode="decimal" aria-label="Inleg"></div>
+        <input type="range" id="bedrag" min="0" max="10000" step="10" value="1000">
+        <div class="getal-invoer"><span>&euro;</span><input type="text" inputmode="decimal" aria-label="Eenmalige inleg"></div>
+      </div>
+
+    </div>
+      <div class="veld" data-veld="maandbedrag" data-range-groep>
+      <label for="maandbedrag">Maandelijkse inleg (DCA)</label>
+      <div class="range-rij">
+        <input type="range" id="maandbedrag" min="0" max="1000" step="10" value="0">
+        <div class="getal-invoer"><span>&euro;</span><input type="text" inputmode="decimal" aria-label="Maandelijkse inleg"></div>
       </div>
 
     </div>
@@ -114,7 +115,7 @@
   </div>
   <details class="accordion-item " data-component="aannames-accordion">
       <summary>Aannames <span class="teller"></span></summary>
-      <div class="accordion-body"><ul><li>De drie reeksen zijn fictieve, door ons gegenereerde jaarrendementen (1980&ndash;2024) &mdash; geen historische marktdata.</li><li>Bij "Eenmalig" wordt het volledige bedrag ingelegd aan het begin van het gekozen startjaar. Bij "Maandelijks (DCA)" wordt elke maand een gelijk bedrag ingelegd, verspreid over het jaar (benaderd met een half jaar rendement voor de inleg van dat jaar).</li><li>Er is geen rekening gehouden met kosten, dividendbelasting of inflatie.</li><li>De bandbreedte (laag/midden/hoog) is de laagste, middelste en hoogste uitkomst van de drie reeksen bij dezelfde inleg en hetzelfde startjaar.</li><li>De reeksen lopen tot en met 2024; latere jaren worden niet meegerekend.</li></ul></div>
+      <div class="accordion-body"><ul><li>De drie reeksen zijn fictieve, door ons gegenereerde jaarrendementen (1980&ndash;2024) &mdash; geen historische marktdata.</li><li>De eenmalige inleg wordt gedaan aan het begin van het gekozen startjaar. De maandelijkse inleg (DCA) wordt verspreid over elk jaar ingelegd, benaderd met een half jaar rendement voor de inleg van dat jaar.</li><li>Er is geen rekening gehouden met kosten, dividendbelasting of inflatie.</li><li>De bandbreedte (laag/midden/hoog) is de laagste, middelste en hoogste uitkomst van de drie reeksen bij dezelfde inleg en hetzelfde startjaar.</li><li>De reeksen lopen tot en met 2024; latere jaren worden niet meegerekend.</li></ul></div>
     </details>
   <div class="disclaimer" data-component="disclaimer"></div>
   <div class="gate" data-component="gate">

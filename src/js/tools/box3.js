@@ -5,6 +5,7 @@
 import params from '../../data/params-box3-2026.json';
 import { koppelRangeVelden } from '../components/rangeInput.js';
 import { maakSourceInfo } from '../components/sourceInfo.js';
+import { tekenGestapeldeStaven } from '../components/chart.js';
 import { euro, percentage } from '../format.js';
 
 function berekenBox3(input) {
@@ -61,6 +62,8 @@ export function initBox3Pagina() {
     };
   }
 
+  const chartContainer = root.querySelector('[data-uitvoer="grafiek"]');
+
   function herberekenen() {
     const input = lees();
     const uit = berekenBox3(input);
@@ -69,6 +72,15 @@ export function initBox3Pagina() {
     root.querySelector('[data-uitvoer="druk"]').textContent = percentage(uit.effectieveDruk);
     root.querySelector('[data-uitvoer="grondslag"]').textContent = euro(uit.grondslagNaVrijstelling);
     root.querySelector('[data-uitvoer="forfait-percentage"]').textContent = percentage(uit.forfaitPercentage);
+
+    if (chartContainer) {
+      tekenGestapeldeStaven(chartContainer, {
+        categorieen: [
+          { label: 'Forfait', segmenten: [{ naam: 'Belasting', waarde: uit.belasting, kleur: 'var(--c-chart-groei)' }] },
+          { label: 'Tegenbewijs', segmenten: [{ naam: 'Belasting', waarde: uit.werkelijkBelasting, kleur: 'var(--c-accent)' }] },
+        ],
+      });
+    }
 
     const tegenbewijsMelding = root.querySelector('[data-uitvoer="tegenbewijs-melding"]');
     if (input.werkelijkRendement < uit.forfaitPercentage) {
