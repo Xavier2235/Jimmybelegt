@@ -93,14 +93,26 @@
 .card{
   background: var(--c-surface); border: 1px solid var(--c-border);
   border-radius: var(--r-lg); padding: var(--sp-6);
+  transition: box-shadow .3s ease, border-color .3s ease, transform .3s ease;
 }
-.card-link{ display: block; transition: border-color .15s ease, transform .15s ease; }
-.card-link:hover{ border-color: var(--c-accent); transform: translateY(-2px); }
+.card-link{ display: block; }
+.card-link:hover{ border-color: color-mix(in srgb, var(--c-accent) 45%, var(--c-border)); transform: translateY(-3px); box-shadow: var(--shadow); }
 .card-eyebrow{
   font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em;
   color: var(--c-accent); font-weight: 700; margin-bottom: var(--sp-2);
 }
+.card-num{
+  font-family: var(--font-display); font-size: 1.4rem; font-weight: 500;
+  color: var(--c-gold); text-transform: none; letter-spacing: 0;
+  margin-bottom: var(--sp-2); display: block;
+}
 .card-meta{ display: flex; gap: var(--sp-3); color: var(--c-text-muted); font-size: var(--fs-small); margin-top: var(--sp-2); }
+
+/* ---------- Signatuur-oppervlak: de live rekentool op de landingspagina ---------- */
+#landing-tool > .card{
+  border-top: 3px solid var(--c-gold);
+  box-shadow: var(--shadow-signature);
+}
 
 /* ---------- Badges / pills ---------- */
 .pill{
@@ -233,7 +245,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus{ ou
   display: none; position: absolute; z-index: 20; bottom: calc(100% + 8px); left: 50%;
   transform: translateX(-50%); width: 240px; padding: var(--sp-3);
   background: var(--c-surface-2); border: 1px solid var(--c-border); border-radius: var(--r-md);
-  font-size: var(--fs-small); color: var(--c-text); box-shadow: 0 8px 24px rgba(0,0,0,.5);
+  font-size: var(--fs-small); color: var(--c-text); box-shadow: var(--shadow-signature);
 }
 .bron-info-panel[data-open]{ display: block; }
 .bron-info-panel .status{ display: inline-block; margin-top: var(--sp-2); padding: 2px var(--sp-2); border-radius: var(--r-sm); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }

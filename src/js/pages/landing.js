@@ -19,7 +19,7 @@ vulLijst(document.getElementById('landing-tool-kaarten'), TOOLKAARTEN, ([nr, slu
   const a = document.createElement('a');
   a.className = 'card card-link';
   a.href = `/rekentools/${slug}`;
-  a.innerHTML = `<p class="card-eyebrow">${nr}</p><h3>${titel}</h3><p class="text-muted">${tekst}</p><div class="card-meta"><span>Start &rarr;</span></div>`;
+  a.innerHTML = `<span class="card-num">${nr}</span><h3>${titel}</h3><p class="text-muted">${tekst}</p><div class="card-meta"><span>Start &rarr;</span></div>`;
   return a;
 });
 

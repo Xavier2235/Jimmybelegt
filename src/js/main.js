@@ -17,6 +17,7 @@ import { initDemobar } from './components/demobar.js';
 import { initDisclaimers } from './components/disclaimer.js';
 import { initAccordions } from './components/accordion.js';
 import { initGates } from './components/gate.js';
+import { initScrollReveal } from './components/scrollReveal.js';
 
 export const brand = brandDataRaw;
 
@@ -70,6 +71,7 @@ function init() {
   initDisclaimers(brand);
   initAccordions();
   initGates(brand);
+  initScrollReveal();
 }
 
 if (document.readyState === 'loading') {

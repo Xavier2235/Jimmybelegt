@@ -54,7 +54,7 @@ export function initKostenPagina() {
       categorieen: [{
         label: `Na ${jaren} jaar`,
         segmenten: [
-          { naam: 'Netto eindvermogen', waarde: metKosten[1], kleur: 'var(--c-accent)' },
+          { naam: 'Netto eindvermogen', waarde: metKosten[1], kleur: 'var(--c-chart-groei)' },
           { naam: 'Weggegaan aan kosten', waarde: kostenImpact, kleur: 'var(--c-negative)' },
         ],
       }],

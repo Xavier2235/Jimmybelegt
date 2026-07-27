@@ -1,39 +1,50 @@
 /* ============================================================
    Merk: Beleg Slim met Jim
-   Donker, filmisch, hoog contrast. Goud als spaarzame accentkleur.
-   Elke pagina laadt precies één brand-tokens.css — nooit twee tegelijk.
+   Licht, warm, japandi — crème + diep bosgroen, brons-goud als
+   secundair accent. Elke pagina laadt precies één brand-tokens.css —
+   nooit twee tegelijk.
    ============================================================ */
 :root{
-  /* Kleur */
-  --c-bg: #0B0B0D;
-  --c-surface: #16161A;
-  --c-surface-2: #1F1F25;
-  --c-border: #2C2C33;
-  --c-text: #FFFFFF;
-  --c-text-muted: #9A9AA3;
-  --c-accent: #E0A93B;
-  --c-accent-soft: #3A2E14;
-  --c-positive: #3FB950;
-  --c-negative: #E5534B;
+  /* Kleur — basis (warme, lichte neutralen) */
+  --c-bg: #F5F1E8;
+  --c-surface: #FBF8F1;
+  --c-surface-2: #ECE4D2;
+  --c-border: rgba(30,42,30,.15);
+  --c-border-soft: rgba(30,42,30,.08);
+  --c-text: #1E241D;
+  --c-text-muted: #5B6558;
+  --c-faint: #8B9186;
 
-  /* Ordinale reeks (laag/midden/hoog) — één hue, alleen lichtheid varieert */
-  --c-band-laag: #7A5E23;
-  --c-band-midden: #B8862F;
-  --c-band-hoog: #E0A93B;
+  /* Kleur — merk (bosgroen primair, brons-goud secundair) */
+  --c-accent: #2B7A46;
+  --c-accent-dark: #1F5C36;
+  --c-accent-soft: rgba(43,122,70,.12);
+  --c-gold: #96692B;
+  --c-gold-soft: rgba(150,105,43,.14);
 
-  /* Grafiek: neutrale kleur voor "ingelegd", goud voor "groei" —
-     bewust NIET goud+groen naast elkaar (te laag CVD-contrast voor protanopie) */
-  --c-chart-ingelegd: #4A4A52;
-  --c-chart-groei: #E0A93B;
+  --c-positive: #2B7A46;
+  --c-negative: #B23B28;
+
+  /* Ordinale reeks (laag/midden/hoog) — één hue (groen), lichtheid varieert
+     maar blijft binnen leesbaar tekstcontrast op de lichte ondergrond */
+  --c-band-laag: #5C7A60;
+  --c-band-midden: #3E6B48;
+  --c-band-hoog: #1F5C36;
+
+  /* Grafiek: warme neutrale taupe voor "ingelegd", brons-goud voor "groei" —
+     bewust NIET groen+rood naast elkaar in dezelfde grafiek (CVD-veilig
+     gevalideerd: ΔE 15 deutan / 18.9 normaalzicht op dit kwartet) */
+  --c-chart-ingelegd: #A69577;
+  --c-chart-groei: #C08B2E;
 
   /* Typografie */
-  --font-display: 'Anton', 'Liberation Sans', sans-serif;
+  --font-display: 'Fraunces', 'Liberation Serif', 'DejaVu Serif', Georgia, serif;
   --font-script: 'Caveat', cursive;
   --font-body: 'Inter', 'DejaVu Sans', sans-serif;
 
-  --fs-h1: clamp(2.1rem, 8vw, 4rem);
-  --fs-h2: clamp(1.75rem, 5vw, 2.75rem);
-  --fs-h3: clamp(1.25rem, 3vw, 1.5rem);
+  --fs-h1: clamp(2.3rem, 6.5vw, 4.25rem);
+  --fs-h2: clamp(1.85rem, 4.5vw, 2.85rem);
+  --fs-h3: clamp(1.3rem, 3vw, 1.6rem);
   --fs-body: 1.0625rem;
   --fs-small: 0.875rem;
 
@@ -42,7 +53,9 @@
   --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
   --sp-9: 80px; --sp-10: 96px; --sp-11: 128px; --sp-12: 160px;
 
-  /* Radius & breedte */
-  --r-sm: 6px; --r-md: 12px; --r-lg: 20px; --r-pill: 999px;
+  /* Radius, schaduw & breedte */
+  --r-sm: 8px; --r-md: 12px; --r-lg: 18px; --r-pill: 999px;
+  --shadow: 0 16px 40px -26px rgba(30,42,30,.28);
+  --shadow-signature: 0 22px 50px -26px rgba(30,42,30,.32);
   --w-content: 720px; --w-wide: 1120px;
 }
