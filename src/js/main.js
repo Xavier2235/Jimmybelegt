@@ -35,7 +35,9 @@ function injecteerBrandData() {
   });
   document.querySelectorAll('[data-brand-href]').forEach((elNode) => {
     const waarde = padOphalen(brand, elNode.getAttribute('data-brand-href'));
-    if (waarde != null) elNode.setAttribute('href', waarde);
+    if (waarde == null) return;
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(waarde);
+    elNode.setAttribute('href', isEmail ? `mailto:${waarde}` : waarde);
   });
   document.title = document.title.replace('{{merk}}', brand.naam);
 }

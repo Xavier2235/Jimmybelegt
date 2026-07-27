@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Wat had je nu gehad? | Rekentool</title>
-<meta name="description" content="Reken door wat een eenmalige inleg had kunnen worden, op basis van illustratieve reeksen.">
+<meta name="description" content="Reken door wat een eenmalige inleg of maandelijkse (DCA) inleg had kunnen worden, op basis van illustratieve reeksen.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="nl_NL">
 <meta property="og:title" content="Wat had je nu gehad? | Rekentool">
-<meta property="og:description" content="Reken door wat een eenmalige inleg had kunnen worden, op basis van illustratieve reeksen.">
+<meta property="og:description" content="Reken door wat een eenmalige inleg of maandelijkse (DCA) inleg had kunnen worden, op basis van illustratieve reeksen.">
 <meta property="og:url" content="https://xavier2235.github.io/Jimmybelegt/rekentools/wat-had-je-nu-gehad">
 <meta property="og:image" content="https://xavier2235.github.io/Jimmybelegt/img/og-beeld.svg">
 <link rel="icon" href="/Jimmybelegt/favicon.svg" type="image/svg+xml">
@@ -51,20 +51,27 @@
   <div class="section-head">
       <p class="card-eyebrow">Rekentool</p>
       <h1>Wat had je nu gehad?</h1>
-      <p>Reken door wat een eenmalige inleg had kunnen worden &mdash; op basis van illustratieve reeksen.</p>
+      <p>Reken door wat een eenmalige inleg of maandelijkse (DCA) inleg had kunnen worden &mdash; op basis van illustratieve reeksen.</p>
     </div>
   <div class="melding-demo-data">
     <strong>Let op:</strong> deze grafiek gebruikt <strong>demo-data</strong> &mdash; nog niet gekoppeld aan bronnen.
   </div>
   <div class="tool-layout">
     <div class="card stack">
+      <div class="veld">
+        <label>Type inleg</label>
+        <div class="keuze-rij">
+          <label class="keuze-chip"><input type="radio" name="inleg-modus" value="eenmalig" checked> Eenmalig</label>
+          <label class="keuze-chip"><input type="radio" name="inleg-modus" value="dca"> Maandelijks (DCA)</label>
+        </div>
+      </div>
       <div class="veld" data-veld="bedrag" data-range-groep>
       <label for="bedrag">Eenmalige inleg</label>
       <div class="range-rij">
         <input type="range" id="bedrag" min="10" max="10000" step="10" value="1000">
-        <div class="getal-invoer"><span>&euro;</span><input type="text" inputmode="decimal" aria-label="Eenmalige inleg"></div>
+        <div class="getal-invoer"><span>&euro;</span><input type="text" inputmode="decimal" aria-label="Inleg"></div>
       </div>
-      
+
     </div>
       <div class="veld" data-veld="startjaar" data-range-groep>
       <label for="startjaar">Startjaar</label>
@@ -107,7 +114,7 @@
   </div>
   <details class="accordion-item " data-component="aannames-accordion">
       <summary>Aannames <span class="teller"></span></summary>
-      <div class="accordion-body"><ul><li>De drie reeksen zijn fictieve, door ons gegenereerde jaarrendementen (1980&ndash;2024) &mdash; geen historische marktdata.</li><li>De inleg is eenmalig, aan het begin van het gekozen startjaar.</li><li>Er is geen rekening gehouden met kosten, dividendbelasting of inflatie.</li><li>De bandbreedte (laag/midden/hoog) is de laagste, middelste en hoogste uitkomst van de drie reeksen bij dezelfde inleg en hetzelfde startjaar.</li><li>De reeksen lopen tot en met 2024; latere jaren worden niet meegerekend.</li></ul></div>
+      <div class="accordion-body"><ul><li>De drie reeksen zijn fictieve, door ons gegenereerde jaarrendementen (1980&ndash;2024) &mdash; geen historische marktdata.</li><li>Bij "Eenmalig" wordt het volledige bedrag ingelegd aan het begin van het gekozen startjaar. Bij "Maandelijks (DCA)" wordt elke maand een gelijk bedrag ingelegd, verspreid over het jaar (benaderd met een half jaar rendement voor de inleg van dat jaar).</li><li>Er is geen rekening gehouden met kosten, dividendbelasting of inflatie.</li><li>De bandbreedte (laag/midden/hoog) is de laagste, middelste en hoogste uitkomst van de drie reeksen bij dezelfde inleg en hetzelfde startjaar.</li><li>De reeksen lopen tot en met 2024; latere jaren worden niet meegerekend.</li></ul></div>
     </details>
   <div class="disclaimer" data-component="disclaimer"></div>
   <div class="gate" data-component="gate">

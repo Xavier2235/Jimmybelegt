@@ -3,9 +3,18 @@
   "naam": "Beleg Slim met Jim",
   "handle": "@belegslim.metjim",
   "instagramUrl": "https://www.instagram.com/belegslim.metjim/",
+  "contactEmail": "jimmy@belegslimmetjim.nl",
   "hero": {
     "claim": "LEER BELEGGEN ZONDER RUIS",
     "subline": "Rekenen, niet gokken."
+  },
+  "bio": {
+    "naam": "Jim",
+    "functie": "Eerlijk over trading & beleggen",
+    "intro": "Na 11 jaar bij ASML maakte ik de stap naar fulltime trading & beleggen. Nu help ik anderen slimmer omgaan met beleggen, trading en financiële keuzes.",
+    "missie": "Mijn missie is simpel: jou (financieel) onafhankelijk maken. Slim beleggen, extra inkomen en eerder kunnen stoppen met werken, op je eigen voorwaarden — niet afhankelijk van één inkomen, één werkgever of steeds veranderende regels. Tijd is je belangrijkste valuta. Die kun je maar één keer uitgeven.",
+    "belofte": "Geen hype. Geen shortcuts. Wel een eerlijk systeem, stap voor stap.",
+    "sparringTekst": "Geen financieel advies. Wel een sparringpartner."
   },
   "footerNoot": "Gratis rekentools en heldere uitleg over beleggen, box 3 en risico — zonder verkooppraatjes.",
   "demoBalkTekst": "DEMO-OMGEVING — voorbeeldcijfers, geen echte betalingen of e-mailverzending.",
