@@ -1,14 +1,17 @@
 import { defineConfig } from 'vite';
-import { resolve, dirname, sep, join } from 'node:path';
+import { resolve, dirname, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { mkdirSync, renameSync, rmSync, existsSync } from 'node:fs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const r = (p) => resolve(__dirname, p);
 
 // Elke sleutel bepaalt het pad van het gebouwde bestand in /dist (dus ook de
-// live URL op Vercel, bijv. sleutel "rekentools/box-3" → /rekentools/box-3.html,
-// en Vercel serveert dat automatisch op de schone URL /rekentools/box-3).
+// live URL, bijv. sleutel "rekentools/box-3" → /rekentools/box-3.html).
+// Let op: Vite plaatst de HTML-output zelf op basis van het bronpad
+// (dist/src/pages/...), niet op deze sleutel. scripts/fix-dist-paths.mjs
+// verplaatst de bestanden ná de build naar hun uiteindelijke, schone plek —
+// zie dat bestand en de "postbuild"-regel in package.json voor de reden
+// waarom dit als losse CLI-stap gebeurt en niet als Vite/Rollup-plugin-hook.
 const paginas = {
   main: r('index.html'),
   rekentools: r('src/pages/rekentools.html'),
@@ -32,7 +35,8 @@ const paginas = {
 
 // Dev-server-plugin: rewrit schone URL's (/rekentools/box-3) naar hun
 // werkelijke bronbestand, zodat `npm run dev` dezelfde padstructuur toont
-// als de productie-build op Vercel — geen los "dev-pad" om te onthouden.
+// als de productie-build. Dit is request-middleware (geen build-hook), dus
+// niet gevoelig voor de timing-problematiek die de build-kant wel had.
 function schoneUrlsInDev() {
   const lookup = new Map();
   for (const [naam, absPad] of Object.entries(paginas)) {
@@ -52,54 +56,12 @@ function schoneUrlsInDev() {
   };
 }
 
-// Build-plugin: Vite plaatst HTML-outputs op basis van hun bronpad
-// (dist/src/pages/...), niet op de rollupOptions.input-sleutel. Deze plugin
-// verplaatst elk gebouwd .html-bestand na de build naar de schone,
-// gewenste locatie (bijv. dist/rekentools/box-3.html) — exact het pad
-// dat Vercel als live URL serveert.
-function schoneUrlsInBuild(outDir = 'dist') {
-  // writeBundle (niet closeBundle) — Rollup garandeert dat op dit punt alle
-  // bestanden van déze bundel al naar schijf zijn geschreven. closeBundle
-  // bleek in GitHub Actions-CI onbetrouwbaar: de HTML-bestanden bleven daar
-  // op hun Vite-spiegelpad (dist/src/pages/...) staan in plaats van te
-  // verhuizen naar de schone URL-structuur (dist/rekentools/box-3.html).
-  let uitgevoerd = false;
-  function verplaats() {
-    if (uitgevoerd) return; // idempotent: writeBundle kan meerdere keren vuren
-    const distRoot = r(outDir);
-    let verplaatst = 0;
-    for (const [naam, absPad] of Object.entries(paginas)) {
-      const relBron = absPad.slice(__dirname.length + 1).split(sep).join('/');
-      const bronPad = join(distRoot, relBron);
-      const doelPad = naam === 'main' ? join(distRoot, 'index.html') : join(distRoot, `${naam}.html`);
-      if (existsSync(bronPad) && bronPad !== doelPad) {
-        mkdirSync(dirname(doelPad), { recursive: true });
-        renameSync(bronPad, doelPad);
-        verplaatst += 1;
-      } else if (!existsSync(doelPad) && !existsSync(bronPad)) {
-        // eslint-disable-next-line no-console
-        console.warn(`[schone-urls-build] WAARSCHUWING: geen bronbestand gevonden voor "${naam}" (verwacht: ${bronPad})`);
-      }
-    }
-    // eslint-disable-next-line no-console
-    console.log(`[schone-urls-build] ${verplaatst} pagina('s) verplaatst naar hun schone URL-pad.`);
-    const overgeblevenSrc = join(distRoot, 'src');
-    if (existsSync(overgeblevenSrc)) rmSync(overgeblevenSrc, { recursive: true, force: true });
-    uitgevoerd = true;
-  }
-  return {
-    name: 'schone-urls-build',
-    writeBundle() { verplaats(); },
-    closeBundle() { verplaats(); }, // vangnet: dubbel zekerheid, idempotent door de guard hierboven
-  };
-}
-
 export default defineConfig({
   // Deze repo serveert via GitHub Pages op xavier2235.github.io/Jimmybelegt/
   // — een submap, geen domeinroot. Vite prefixt hiermee automatisch alle
   // eigen gebouwde asset-referenties (JS/CSS-bundels, favicon, og-beeld).
   base: '/Jimmybelegt/',
-  plugins: [schoneUrlsInDev(), schoneUrlsInBuild()],
+  plugins: [schoneUrlsInDev()],
   build: {
     rollupOptions: { input: paginas },
   },
