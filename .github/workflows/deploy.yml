@@ -24,19 +24,6 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      - name: Tijdelijke diagnose (verwijderd zodra de bug is opgelost)
-        run: |
-          echo "== npm run build direct opnieuw, met expliciete postbuild-aanroep als test ==" > dist/_debug.txt
-          node --version >> dist/_debug.txt
-          npm --version >> dist/_debug.txt
-          echo "-- inhoud package.json scripts --" >> dist/_debug.txt
-          node -e "console.log(JSON.stringify(require('./package.json').scripts, null, 2))" >> dist/_debug.txt
-          echo "-- dist-structuur vóór expliciete fix-aanroep --" >> dist/_debug.txt
-          find dist -maxdepth 2 >> dist/_debug.txt
-          echo "-- expliciet opnieuw het fix-script aanroepen --" >> dist/_debug.txt
-          node scripts/fix-dist-paths.mjs >> dist/_debug.txt 2>&1 || echo "fix-script gaf een fout (zie hierboven)" >> dist/_debug.txt
-          echo "-- dist-structuur ná expliciete fix-aanroep --" >> dist/_debug.txt
-          find dist -maxdepth 2 >> dist/_debug.txt
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
