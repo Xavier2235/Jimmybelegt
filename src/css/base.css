@@ -20,7 +20,7 @@ h1, h2, h3, h4{
   text-shadow: none;
   font-weight: 400; /* Anton is zelf al zwaar; extra bold-gewicht bestaat niet */
 }
-h1{ font-size: var(--fs-h1); line-height: 0.95; letter-spacing: -0.01em; }
+h1{ font-size: var(--fs-h1); line-height: 1; letter-spacing: -0.01em; overflow-wrap: break-word; max-width: 100%; }
 h2{ font-size: var(--fs-h2); line-height: 1.02; letter-spacing: -0.005em; }
 h3{ font-size: var(--fs-h3); line-height: 1.15; }
 
@@ -69,7 +69,9 @@ main{ flex: 1; }
 
 .cluster{ display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
 
-.grid{ display: grid; gap: var(--sp-4); grid-template-columns: 1fr; }
+.grid{ display: grid; gap: var(--sp-4); grid-template-columns: 1fr; min-width: 0; }
+.grid > *{ min-width: 0; }
+.stack{ min-width: 0; }
 @media (min-width: 640px){ .grid-2{ grid-template-columns: 1fr 1fr; } }
 @media (min-width: 900px){ .grid-3{ grid-template-columns: 1fr 1fr 1fr; } }
 

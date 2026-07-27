@@ -1,4 +1,5 @@
 {
+  "_demo-tekst": "Alle vrije-tekstvelden hieronder (behalve prijzen/drempels, die al placeholders waren) zijn DEMO-TEKST voor deze verkoopdemo — herkenbaar generiek, geen echte claims of getallen. Vervang ze voordat dit als iets anders dan een demo gebruikt wordt.",
   "naam": "Beleg Slim met Jim",
   "handle": "@belegslim.metjim",
   "instagramUrl": "https://www.instagram.com/belegslim.metjim/",
@@ -6,7 +7,7 @@
     "claim": "LEER BELEGGEN ZONDER RUIS",
     "subline": "Rekenen, niet gokken."
   },
-  "footerNoot": "[PLACEHOLDER: korte merkomschrijving voor de footer]",
+  "footerNoot": "Gratis rekentools en heldere uitleg over beleggen, box 3 en risico — zonder verkooppraatjes.",
   "demoBalkTekst": "DEMO-OMGEVING — voorbeeldcijfers, geen echte betalingen of e-mailverzending.",
   "disclaimerStandaard": "Deze rekentool is educatief en illustratief. Er wordt geen persoonlijk beleggingsadvies gegeven en geen aanbeveling gedaan over specifieke financiële instrumenten. Uitkomsten zijn indicatief; aan de resultaten kunnen geen rechten worden ontleend.",
   "gate": {
@@ -14,43 +15,43 @@
     "privacyLinkTekst": "privacyverklaring"
   },
   "cursus": {
-    "naam": "[PLACEHOLDER: cursusnaam]",
+    "naam": "Slim Starten met Beleggen",
     "prijzen": {
       "eenmalig": 297,
       "termijn2": 159,
       "termijn3": 109
     },
-    "garantieTekst": "[PLACEHOLDER: garantietekst, bijv. 14 dagen niet-goed-geld-terug]",
+    "garantieTekst": "14 dagen bedenktijd. Niet tevreden? Volledige terugbetaling, geen vragen.",
     "modules": [
-      "[PLACEHOLDER: module 1 titel]",
-      "[PLACEHOLDER: module 2 titel]",
-      "[PLACEHOLDER: module 3 titel]",
-      "[PLACEHOLDER: module 4 titel]",
-      "[PLACEHOLDER: module 5 titel]",
-      "[PLACEHOLDER: module 6 titel]",
-      "[PLACEHOLDER: module 7 titel]",
-      "[PLACEHOLDER: module 8 titel]"
+      "De basis: hoe werkt de beurs echt",
+      "Aandelen, ETF's en obligaties in gewone taal",
+      "Risico begrijpen (en er niet voor weglopen)",
+      "Je eerste portefeuille opbouwen",
+      "Spreiden zonder te overdenken",
+      "Kosten die je rendement stilletjes opeten",
+      "Belasting en box 3 in vogelvlucht",
+      "Een broker kiezen die bij jou past"
     ]
   },
   "coaching": {
     "investeringBandbreedte": "€ 1.500 – € 4.500",
     "scoreDrempel": 60,
     "stappen": [
-      "[PLACEHOLDER: stap 1 — kennismaking]",
-      "[PLACEHOLDER: stap 2 — intake]",
-      "[PLACEHOLDER: stap 3 — traject]",
-      "[PLACEHOLDER: stap 4 — evaluatie]"
+      "Kennismaking — 20 minuten, vrijblijvend, geen verkooppraatje.",
+      "Intake — we brengen je situatie, doelen en risicobereidheid in kaart.",
+      "Plan op maat — samen bepalen we een aanpak die bij jou past.",
+      "Begeleiding & evaluatie — regelmatig contact, bijsturen waar nodig."
     ],
     "nietVoorJouAls": [
-      "[PLACEHOLDER: reden 1]",
-      "[PLACEHOLDER: reden 2]",
-      "[PLACEHOLDER: reden 3]",
-      "[PLACEHOLDER: reden 4]"
+      "je op zoek bent naar een snelle manier om rijk te worden.",
+      "je verwacht dat iemand anders de beslissingen voor je neemt.",
+      "je geen tijd wilt vrijmaken om zelf mee te denken.",
+      "je op zoek bent naar advies over specifieke aandelen of crypto."
     ]
   },
   "belangen": [
-    "[PLACEHOLDER: product of dienst die Jim zelf verkoopt]",
-    "[PLACEHOLDER: eventuele samenwerking of affiliate-relatie]",
-    "[PLACEHOLDER: eigen beleggingsposities, indien relevant]"
+    "Ik verkoop de cursus \"Slim Starten met Beleggen\" en bied 1-op-1 coaching aan — dat is mijn inkomstenmodel.",
+    "Ik ga geen samenwerkingen aan met brokers, fondsen of aanbieders die ik vervolgens zou aanbevelen.",
+    "Ik beleg zelf, breed gespreid, en noem in mijn content bewust geen specifieke posities om belangenverstrengeling te voorkomen."
   ]
 }

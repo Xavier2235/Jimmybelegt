@@ -325,6 +325,15 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus{ ou
 .niet-voor-jou{ border: 1px solid var(--c-negative); border-radius: var(--r-lg); padding: var(--sp-5); }
 .niet-voor-jou h3{ color: var(--c-negative); }
 
+/* ---------- Testimonial-kaarten ---------- */
+.testimonial-card{ display: flex; flex-direction: column; gap: var(--sp-4); }
+.testimonial-quote{ flex: 1; font-family: var(--font-display); font-size: 1.1rem; text-transform: none; line-height: 1.35; letter-spacing: 0; }
+.testimonial-wie{ display: flex; align-items: center; gap: var(--sp-2); }
+.testimonial-avatar{
+  flex: none; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: var(--c-accent-soft); color: var(--c-accent); font-weight: 700; font-size: 0.85rem;
+}
+
 /* ---------- 404 ---------- */
 .pagina-404{ text-align: center; padding-block: var(--sp-12); }
 .pagina-404 .code{ font-family: var(--font-display); font-size: clamp(4rem, 20vw, 8rem); color: var(--c-accent); line-height: 1; }
