@@ -18,8 +18,8 @@ const VERDELING_AANDEEL_SPAARGELD = { spaargeld: 0.7, gelijk: 0.5, beleggingen: 
 
 function initBox3Intake(root) {
   const form = root.querySelector('#box3-intake');
-  const resultaat = root.querySelector('[data-box3-resultaat]');
-  if (!form || !resultaat) return;
+  const resultaatDelen = Array.from(root.querySelectorAll('[data-box3-resultaat]'));
+  if (!form || !resultaatDelen.length) return;
 
   const motor = initMeerstapsFormulier(form);
   const waarde = (naam) => form.querySelector(`input[name="${naam}"]:checked`)?.value;
@@ -33,8 +33,8 @@ function initBox3Intake(root) {
 
   function toonResultaat() {
     form.hidden = true;
-    resultaat.hidden = false;
-    resultaat.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    resultaatDelen.forEach((el) => { el.hidden = false; });
+    resultaatDelen[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   form.addEventListener('submit', (event) => {

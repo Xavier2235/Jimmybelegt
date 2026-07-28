@@ -15,8 +15,12 @@ function mooiePlafond(v) {
   for (const f of [1, 2, 5, 10]) if (f * macht >= v) return f * macht;
   return 10 * macht;
 }
+// Onder de 10 mag een decimaal getoond worden, anders vallen bijv. 0,5 en 1
+// samen op hetzelfde afgeronde as-label bij een zeer kleine schaal (o.a. als
+// beide staven €0 zijn en de "mooie" bovengrens maar 1 of 2 euro is).
 const kortEuro = (v) => (v >= 1e6 ? `${(v / 1e6).toLocaleString('nl-NL', { maximumFractionDigits: 1 })} mln` :
-  v >= 1000 ? `${Math.round(v / 1000).toLocaleString('nl-NL')}k` : `${Math.round(v)}`);
+  v >= 1000 ? `${Math.round(v / 1000).toLocaleString('nl-NL')}k` :
+  v > 0 && v < 10 ? v.toLocaleString('nl-NL', { maximumFractionDigits: 1 }) : `${Math.round(v)}`);
 
 /**
  * Lijngrafiek met kruisdraad-tooltip.
