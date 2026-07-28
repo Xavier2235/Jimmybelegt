@@ -19,7 +19,7 @@ export function initGates(brand) {
     if (toestemmingLabel) {
       toestemmingLabel.setAttribute('for', toestemmingInput.id);
       toestemmingLabel.innerHTML =
-        `${brand.gate.toestemmingTekst} — ik ga akkoord met de <a class="link" href="/voorwaarden#privacy">${brand.gate.privacyLinkTekst}</a>.`;
+        `${brand.gate.toestemmingTekst} — ik ga akkoord met de <a class="link" href="/Jimmybelegt/voorwaarden#privacy">${brand.gate.privacyLinkTekst}</a>.`;
     }
 
     form.addEventListener('submit', (event) => {
@@ -42,10 +42,9 @@ export function initGates(brand) {
 
       if (succesEl) {
         succesEl.style.display = 'block';
-        succesEl.textContent = 'Verstuurd (demo) — er is niets echt verzonden.';
+        succesEl.textContent = 'Verstuurd (demo) — er wordt geen echte e-mail verzonden. Je gaat zo naar de bevestigingspagina...';
       }
-      window.alert('DEMO: er wordt geen echte e-mail verstuurd. Je gaat nu naar de bevestigingspagina.');
-      window.location.href = '/bevestig';
+      window.setTimeout(() => { window.location.href = '/Jimmybelegt/bevestig'; }, 1200);
     });
   });
 }

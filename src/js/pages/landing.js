@@ -40,7 +40,7 @@ vulLijst(document.getElementById('social-proof-lijst'), SOCIAL_PROOF, ([quote, n
 const FAQ = [
   ['Is dit financieel advies?', 'Nee. Alle tools op deze site zijn educatief en illustratief — er wordt geen persoonlijk beleggingsadvies gegeven.'],
   ['Kost het iets om de tools te gebruiken?', 'Nee, alle rekentools zijn gratis te gebruiken.'],
-  ['Waar komen de cijfers vandaan?', 'Bij de Box 3-tool uit de officiële 2026-parameters van de Belastingdienst (met bron en status per cijfer). Bij de andere tools stel je zelf de aannames in — die zijn nergens door ons als vaststaand feit gepresenteerd. Zie de <a class="link" href="/transparantie">transparantiepagina</a> voor het volledige overzicht.'],
+  ['Waar komen de cijfers vandaan?', 'Bij de Box 3-tool uit de officiële 2026-parameters van de Belastingdienst (met bron en status per cijfer). Bij de andere tools stel je zelf de aannames in — die zijn nergens door ons als vaststaand feit gepresenteerd. Zie de <a class="link" href="/Jimmybelegt/transparantie">transparantiepagina</a> voor het volledige overzicht.'],
 ];
 vulLijst(document.getElementById('faq-lijst'), FAQ, ([vraag, antwoord]) => {
   const details = document.createElement('details');
