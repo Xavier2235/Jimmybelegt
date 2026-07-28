@@ -18,7 +18,7 @@ const TOOLKAARTEN = [
 vulLijst(document.getElementById('landing-tool-kaarten'), TOOLKAARTEN, ([nr, slug, titel, tekst]) => {
   const a = document.createElement('a');
   a.className = 'card card-link';
-  a.href = `/rekentools/${slug}`;
+  a.href = `/Jimmybelegt/rekentools/${slug}`;
   a.innerHTML = `<span class="card-num">${nr}</span><h3>${titel}</h3><p class="text-muted">${tekst}</p><div class="card-meta"><span>Start &rarr;</span></div>`;
   return a;
 });
