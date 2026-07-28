@@ -24,6 +24,7 @@ const paginas = {
   'rekentools/pensioengat': join(ROOT, 'src/pages/rekentools/pensioengat.html'),
   'rekentools/positiegrootte': join(ROOT, 'src/pages/rekentools/positiegrootte.html'),
   'rekentools/kosten': join(ROOT, 'src/pages/rekentools/kosten.html'),
+  quiz: join(ROOT, 'src/pages/quiz.html'),
   cursus: join(ROOT, 'src/pages/cursus.html'),
   coaching: join(ROOT, 'src/pages/coaching.html'),
   'coaching/aanvraag': join(ROOT, 'src/pages/coaching/aanvraag.html'),

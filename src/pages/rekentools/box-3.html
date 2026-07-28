@@ -53,7 +53,62 @@
       <h1>Box 3-tool</h1>
       <p>Bereken je verschuldigde belasting via het forfait, plus het tegenbewijs op basis van je werkelijke rendement.</p>
     </div>
-  <div class="tool-layout">
+  <form id="box3-intake" class="card" novalidate style="max-width:640px">
+    <p class="card-eyebrow">In 2 korte stappen</p>
+    <div class="form-voortgang"><div class="stap-bol"></div><div class="stap-bol"></div></div>
+    <section class="form-stap">
+      <h2 style="font-size:1.3rem">Jouw situatie</h2>
+      <div class="veld">
+        <label>Heb je een fiscaal partner?</label>
+        <div class="radio-kaart-lijst">
+          <label class="radio-kaart"><input type="radio" name="intake-partner" value="nee" checked> Nee</label>
+          <label class="radio-kaart"><input type="radio" name="intake-partner" value="ja"> Ja</label>
+        </div>
+      </div>
+      <div class="veld">
+        <label>Wat is ongeveer je totale vermogen in box 3 (spaargeld + beleggingen samen)?</label>
+        <div class="radio-kaart-lijst">
+          <label class="radio-kaart"><input type="radio" name="intake-vermogen" value="klein" checked> Tot &euro; 50.000</label>
+          <label class="radio-kaart"><input type="radio" name="intake-vermogen" value="midden"> &euro; 50.000 &ndash; 150.000</label>
+          <label class="radio-kaart"><input type="radio" name="intake-vermogen" value="groot"> &euro; 150.000 &ndash; 500.000</label>
+          <label class="radio-kaart"><input type="radio" name="intake-vermogen" value="zeer-groot"> Meer dan &euro; 500.000</label>
+        </div>
+      </div>
+      <div class="veld">
+        <label>Hoe is dat ongeveer verdeeld?</label>
+        <div class="radio-kaart-lijst">
+          <label class="radio-kaart"><input type="radio" name="intake-verdeling" value="spaargeld" checked> Vooral spaargeld</label>
+          <label class="radio-kaart"><input type="radio" name="intake-verdeling" value="gelijk"> Ongeveer gelijk verdeeld</label>
+          <label class="radio-kaart"><input type="radio" name="intake-verdeling" value="beleggingen"> Vooral beleggingen</label>
+        </div>
+      </div>
+      <div class="form-nav"><span></span><button type="button" class="btn btn-primair" data-stap-volgende>Volgende &rarr;</button></div>
+    </section>
+    <section class="form-stap">
+      <h2 style="font-size:1.3rem">Details</h2>
+      <div class="veld">
+        <label>Beleg je (deels) in erkende groenfondsen?</label>
+        <div class="radio-kaart-lijst">
+          <label class="radio-kaart"><input type="radio" name="intake-groen" value="nee" checked> Nee</label>
+          <label class="radio-kaart"><input type="radio" name="intake-groen" value="ja"> Ja</label>
+        </div>
+      </div>
+      <div class="veld">
+        <label>Heb je schulden die meetellen in box 3 (geen eigenwoningschuld)?</label>
+        <div class="radio-kaart-lijst">
+          <label class="radio-kaart"><input type="radio" name="intake-schulden" value="nee" checked> Nee</label>
+          <label class="radio-kaart"><input type="radio" name="intake-schulden" value="ja"> Ja</label>
+        </div>
+      </div>
+      <div class="form-nav">
+        <button type="button" class="btn btn-secundair" data-stap-terug>&larr; Terug</button>
+        <button type="submit" class="btn btn-primair">Bekijk mijn resultaat &rarr;</button>
+      </div>
+    </section>
+    <p class="fs-small" style="margin-top:var(--sp-4)"><button type="button" class="btn-tekst" id="box3-intake-overslaan">Liever direct zelf invullen &rarr;</button></p>
+  </form>
+
+  <div class="tool-layout" data-box3-resultaat hidden>
     <div class="card stack">
       <div class="veld" data-veld="spaargeld" data-range-groep>
       <label for="spaargeld">Spaargeld</label>

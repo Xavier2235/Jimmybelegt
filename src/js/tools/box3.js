@@ -6,7 +6,58 @@ import params from '../../data/params-box3-2026.json';
 import { koppelRangeVelden } from '../components/rangeInput.js';
 import { maakSourceInfo } from '../components/sourceInfo.js';
 import { tekenGestapeldeStaven } from '../components/chart.js';
+import { initMeerstapsFormulier } from '../components/multiStepForm.js';
 import { euro, percentage } from '../format.js';
+
+// Vermogen-bucket (uit de intake) -> indicatief totaalbedrag, en de
+// verdelingskeuze -> spaargeld/beleggingen-aandeel. Puur voor het vooraf
+// invullen van de calculator — de calculator zelf blijft daarna volledig
+// aanpasbaar, niets wordt vastgezet.
+const VERMOGEN_BEDRAG = { klein: 30000, midden: 100000, groot: 300000, 'zeer-groot': 750000 };
+const VERDELING_AANDEEL_SPAARGELD = { spaargeld: 0.7, gelijk: 0.5, beleggingen: 0.3 };
+
+function initBox3Intake(root) {
+  const form = root.querySelector('#box3-intake');
+  const resultaat = root.querySelector('[data-box3-resultaat]');
+  if (!form || !resultaat) return;
+
+  const motor = initMeerstapsFormulier(form);
+  const waarde = (naam) => form.querySelector(`input[name="${naam}"]:checked`)?.value;
+
+  function zetVeld(naam, nieuweWaarde) {
+    const input = root.querySelector(`[data-veld="${naam}"] input[type="range"]`);
+    if (!input) return;
+    input.value = String(Math.round(nieuweWaarde));
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+
+  function toonResultaat() {
+    form.hidden = true;
+    resultaat.hidden = false;
+    resultaat.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!motor.huidigeStapGeldig()) return;
+
+    const totaal = VERMOGEN_BEDRAG[waarde('intake-vermogen')] ?? 50000;
+    const aandeelSpaargeld = VERDELING_AANDEEL_SPAARGELD[waarde('intake-verdeling')] ?? 0.5;
+    const beleggingen = totaal * (1 - aandeelSpaargeld);
+
+    zetVeld('spaargeld', totaal * aandeelSpaargeld);
+    zetVeld('beleggingen', beleggingen);
+    zetVeld('groene-beleggingen', waarde('intake-groen') === 'ja' ? Math.min(beleggingen * 0.2, 100000) : 0);
+    zetVeld('schulden', waarde('intake-schulden') === 'ja' ? 10000 : 0);
+
+    const partnerInput = root.querySelector(`input[name="fiscaal-partner"][value="${waarde('intake-partner') === 'ja' ? 'ja' : 'nee'}"]`);
+    if (partnerInput) { partnerInput.checked = true; partnerInput.dispatchEvent(new Event('change', { bubbles: true })); }
+
+    toonResultaat();
+  });
+
+  root.querySelector('#box3-intake-overslaan')?.addEventListener('click', toonResultaat);
+}
 
 function berekenBox3(input) {
   const partner = input.fiscaalPartner;
@@ -47,6 +98,7 @@ export function initBox3Pagina() {
   const root = document.querySelector('[data-tool="box-3"]');
   if (!root) return;
   koppelRangeVelden(root);
+  initBox3Intake(root);
 
   const veld = (naam) => root.querySelector(`[data-veld="${naam}"] input[type="range"]`);
   const partnerInputs = root.querySelectorAll('input[name="fiscaal-partner"]');

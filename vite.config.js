@@ -21,6 +21,7 @@ const paginas = {
   'rekentools/pensioengat': r('src/pages/rekentools/pensioengat.html'),
   'rekentools/positiegrootte': r('src/pages/rekentools/positiegrootte.html'),
   'rekentools/kosten': r('src/pages/rekentools/kosten.html'),
+  quiz: r('src/pages/quiz.html'),
   cursus: r('src/pages/cursus.html'),
   coaching: r('src/pages/coaching.html'),
   'coaching/aanvraag': r('src/pages/coaching/aanvraag.html'),
